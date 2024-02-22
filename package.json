@@ -42,7 +42,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --inline --progress",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production --output-path=build",
     "dev": "webpack-dev-server",
     "production": "webpack --mode production"
   },
