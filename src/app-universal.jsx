@@ -51,7 +51,7 @@ const Document = lazy(() => import("./components/documents/index"));
 //Recruiter
 // const Recruiter = lazy(() => import("./components/recruiter"));
 const RecruiterRecentOnboarding = lazy(() =>
-  import("./components/recruiter/recentonboarding")
+  import("./components/recruiter/RecentOnboarding/index.jsx")
 );
 //Client Report
 const ClientReport = lazy(() =>
@@ -64,7 +64,7 @@ const CalendarPage = lazy(() =>
 
 
 const NewOnboarding = lazy(() =>
-  import("./components/recruiter/newonboarding")
+  import("./components/recruiter/NewOnboarding/index.jsx")
 );
 const OnboardingApproval = lazy(() =>
   import("./components/recruiter/OnboardingApproval")
@@ -73,7 +73,7 @@ const ApprovalHistory = lazy(() =>
   import("./components/recruiter/ApprovalHistory")
 );
 const OnboardingApprovalForm = lazy(() =>
-  import("./components/recruiter/onboardingapprovalform")
+  import("./components/recruiter/NewVendorOnboardingApprovalForm/index.jsx")
 );
 //For vendor in recruiter tab
 const NewVendorOnboarding = lazy(() =>
