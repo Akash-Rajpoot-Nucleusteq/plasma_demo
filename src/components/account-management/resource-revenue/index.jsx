@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from "../sideBar";
-import CommonTable from '../../common-components/commonTable';
+import CommonTable from '../../common-components/CommonTable.jsx';
 import { Button } from 'react-bootstrap';
 
 export default function Index() {

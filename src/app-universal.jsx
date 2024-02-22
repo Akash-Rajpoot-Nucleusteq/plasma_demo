@@ -21,9 +21,6 @@ import { AddAssets } from "./components/asset/add-assets";
 import { Inventory } from "./components/asset/asset-inventory";
 import { TalentDashboard } from "./components/dashboard/talent-dashboard";
 import { ClientDashboard } from "./components/dashboard/client_dashboard";
-
-
-//import Assignment from "./components/assignment/Assignment";
 import { AccountManagementRecentOnboarding } from "./components/account-management";
 
 
@@ -44,7 +41,7 @@ const Revenue = lazy(() =>
 );
 
 const EmployeeDashboard = lazy(() =>
-  import("./components/dashboard/employee_dashboard")
+  import("./components/dashboard/Employee_Dashboard/index.jsx")
 );
 const Leave = lazy(() => import("./components/leave"));
 const Employment = lazy(() => import("./components/profile/employement/"));
