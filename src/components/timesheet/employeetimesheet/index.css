@@ -1,0 +1,50 @@
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th,
+.table tbody td {
+  border-bottom: 1px solid #e8e8e8;
+  padding: 12px;
+  text-align: left;
+}
+
+.table thead th {
+  background-color: #f0f0f0;
+  border-right: none; 
+}
+
+.table tbody td {
+  border-right: none; 
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.date-cell {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.btn-custom {
+  width: 150px;
+  height: 40px;
+  margin-right: 10px;
+}
+.day-cell {
+  text-align: center;
+}
