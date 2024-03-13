@@ -108,7 +108,7 @@ body {
     font-size: 15px;
     line-height: 1.8;
 	background: #fff;
-	overflow-x:scroll;
+	/* overflow-x:scroll; */
   }
 ul,
 h1, h2, h3, h4, h5, p {
@@ -1613,8 +1613,8 @@ fieldset[disabled] .form-control {
 }
 .inner-wrapper {
 	width: 100%;
-	height: 100vh;
-	min-height: 100vh;
+	height: 97vh;
+	min-height: 97vh;
 }
 a.list-group-item {
 	color: #333;
