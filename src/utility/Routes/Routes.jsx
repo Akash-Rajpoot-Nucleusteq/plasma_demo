@@ -26,7 +26,7 @@ import NotFound from "../../pages/notFound/NotFound.jsx";
 import Login from "../../pages/login/Login.jsx";
 import ProtectedRoute from "../../components/routing/ProtectedRoute.jsx";
 import { getCurrentUserDetails } from "../authentication/auth.js";
-import VendorOnboarding from "../../pages/Recruit/vendorOnboarding/vendorOnboarding.jsx";
+import VendorOnboarding from "../../pages/Recruit/vendorOnboarding/VendorOnboarding.jsx";
 import Vendors from "../../pages/Recruit/allVendors/Vendors.jsx";
 import ManageVendor from "../../pages/Recruit/manageVendor/ManageVendor.jsx";
 import ActiveCustomer from "../../pages/accountManagement/customer/active/ActiveCustomer.jsx";
