@@ -161,13 +161,16 @@ class Header extends Component {
           },
           {
             classContent: `mr-1 ${
-              ("/onboarding" === url) | ("/new-onboarding" === url)
+              ("/onboarding" === url) |
+              ("/new-onboarding" === url) |
+              ("/vendor-onboarding" === url) |
+              ("/vendors" === url)
                 ? "active"
                 : ""
             } `,
             linkTo: "/onboarding",
             linkIcon: "lnr lnr-user pr-0  pr-lg-1",
-            linkContent: "Recruiter",
+            linkContent: "Recruite",
           },
         ];
         break;
@@ -222,7 +225,10 @@ class Header extends Component {
               ("/new-onboarding" === url) |
               ("/onboarding-approval" === url) |
               ("/approval-history" === url) |
-              ("/onboarding-approval-form" === url)
+              ("/onboarding-approval-form" === url) |
+              ("/vendor-onboarding" === url) |
+              ("/manage-vendor" === url) |
+              ("/vendors" === url)
                 ? "active"
                 : ""
             }`,

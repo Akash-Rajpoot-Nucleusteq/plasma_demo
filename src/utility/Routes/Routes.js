@@ -26,6 +26,13 @@ import NotFound from "../../pages/notFound/NotFound.jsx";
 import Login from "../../pages/login/Login.jsx";
 import ProtectedRoute from "../../components/routing/ProtectedRoute.jsx";
 import { getCurrentUserDetails } from "../authentication/auth.js";
+import VendorOnboarding from "../../pages/Recruit/vendorOnboarding/vendorOnboarding.jsx";
+import Vendors from "../../pages/Recruit/allVendors/Vendors.jsx";
+import ManageVendor from "../../pages/Recruit/manageVendor/manageVendor.jsx";
+import ActiveCustomer from "../../pages/accountManagement/customer/active/ActiveCustomer.jsx";
+import DocumentHistory from "../../pages/document/documentHistory/DocumentHistory.jsx";
+import DocumentApproval from "../../pages/document/documentApproval/DocumentApproval.jsx";
+import EditDocument from "../../pages/document/documentEdit/DocumentEdit.jsx";
 
 export const commonRoutes = [
   { path: "/dashboard", element: <Dashboard /> },
@@ -46,6 +53,8 @@ export const roleSpecificRoutes = {
   RECRUITER: [
     { path: "/onboarding", element: <Onboarding /> },
     { path: "/new-onboarding", element: <NewOnboarding /> },
+    { path: "/vendor-onboarding", element: <VendorOnboarding /> },
+    { path: "/vendors", element: <Vendors /> },
   ],
   RECRUITER_MANAGER: [
     { path: "/talent", element: <TalentDashboard /> },
@@ -58,6 +67,12 @@ export const roleSpecificRoutes = {
     { path: "/asset-inventory", element: <AssetInventory /> },
     { path: "/pending-timesheet", element: <PendingTimesheet /> },
     { path: "/approved-timesheet", element: <ApprovedTimesheet /> },
+    { path: "/vendor-onboarding", element: <VendorOnboarding /> },
+    { path: "/vendors", element: <Vendors /> },
+    { path: "/manage-vendor", element: <ManageVendor /> },
+    { path: "/document-history", element: <DocumentHistory /> },
+    { path: "/document-approval", element: <DocumentApproval /> },
+    { path: "/edit-document", element: <EditDocument /> },
   ],
   CLIENT_MANAGER: [
     { path: "/allocated-asset", element: <EmployeeAsset /> },
@@ -68,10 +83,12 @@ export const roleSpecificRoutes = {
     { path: "/pending-timesheet", element: <PendingTimesheet /> },
     { path: "/approved-timesheet", element: <ApprovedTimesheet /> },
     { path: "/revenue", element: <Revenue /> },
+    { path: "/client-active", element: <ActiveCustomer /> },
   ],
 };
 
 export const getRoutesForRole = (role) => {
+  console.log(role + "in getroutes");
   const routesForRole = roleSpecificRoutes[role] || [];
   return [...commonRoutes, ...routesForRole];
 };

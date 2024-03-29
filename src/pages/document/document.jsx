@@ -1,14 +1,33 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import CommonTable from "../../components/uiElements/CommonTable";
-import Header from "../../components/layout/Header";
 import SideBar from "../../components/layout/SideBar";
-import { getCurrentUserDetails } from "../../utility/authentication/auth";
 import { HEADER_DOCUMENT } from "../../assets/common/constants";
+import { ViewDocument } from "../../components/uiElements/PopUpForDocuments";
+import ButtonComponent from "../../components/uiElements/ButtonComponent";
+import { getCurrentUserDetails } from "../../utility/authentication/auth";
+import Header from "../../components/layout/Header";
+import { useNavigate } from "react-router-dom";
 
 const Document = () => {
-  const handleView = (record) => {};
+  const navigate = useNavigate();
 
-  const handleDownload = (record) => {};
+  const [documentToShow, setDocumentToShow] = useState({
+    showAttachmentModal: false,
+    isDataAvailable: false,
+    document: null,
+  });
+
+  const handleView = (record) => {
+    setDocumentToShow({
+      ...documentToShow,
+      showAttachmentModal: true,
+    });
+  };
+
+  const handleDownload = (record) => {
+    console.log("handling download", record);
+  };
+
   const columns = [
     {
       title: "Sl No",
@@ -35,20 +54,23 @@ const Document = () => {
       key: "viewDownload",
       render: (text, record) => (
         <span>
-          <button
-            className='btn btn-primary mr-2'
-            onClick={() => handleView(record)}>
-            View
-          </button>
-          <button
-            className='btn btn-success'
-            onClick={() => handleDownload(record)}>
-            Download
-          </button>
+          <ButtonComponent
+            buttonText={"View"}
+            variant={"primary"}
+            className={"btn btn-theme button-1 text-white ctm-border-radius"}
+            onClickHandler={() => handleView(record)}
+          />
+          <ButtonComponent
+            buttonText={<i className='lnr lnr-download'></i>}
+            variant={"info"}
+            className={"btn bg-info text-white ctm-border-radius"}
+            onClickHandler={() => handleDownload(record)}
+          />
         </span>
       ),
     },
   ];
+
   const data = [
     {
       slNo: 1,
@@ -80,7 +102,7 @@ const Document = () => {
           <div className='row'>
             <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
               <SideBar
-                userRole={getCurrentUserDetails().role}
+                userRole={getCurrentUserDetails()?.role}
                 headerName={HEADER_DOCUMENT}
                 currentPageName={"Document"}
               />
@@ -89,20 +111,27 @@ const Document = () => {
               <div className='card shadow-sm ctm-border-radius'>
                 <div className='card-body align-center'>
                   <div className='tab-content' id='v-pills-tabContent'>
-                    <div
-                      className='tab-pane fade show active'
-                      id='v-pills-home'
-                      role='tabpanel'
-                      aria-labelledby='v-pills-home-tab'></div>
                     <div className='employee-office-table'>
                       <div className='table-responsive'>
                         <CommonTable
-                          className='table-striped'
-                          // style={{ overflowX: "auto", zIndex: 9999 }}
+                          data={data}
                           columns={columns}
-                          dataSource={data}
-                          rowKey={(record) => record.id}
-                          pagination={false}
+                          tableTitle={"Document"}
+                        />
+                      </div>
+                    </div>
+
+                    <div className='row justify-content-center'>
+                      <div className='col-auto'>
+                        <ButtonComponent
+                          buttonText={"Upload/Edit Doucment"}
+                          variant={"primary"}
+                          className={
+                            "btn btn-theme button-1 text-white ctm-border-radius "
+                          }
+                          onClickHandler={() => {
+                            navigate("/edit-document");
+                          }}
                         />
                       </div>
                     </div>
@@ -113,6 +142,14 @@ const Document = () => {
           </div>
         </div>
       </div>
+
+      {documentToShow.showAttachmentModal && (
+        <ViewDocument
+          data={documentToShow}
+          setData={setDocumentToShow}
+          heading={"View Data"}
+        />
+      )}
     </>
   );
 };

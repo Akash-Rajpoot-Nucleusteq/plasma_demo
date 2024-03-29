@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import {
   CLIENT_MANAGER,
   EMPLOYEE,
+  HEADER_DOCUMENT,
   MANAGER,
   RECRUITER,
   RECRUITER_MANAGER,
@@ -94,7 +95,11 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       },
       {
         title: "New Vendor Onboarding",
-        pageLink: "/recruiter/new-vendor-onboarding",
+        pageLink: "/vendor-onboarding",
+      },
+      {
+        title: "Vendors",
+        pageLink: "/vendors",
       },
     ],
     profile: [
@@ -150,13 +155,35 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
         title: "Approval History",
         pageLink: "/approval-history",
       },
-      // { title: 'New Vendor Onboarding', pageLink: '/recruiter-manager/new-vendor-onboarding' },
-      // { title: 'Vendor Onboarding Approval', pageLink: '/recruiter-manager/new-vendor-onboarding-approval' },
-      // { title: 'Vendor Onboarding History', pageLink: '/recruiter-manager/vendor-onboarding-history' }
+      {
+        title: "New Vendor Onboarding",
+        pageLink: "/vendor-onboarding",
+      },
+      {
+        title: "Vendors",
+        pageLink: "/vendors",
+      },
+      {
+        title: "Manage Vendor",
+        pageLink: "/manage-vendor",
+      },
+      {
+        title: "Approve Vendor",
+        pageLink: "/vendor-approval",
+      },
+      {
+        title: "Vendor Resources",
+        pageLink: "/vendor-approval",
+      },
     ],
     profile: [
       { title: "Employment", pageLink: "/employment" },
       { title: "Detail", pageLink: "/details" },
+    ],
+    document: [
+      { title: "My Document", pageLink: "/document" },
+      { title: "Document Approval", pageLink: "/document-approval" },
+      { title: "Approval History", pageLink: "/document-history" },
     ],
   };
 
@@ -224,6 +251,7 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       [HEADER_ASSIGNMENT]: recruiterManagerNav.assignment,
       [HEADER_RECRUITER]: recruiterManagerNav.recruiter,
       [HEADER_PROFILE]: recruiterManagerNav.profile,
+      [HEADER_DOCUMENT]: recruiterManagerNav.document,
     },
     [CLIENT_MANAGER]: {
       [HEADER_ASSET]: clientManagerNav.assets,

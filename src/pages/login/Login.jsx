@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import IMG01 from "../../assets/images/logo_nucleusteq.png";
 import { Link, useNavigate } from "react-router-dom";
 import InputValidator from "../../validations/InputValidator.jsx";
-import { determineUserRole, doLogin } from "../../utility/authentication/auth";
+import {
+  determineUserRole,
+  doLogin,
+  getCurrentUserDetails,
+} from "../../utility/authentication/auth";
 import InputFieldWithValidation from "../../components/uiElements/InputFieldWithValidation.jsx";
 import ButtonComponent from "../../components/uiElements/ButtonComponent.jsx";
 import gmailLink from "../../assets/common/constants.js";
@@ -60,8 +64,10 @@ function Login() {
         email: formData.email,
         password: formData.password,
       };
-      userRole = determineUserRole(userData.email);
+
       doLogin(userData);
+      userRole = getCurrentUserDetails().role;
+      console.log(userRole + " role in login");
       login({ id: 1, role: userRole });
       navigate("/dashboard");
     }
