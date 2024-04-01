@@ -298,7 +298,7 @@ const OnboardingApproval = () => {
           buttonText={
             <Link
               to={{
-                pathname: "onboarding-approval-form",
+                pathname: "/approval-form",
                 state: { employeeData: record },
               }}
               className={"text-white"}>

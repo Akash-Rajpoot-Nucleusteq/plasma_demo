@@ -33,6 +33,7 @@ import ActiveCustomer from "../../pages/accountManagement/customer/active/Active
 import DocumentHistory from "../../pages/document/documentHistory/DocumentHistory.jsx";
 import DocumentApproval from "../../pages/document/documentApproval/DocumentApproval.jsx";
 import EditDocument from "../../pages/document/documentEdit/DocumentEdit.jsx";
+import OnboardingApprovalForm from "../../pages/Recruit/OnboardingApprovalForm/OnboardingApprovalForm.jsx";
 
 export const commonRoutes = [
   { path: "/dashboard", element: <Dashboard /> },
@@ -73,6 +74,7 @@ export const roleSpecificRoutes = {
     { path: "/document-history", element: <DocumentHistory /> },
     { path: "/document-approval", element: <DocumentApproval /> },
     { path: "/edit-document", element: <EditDocument /> },
+    { path: "/approval-form", element: <OnboardingApprovalForm /> },
   ],
   CLIENT_MANAGER: [
     { path: "/allocated-asset", element: <EmployeeAsset /> },

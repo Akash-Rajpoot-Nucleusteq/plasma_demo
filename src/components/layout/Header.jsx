@@ -228,6 +228,7 @@ class Header extends Component {
               ("/onboarding-approval-form" === url) |
               ("/vendor-onboarding" === url) |
               ("/manage-vendor" === url) |
+              ("/approval-form" === url) |
               ("/vendors" === url)
                 ? "active"
                 : ""
