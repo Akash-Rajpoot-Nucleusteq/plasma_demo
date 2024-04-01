@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import SideBar from "../../../components/layout/SideBar.jsx";
 import CommonTable from "../../../components/uiElements/CommonTable.jsx";
 import ButtonComponent from "../../../components/uiElements/ButtonComponent.jsx";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Header from "../../../components/layout/Header.jsx";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
 import { HEADER_RECRUITER } from "../../../assets/common/constants.js";
 
 const OnboardingApproval = () => {
+  const Navigate = useNavigate();
   const employeeData = [
     {
       firstName: "Ashish",
@@ -289,23 +290,18 @@ const OnboardingApproval = () => {
       personalEmailId: "chetan@nucleusteq.com",
     },
   ];
+  const handleApproveReject = (record) => {
+    Navigate("/approval-form", { state: { employeeData: record } });
+  };
   const column = [
     {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <ButtonComponent
-          buttonText={
-            <Link
-              to={{
-                pathname: "/approval-form",
-                state: { employeeData: record },
-              }}
-              className={"text-white"}>
-              {"Approve / Reject"}
-            </Link>
-          }
-          className={"btn btn-theme button-1 text-white ctm-border-radius "}
+          buttonText={"Approve / Reject"}
+          className={"btn btn-theme button-1 text-white ctm-border-radius"}
+          onClickHandler={() => handleApproveReject(record)}
         />
       ),
     },

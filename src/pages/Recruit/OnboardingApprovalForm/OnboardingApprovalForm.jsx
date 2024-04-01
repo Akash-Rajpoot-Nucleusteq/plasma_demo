@@ -5,15 +5,19 @@ import SideBar from "../../../components/layout/SideBar";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth";
 import { HEADER_RECRUITER } from "../../../../src/assets/common/constants";
 import Header from "../../../components/layout/Header";
+import { useLocation } from "react-router";
 
 export default function OnboardingApprovalForm(props) {
-  const [employeeData, setEmployeeData] = useState({});
-  const [apiData, setApiData] = useState({});
+  // const [employeeData, setEmployeeData] = useState({});
+  // const [apiData, setApiData] = useState({});
 
-  useEffect(() => {
-    const { employeeData } = props.location?.state ? props.location?.state : "";
-    setEmployeeData(employeeData);
-  }, []);
+  const location = useLocation();
+  const { employeeData } = location.state || {};
+
+  // useEffect(() => {
+  //   const { employeeData } = props.location?.state ? props.location?.state : "";
+  //   setEmployeeData(employeeData);
+  // }, []);
 
   return (
     <>
