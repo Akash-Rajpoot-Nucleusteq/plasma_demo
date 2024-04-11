@@ -1,18 +1,20 @@
+import { CLIENT_MANAGER, EMPLOYEE, MANAGER, RECRUITER, RECRUITER_MANAGER } from "../assets/common/roles";
+
 export const doLogin = (data) => {
   let userData = { ...data, role: determineUserRole(data.email) };
   localStorage.setItem("data", JSON.stringify(userData));
 };
 export const determineUserRole = (email) => {
   if (email === 'recruiter.manager@nucleusteq.com') {
-    return 'Recruiter Manager';
+    return RECRUITER_MANAGER;
   } else if (email === 'recruiter@nucleusteq.com') {
-    return 'Recruiter';
+    return RECRUITER;
   } else if (email === 'manager@nucleusteq.com') {
-    return 'Manager';
+    return MANAGER;
   } else if (email === 'client@nucleusteq.com') {
-    return 'Client Manager';
+    return CLIENT_MANAGER;
   } else if (email === 'employee@nucleusteq.com') {
-    return 'Employee';
+    return EMPLOYEE;
   } else {
     return 'Unknown Role';
   }

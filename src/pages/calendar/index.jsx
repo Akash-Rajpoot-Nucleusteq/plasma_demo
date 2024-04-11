@@ -6,11 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import DatePicker from "react-datepicker";
 import Modal from 'react-bootstrap/Modal';
-// import Sidebar from '../account-management/SideBar'
-import Sidebar from '../../components/SideBar'
-import SideBar from '../../components/SideBar';
-import { getCurrentUserDetails } from '../../authentication/auth';
-import { HEADER_ACCOUNT } from '../../assets/common/constants';
+import Sidebar from '../account-management/sideBar'
 
 const CalendarPage = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -224,7 +220,7 @@ const CalendarPage = () => {
                       <div className='custom-breadcrumb'>
                         <ol className='breadcrumb no-bg-color d-inline-block p-0 m-0 mb-2'>
                           <li className='breadcrumb-item d-inline-block'>
-                            <Link to="dashboard" className='text-dark'>
+                            <Link to='admin' className='text-dark'>
                               Home
                             </Link>
                           </li>
@@ -287,9 +283,7 @@ const CalendarPage = () => {
             </div>
           </div> */}
           <div className="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
-            {/* <Sidebar /> */}
-            <SideBar userRole={getCurrentUserDetails().role} headerName={HEADER_ACCOUNT} currentPageName={'Forecast'} />
-
+            <Sidebar />
           </div>
           <div className="col-md-7 col-lg-8 col-xl-9">
             <div className="card mb-0">

@@ -3,13 +3,13 @@ import config from "config";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import progress from "../src/assets/images/progress.gif";
-import Header from "./components/header/index";
-import Login from "./components/login";
-import Register from "./components/register";
-import ForgotPassword from "./components/forgotpassword/index";
-import ChangePassword from "./components/change-password/index";
+import Header from "./pages/header/index";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import ForgotPassword from "./pages/forgotPassword/index";
+import ChangePassword from "./pages/change-password/index";
 
-import Assignment from "./components/assignment/Assignment";
+import Assignment from "./pages/assignment/Assignment";
 import { getCurrentUserDetails } from "./authentication/auth";
 import { EmployeeRoutes } from "./routes/employee-route";
 import { ManagerRoute } from "./routes/manager-route";
@@ -17,87 +17,90 @@ import { RecruiterRotes } from "./routes/recruiter-route";
 import { ClientManagerRoute } from "./routes/client-manager-route";
 import { RecruiterManagerRoute } from "./routes/recruiter-manager-route";
 
-import { AddAssets } from "./components/asset/add-assets";
-import { Inventory } from "./components/asset/asset-inventory";
-import { TalentDashboard } from "./components/dashboard/talent-dashboard";
-import { ClientDashboard } from "./components/dashboard/client_dashboard";
-import { AccountManagementRecentOnboarding } from "./components/account-management";
+import { AddAssets } from "./pages/asset/add-assets";
+import { Inventory } from "./pages/asset/asset-inventory";
+import { TalentDashboard } from "./pages/dashboard/talent-dashboard";
+import { ClientDashboard } from "./pages/dashboard/client_dashboard";
 
 
-const Customer = lazy(() => import("./components/customer"));
-const AddClient = lazy(() => import("./components/customer/add-client"));
-const ActiveClient = lazy(() => import("./components/customer/active-client"));
+import { AccountManagementRecentOnboarding } from "./pages/account-management";
+import { CLIENT_MANAGER, EMPLOYEE, MANAGER, RECRUITER, RECRUITER_MANAGER } from "./assets/common/roles";
+
+
+const Customer = lazy(() => import("./pages/customer"));
+const AddClient = lazy(() => import("./pages/customer/add-client"));
+const ActiveClient = lazy(() => import("./pages/customer/active-client"));
 const Allocation = lazy(() =>
-  import("./components/account-management/allocation")
+  import("./pages/account-management/allocation")
 );
 const Billing = lazy(() =>
-  import("./components/account-management/billing/index")
+  import("./pages/account-management/billing/index")
 );
 const ResourceRevenue = lazy(() =>
-  import("./components/account-management/resource-revenue/index")
+  import("./pages/account-management/employee-timesheet/index")
 );
 const Revenue = lazy(() =>
-  import("./components/account-management/revenue/index")
+  import("./pages/account-management/revenue/index")
 );
 
-const EmployeeDashboard = lazy(() =>
-  import("./components/dashboard/Employee_Dashboard/index.jsx")
+const Dashboard = lazy(() =>
+  import("./pages/dashboard/dashboard/index")
 );
-const Leave = lazy(() => import("./components/leave"));
-const Employment = lazy(() => import("./components/profile/employement/"));
+const Leave = lazy(() => import("./pages/leave"));
+const Employment = lazy(() => import("./pages/profile/employement/"));
 //profile
-const Details = lazy(() => import("./components/profile/details"));
-const Document = lazy(() => import("./components/documents/index"));
+const Details = lazy(() => import("./pages/profile/details"));
+const Document = lazy(() => import("./pages/documents/index"));
 //Recruiter
-// const Recruiter = lazy(() => import("./components/recruiter"));
+// const Recruiter = lazy(() => import("./pages/recruiter"));
 const RecruiterRecentOnboarding = lazy(() =>
-  import("./components/recruiter/RecentOnboarding/index.jsx")
+  import("./pages/recruiter/recentonboarding")
 );
 //Client Report
 const ClientReport = lazy(() =>
-  import("./components/account-management/client-reports")
+  import("./pages/account-management/client-reports")
 );
 
 const CalendarPage = lazy(() =>
-  import("./components/calendar/index")
+  import("./pages/calendar/index")
 );
 
 
 const NewOnboarding = lazy(() =>
-  import("./components/recruiter/NewOnboarding/index.jsx")
+  import("./pages/recruiter/newonboarding")
 );
 const OnboardingApproval = lazy(() =>
-  import("./components/recruiter/OnboardingApproval")
+  import("./pages/recruiter/OnboardingApproval")
 );
 const ApprovalHistory = lazy(() =>
-  import("./components/recruiter/ApprovalHistory")
+  import("./pages/recruiter/ApprovalHistory")
 );
 const OnboardingApprovalForm = lazy(() =>
-  import("./components/recruiter/NewVendorOnboardingApprovalForm/index.jsx")
+  import("./pages/recruiter/OnboardingApprovalForm")
 );
 //For vendor in recruiter tab
 const NewVendorOnboarding = lazy(() =>
-  import("./components/recruiter/NewVendorOnboarding/index")
+  import("./pages/recruiter/NewVendorOnboarding/index")
 );
 const NewVendorOnboardingApproval = lazy(() =>
-  import("./components/recruiter/NewVendorOnboardingApproval/index")
+  import("./pages/recruiter/NewVendorOnboardingApproval/index")
 );
 const NewVendorOnboardingApprovalForm = lazy(() =>
-  import("./components/recruiter/NewVendorOnboardingApprovalForm/index")
+  import("./pages/recruiter/NewVendorOnboardingApprovalForm/index")
 );
 const VendorOnboardingHistory = lazy(() =>
-  import("./components/recruiter/VendorOnboardingHistory/index")
+  import("./pages/recruiter/VendorOnboardingHistory/index")
 );
 
 // Assset
-const AssetsPage = lazy(() => import("./components/asset/index"));
-const EmployeeAssetsPage = lazy(() => import("./components/asset/employee-assets/index"));
-const AssignAssets = lazy(() => import("./components/asset/assign-assets-to-employee/index"));
+const AssetsPage = lazy(() => import("./pages/asset/index"));
+const EmployeeAssetsPage = lazy(() => import("./pages/asset/employee-assets/index"));
+const AssignAssets = lazy(() => import("./pages/asset/assign-assets-to-employee/index"));
 // Timesheet
-const PendingTimesheetPage = lazy(() => import("./components/timesheet/index"));
-const ApprovedTimesheetPage = lazy(() => import("./components/timesheet/timesheet-approved/index"));
+const PendingTimesheetPage = lazy(() => import("./pages/timesheet/index"));
+const ApprovedTimesheetPage = lazy(() => import("./pages/timesheet/timesheet-approved/index"));
 const EmployeeTimesheetPage = lazy(() =>
-  import("./components/timesheet/employeetimesheet/index")
+  import("./pages/timesheet/employeetimesheet/index")
 );
 const AppUniversal = function (props) {
   const userDetails = getCurrentUserDetails();
@@ -113,7 +116,7 @@ const AppUniversal = function (props) {
           <Route path='/change-password' exact component={ChangePassword} />
 
           {/* employee route */}
-          {userDetails?.role === "Employee" && (
+          {userDetails?.role === EMPLOYEE && (
             <Route path='/employee' element={<EmployeeRoutes />}>
               <Route
                 path='/employee/dashboard'
@@ -125,7 +128,7 @@ const AppUniversal = function (props) {
                         <img src={progress} alt='loading...' />
                       </div>
                     }>
-                    <EmployeeDashboard {...props} />
+                    <Dashboard {...props} />
                   </Suspense>
                 )}
               />
@@ -232,7 +235,7 @@ const AppUniversal = function (props) {
           )}
 
           {/* Manager Route */}
-          {userDetails?.role === "Manager" && (
+          {userDetails?.role === MANAGER && (
             <Route path='/manager' element={<ManagerRoute />}>
               <Route
                 path='/manager/dashboard'
@@ -244,7 +247,7 @@ const AppUniversal = function (props) {
                         <img src={progress} alt='loading...' />
                       </div>
                     }>
-                    <EmployeeDashboard {...props} />
+                    <Dashboard {...props} />
                   </Suspense>
                 )}
               />
@@ -393,7 +396,7 @@ const AppUniversal = function (props) {
           )}
 
           {/* Recruiter route */}
-          {userDetails?.role === "Recruiter" && (
+          {userDetails?.role === RECRUITER && (
             <Route path='/recruiter' element={<RecruiterRotes />}>
               <Route
                 path='/recruiter/dashboard'
@@ -405,7 +408,7 @@ const AppUniversal = function (props) {
                         <img src={progress} alt='loading...' />
                       </div>
                     }>
-                    <EmployeeDashboard {...props} />
+                    <Dashboard {...props} />
                   </Suspense>
                 )}
               />
@@ -649,7 +652,9 @@ const AppUniversal = function (props) {
               />
             </Route>
           )}
-          {userDetails?.role === "Client Manager" && (
+          
+          {/* Client manager */}
+          {userDetails?.role === CLIENT_MANAGER && (
             <Route path='/client' element={<ClientManagerRoute />}>
               <Route
                 path='/client/dashboard'
@@ -661,7 +666,7 @@ const AppUniversal = function (props) {
                         <img src={progress} alt='loading...' />
                       </div>
                     }>
-                    <EmployeeDashboard {...props} />
+                    <Dashboard {...props} />
                   </Suspense>
                 )}
               />
@@ -976,7 +981,9 @@ const AppUniversal = function (props) {
               />
             </Route>
           )}
-          {userDetails?.role === "Recruiter Manager" && (
+
+          {/* Recruiter manager */}
+          {userDetails?.role === RECRUITER_MANAGER && (
             <Route
               path='/recruiter-manager'
               element={<RecruiterManagerRoute />}>
@@ -990,7 +997,7 @@ const AppUniversal = function (props) {
                         <img src={progress} alt='loading...' />
                       </div>
                     }>
-                    <EmployeeDashboard {...props} />
+                    <Dashboard {...props} />
                   </Suspense>
                 )}
               />

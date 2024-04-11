@@ -15,7 +15,7 @@ class Sidebar extends Component {
                   <div className="custom-breadcrumb">
                     <ol className="breadcrumb no-bg-color d-inline-block p-0 m-0 mb-2">
                       <li className="breadcrumb-item d-inline-block">
-                        <Link to="dashboard" className="text-dark">
+                        <Link to="admin" className="text-dark">
                           Home
                         </Link>
                       </li>

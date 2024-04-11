@@ -1,77 +1,87 @@
 import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import InputValidator from "../../validations/fieldValidation/InputValidator";
+import { determineUserRole, doLogin } from "../../authentication/auth";
 import IMG01 from "../../assets/images/logo_nucleusteq.png";
-import { Link, useNavigate } from "react-router-dom";
-import InputValidator from "../../validations/InputValidator.jsx";
-import {
-  determineUserRole,
-  doLogin,
-  getCurrentUserDetails,
-} from "../../utility/authentication/auth";
-import InputFieldWithValidation from "../../components/uiElements/InputFieldWithValidation.jsx";
-import ButtonComponent from "../../components/uiElements/ButtonComponent.jsx";
-import gmailLink from "../../assets/common/constants.js";
-import { useAuth } from "../../components/routing/AuthProvider.jsx";
 
-function Login() {
-  const navigate = useNavigate();
-  let userRole = "";
-  const { login } = useAuth();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [formError, setFormError] = useState({
+const Login = (props) => {
+  const history = useHistory();
+
+  const [state, setState] = useState({
     errorEmail: "",
     errorPassword: "",
+    emailId: "",
+    password: "",
+    recipientEmail: "recipient@gmail.com",
+    gmailLink: `https://mail.google.com/mail/?view=cm&fs=1&to=ashish.sahu@nucleusteq.com`,
   });
 
   const handleChange = (event) => {
     if (event.target.name === "email") {
       const errorEmail = InputValidator.isValidEmail(event.target.value);
-      setFormData({
-        ...formData,
-        email: event.target.value.trim(),
-      });
-      setFormError({
-        ...formError,
-        errorEmail: errorEmail,
-      });
+      setState((prevState) => ({
+        ...prevState,
+        emailId: event.target.value,
+        errorEmail,
+      }));
     }
     if (event.target.name === "password") {
       const errorPassword = InputValidator.isValidPassword(event.target.value);
-      setFormData({
-        ...formData,
-        password: event.target.value.trim(),
-      });
-      setFormError({
-        ...formError,
-        errorPassword: errorPassword,
-      });
+      setState((prevState) => ({
+        ...prevState,
+        password: event.target.value,
+        errorPassword,
+      }));
     }
+    
   };
+
   const checkForError = () => {
-    setFormError({
-      errorEmail: InputValidator.isValidEmail(formData.email),
-      errorPassword: InputValidator.isValidPassword(formData.password),
-    });
+    const errorEmail = InputValidator.isValidEmail(state.emailId);
+    const errorPassword = InputValidator.isValidPassword(state.password);
+
+    setState((prevState) => ({
+      ...prevState,
+      errorEmail: errorEmail || "",
+      errorPassword: errorPassword || "",
+    }));
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     await checkForError();
-    if (!InputValidator.isObjectEmpty(formData)) {
+    if (state.errorEmail === "" && state.errorPassword === "") {
       const userData = {
-        email: formData.email,
-        password: formData.password,
+        email: state.emailId,
+        password: state.password,
       };
-
       doLogin(userData);
-      userRole = getCurrentUserDetails().role;
-      console.log(userRole + " role in login");
-      login({ id: 1, role: userRole });
-      navigate("/dashboard");
+      let role = determineUserRole(state.emailId);
+      console.log(role + 'The role is');
+      props.setRole(true);
+      switch (role) {
+        case "Employee":
+          history.push("employee/dashboard");
+          return;
+        case "Manager":
+          history.push("/manager/dashboard");
+          return;
+        case "Recruiter":
+          history.push("/recruiter/dashboard");
+          return;
+        case "Recruiter Manager":
+          history.push("recruiter/manager/dashboard");
+          return;
+        case "Client Manager":
+          history.push("client/dashboard");
+          return;
+        default:
+          return;
+      }
     }
   };
+
   return (
     <div className='inner-wrapper login-body'>
       <div className='login-wrapper'>
@@ -83,32 +93,42 @@ function Login() {
             <div className='login-right'>
               <div className='login-right-wrap'>
                 <h1>Login</h1>
-                <p className='account-subtitle'>
-                  Access to our NucleusTeq dashboard
-                </p>
+                <p className='account-subtitle'>Access to our dashboard</p>
                 <form onSubmit={handleSubmit}>
-                  <InputFieldWithValidation
-                    type={"text"}
-                    name={"email"}
-                    placeholder={"Email"}
-                    onBlur={handleChange}
-                    error={formError.errorEmail}
-                  />
-                  <InputFieldWithValidation
-                    type={"password"}
-                    name={"password"}
-                    placeholder={"Password"}
-                    onBlur={handleChange}
-                    error={formError.errorPassword}
-                  />
                   <div className='form-group'>
-                    <ButtonComponent
-                      className={
-                        "btn btn-theme button-1 text-white ctm-border-radius btn-block"
-                      }
-                      type={"submit"}
-                      buttonText={"Login"}
+                    <input
+                      className='form-control'
+                      type='text'
+                      placeholder='Email'
+                      name='email'
+                      onBlur={handleChange}
                     />
+                    {state.errorEmail && (
+                      <span className='text-danger small'>
+                        {state.errorEmail}
+                      </span>
+                    )}
+                  </div>
+                  <div className='form-group'>
+                    <input
+                      className='form-control'
+                      type='password'
+                      placeholder='Password'
+                      name='password'
+                      onBlur={handleChange}
+                    />
+                    {state.errorPassword && (
+                      <span className='text-danger small'>
+                        {state.errorPassword}
+                      </span>
+                    )}
+                  </div>
+                  <div className='form-group'>
+                    <button
+                      className='btn btn-theme button-1 text-white ctm-border-radius btn-block'
+                      type='submit'>
+                      Login
+                    </button>
                   </div>
                 </form>
                 <div className='text-center forgotpass'>
@@ -122,7 +142,7 @@ function Login() {
                   Don’t have an account?{" "}
                   <div>
                     <a
-                      href={gmailLink}
+                      href={state.gmailLink}
                       target='_blank'
                       rel='noopener noreferrer'>
                       Contact Administrator
@@ -136,5 +156,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
+
 export default Login;

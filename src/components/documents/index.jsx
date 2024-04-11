@@ -2,59 +2,15 @@ import React, { Component, useState } from "react";
 import Sidebar from "./sidebar";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import { Form, Col, Row, Button, Modal } from 'react-bootstrap';
-
-import { DocumentAttachmentField } from '../common-components/InputComponents'
-import { downloadDocument } from '../common-functions/CommonFunctions'
 import {
-  AdharPopUpUpload,
-  PassportPopUpUpload,
-  PanPopUpUpload, CommonPopUpUpload
-} from '../recruiter/CommonForm/PopUpForDocuments';
+  AdharPopUpUpload, PhotoPopUpUpload, ResumePopUpUpload,
+  PassportPopUpUpload, WorkAuthorizationPopUpUpload, I94TravelHistoryPopUpUpload,
+  PhotoIdPopUpUpload, RentalAgreementPopUpUpload, EducationDetailsPopUpUpload,
+  I9CopyPopUpUpload, PanPopUpUpload
+} from '../recruiter/commonform/PopUpForDocuments';
 
 
 export default function Document() {
-
-  //Starting for attach photo
-  const [photo, setPhoto] = useState({
-    showAttachmentModal: false,
-    document: null,
-  })
-  function showPhotoAttachment() {
-    setPhoto((prevState) => ({
-      ...prevState,
-      showAttachmentModal: true,
-    }))
-  }
-  function handleRemovePhoto() {
-    setPhoto((prevState) => ({
-      ...prevState,
-      showAttachmentModal: false,
-      document: null,
-    }))
-  }
-  //End for attach photo
-
-  //Starting for attach Resume
-  const [resume, setResume] = useState({
-    showAttachmentModal: false,
-    document: null,
-  })
-  function showResumeAttachment() {
-    setResume((prevState) => ({
-      ...prevState,
-      showAttachmentModal: true,
-    }))
-  }
-  function handleRemoveResume() {
-    setResume((prevState) => ({
-      ...prevState,
-      showAttachmentModal: false,
-      document: null,
-    }))
-  }
-  //End for attach Resume
-
-  //For adhar Card
   const [adharCard, setAdharCard] = useState({
     showAttachmentModal: false,
     showViewModal: false,
@@ -79,26 +35,47 @@ export default function Document() {
   }
   //End for adhar card
 
-  //Starting for attach Pan card.
-  const [pan, setPan] = useState({
+
+  //Starting for attach photo
+  const [photo, setPhoto] = useState({
     showAttachmentModal: false,
     document: null,
-    panNumber: '',
   })
-  function showPanAttachment() {
-    setPan((prevState) => ({
+  function showPhotoAttachment() {
+    setPhoto((prevState) => ({
       ...prevState,
       showAttachmentModal: true,
     }))
   }
-  function handleRemovePan() {
-    setPan((prevState) => ({
+  function handleRemovePhoto() {
+    setPhoto((prevState) => ({
       ...prevState,
       showAttachmentModal: false,
       document: null,
     }))
   }
-  //End for attach Pan card.
+  //End for attach photo
+
+
+  //Starting for attach Resume
+  const [resume, setResume] = useState({
+    showAttachmentModal: false,
+    document: null,
+  })
+  function showResumeAttachment() {
+    setResume((prevState) => ({
+      ...prevState,
+      showAttachmentModal: true,
+    }))
+  }
+  function handleRemoveResume() {
+    setResume((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+      document: null,
+    }))
+  }
+  //End for attach Resume
 
   //Starting for attach Passport
   const [passport, setPassport] = useState({
@@ -128,6 +105,150 @@ export default function Document() {
   }
   //End for attach Passport
 
+  //Starting for attach Work Autorization
+  const [workAuthorization, setWorkAuthorization] = useState({
+    showAttachmentModal: false,
+    document: null,
+    workAuthorizationNumber: '',
+    validTill: '',
+  })
+  function showWorkAuthorizationAttachment() {
+    setWorkAuthorization((prevState) => ({
+      ...prevState,
+      showAttachmentModal: true,
+    }))
+  }
+  function handleRemoveWorkAuthorization() {
+    setWorkAuthorization((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+      document: null,
+    }))
+  }
+  //End for attach Work Autorization
+
+  //Starting for attach I94 Travel History
+  const [i94TravelHistory, setI94TravelHistory] = useState({
+    showAttachmentModal: false,
+    document: null,
+  })
+  function showI94TravelHistoryAttachment() {
+    setI94TravelHistory((prevState) => ({
+      ...prevState,
+      showAttachmentModal: true,
+    }))
+  }
+  function handleRemoveI94TravelHistory() {
+    setI94TravelHistory((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+      document: null,
+    }))
+  }
+  //End for attach I94 Travel History
+
+  //Starting for attach Photo id.
+  const [photoId, setPhotoId] = useState({
+    showAttachmentModal: false,
+    document: null,
+  })
+  function showPhotoIdAttachment() {
+    setPhotoId((prevState) => ({
+      ...prevState,
+      showAttachmentModal: true,
+    }))
+  }
+  function handleRemovePhotoId() {
+    setPhotoId((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+      document: null,
+    }))
+  }
+  //End for attach Photo id
+
+  //Starting for attach Rental Agreement.
+  const [rentalAgreememt, setRentalAgreememt] = useState({
+    showAttachmentModal: false,
+    document: null,
+  })
+  function showRentalAgreememtAttachment() {
+    setRentalAgreememt((prevState) => ({
+      ...prevState,
+      showAttachmentModal: true,
+    }))
+  }
+  function handleRemoveRentalAgreememtd() {
+    setRentalAgreememt((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+      document: null,
+    }))
+  }
+  //End for attach Rental Agreement
+
+  //Starting for attach Education Details.
+  const [educationDetails, setEducationDetails] = useState({
+    showAttachmentModal: false,
+    document: null,
+  })
+  function showEducationDetailsAttachment() {
+    setEducationDetails((prevState) => ({
+      ...prevState,
+      showAttachmentModal: true,
+    }))
+  }
+  function handleRemoveEducationDetails() {
+    setEducationDetails((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+      document: null,
+    }))
+  }
+  //End for attach Education Details.
+
+  //Starting for attach I9 copy.
+  const [i9Copy, setI9Copy] = useState({
+    showAttachmentModal: false,
+    document: null,
+  })
+  function showI9CopyAttachment() {
+    setI9Copy((prevState) => ({
+      ...prevState,
+      showAttachmentModal: true,
+    }))
+  }
+  function handleRemoveI9Copy() {
+    setI9Copy((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+      document: null,
+    }))
+  }
+  //End for attach i9 copy.
+
+  //Starting for attach Pan card.
+  const [pan, setPan] = useState({
+    showAttachmentModal: false,
+    document: null,
+    panNumber: '',
+  })
+  function showPanAttachment() {
+    setPan((prevState) => ({
+      ...prevState,
+      showAttachmentModal: true,
+    }))
+  }
+  function handleRemovePan() {
+    setPan((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+      document: null,
+    }))
+  }
+  //End for attach Pan card.
+
+
   return (
     <>
       <div className='page-wrapper'>
@@ -148,22 +269,36 @@ export default function Document() {
                 <div className='card-body doc-boby'>
                   <div className='card shadow-none'>
                     <div className='card-header'>
-                      <h5 className='card-title text-primary mb-0'>Resume (pdf only)</h5>
+                      <h5 className='card-title text-primary mb-0'>Resume</h5>
                     </div>
                     <div className='card-body'>
                       <div className='row'>
                         <div className='col-12'>
                           <div className='document-up'>
-                            <DocumentAttachmentField
-                              documentState={resume}
-                              handleRemove={handleRemoveResume}
-                              handleView={showResumeAttachment}
-                              handleUpload={showResumeAttachment}
-                              downloadDocument={downloadDocument}
-                              fileName={'resume'}
-                              buttonText={''}
-                              controlId={'resume'}
-                            />
+                            <Col>
+                              <Form.Group controlId="resume">
+                                <div className='document-up col-12'>
+                                  <i className='mr-2 text-primary fa fa-file-pdf-o' aria-hidden='true'>
+                                  </i>
+                                  {resume.document ? 'View Your Document' : 'Select Document'}
+
+                                  {resume.document ? (
+                                    <>
+                                      <button type='button' className='float-right btn bg-danger text-white ctm-border-radius' onClick={handleRemoveResume} >
+                                        Remove
+                                      </button>
+                                      <button type='button' className='float-right ml-2 btn bg-success text-white ctm-border-radius' onClick={showResumeAttachment} >
+                                        View
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <button variant="danger" type='button' className='float-right btn btn-info text-white ctm-border-radius' onClick={showResumeAttachment} >
+                                      Upload
+                                    </button>
+                                  )}
+                                </div>
+                              </Form.Group>
+                            </Col>
                           </div>
                         </div>
                       </div>
@@ -172,21 +307,36 @@ export default function Document() {
 
                   <div className='card shadow-none'>
                     <div className='card-header'>
-                      <h5 className='card-title text-primary mb-0'>Photo (pdf only)</h5>
+                      <h5 className='card-title text-primary mb-0'>Photo</h5>
                     </div>
                     <div className='card-body'>
                       <div className='row'>
                         <div className='col-12'>
                           <div className='document-up'>
-                            <DocumentAttachmentField
-                              documentState={photo}
-                              handleRemove={handleRemovePhoto}
-                              handleView={showPhotoAttachment}
-                              handleUpload={showPhotoAttachment}
-                              downloadDocument={downloadDocument}
-                              fileName={'photo'}
-                              controlId={'photo'}
-                            />
+                            <Col>
+                              <Form.Group controlId="photo">
+                                <div className='document-up col-12'>
+                                  <i className='mr-2 text-primary fa fa-file-pdf-o' aria-hidden='true'>
+                                  </i>
+                                  {photo.document ? 'View Your Document' : 'Select Document'}
+
+                                  {photo.document ? (
+                                    <>
+                                      <button type='button' className='float-right btn bg-danger text-white ctm-border-radius' onClick={handleRemovePhoto} >
+                                        Remove
+                                      </button>
+                                      <button type='button' className='float-right ml-2 btn bg-success text-white ctm-border-radius' onClick={showPhotoAttachment} >
+                                        View
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <button variant="danger" type='button' className='float-right btn btn-info text-white ctm-border-radius' onClick={showPhotoAttachment} >
+                                      Upload
+                                    </button>
+                                  )}
+                                </div>
+                              </Form.Group>
+                            </Col>
                           </div>
                         </div>
                       </div>
@@ -196,21 +346,36 @@ export default function Document() {
                   {/* Aadhar Card */}
                   <div className='card shadow-none'>
                     <div className='card-header'>
-                      <h5 className='card-title text-primary mb-0'>Aadhaar Card (pdf only)</h5>
+                      <h5 className='card-title text-primary mb-0'>Aadhaar Card</h5>
                     </div>
                     <div className='card-body'>
                       <div className='row'>
                         <div className='col-12'>
                           <div className='document-up'>
-                            <DocumentAttachmentField
-                              documentState={adharCard}
-                              handleRemove={handleRemoveAdharCard}
-                              handleView={showAdharAttachment}
-                              handleUpload={showAdharAttachment}
-                              downloadDocument={downloadDocument}
-                              fileName={'AadharCard'}
-                              controlId={'adhar'}
-                            />
+                            <Col>
+                              <Form.Group controlId="adhar">
+                                <div className='document-up col-12'>
+                                  <i className='mr-2 text-primary fa fa-file-pdf-o' aria-hidden='true'>
+                                  </i>
+                                  {adharCard.document ? 'View Your Document' : 'Select Document'}
+
+                                  {adharCard.document ? (
+                                    <>
+                                      <button type='button' className='float-right btn bg-danger text-white ctm-border-radius' onClick={handleRemoveAdharCard} >
+                                        Remove
+                                      </button>
+                                      <button type='button' className='float-right ml-2 btn bg-success text-white ctm-border-radius' onClick={showAdharAttachment} >
+                                        View
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <button variant="danger" type='button' className='float-right btn btn-info text-white ctm-border-radius' onClick={showAdharAttachment} >
+                                      Upload
+                                    </button>
+                                  )}
+                                </div>
+                              </Form.Group>
+                            </Col>
                           </div>
                         </div>
                       </div>
@@ -220,21 +385,36 @@ export default function Document() {
                   {/* Pan Card */}
                   <div className='card shadow-none'>
                     <div className='card-header'>
-                      <h5 className=' text-primary card-title mb-0'>Pan Card (pdf only)</h5>
+                      <h5 className=' text-primary card-title mb-0'>Pan Card</h5>
                     </div>
                     <div className='card-body'>
                       <div className='row'>
                         <div className='col-12'>
                           <div className='document-up'>
-                            <DocumentAttachmentField
-                              documentState={pan}
-                              handleRemove={handleRemovePan}
-                              handleView={showPanAttachment}
-                              handleUpload={showPanAttachment}
-                              downloadDocument={downloadDocument}
-                              fileName={'PanCard'}
-                              controlId={'panCard'}
-                            />
+                            <Col>
+                              <Form.Group controlId="panCard">
+                                <div className='document-up col-12'>
+                                  <i className='mr-2 text-primary fa fa-file-pdf-o' aria-hidden='true'>
+                                  </i>
+                                  {pan.document ? 'View Your Document' : 'Select Document'}
+
+                                  {pan.document ? (
+                                    <>
+                                      <button type='button' className='float-right btn bg-danger text-white ctm-border-radius' onClick={handleRemovePan} >
+                                        Remove
+                                      </button>
+                                      <button type='button' className='float-right ml-2 btn bg-success text-white ctm-border-radius' onClick={showPanAttachment} >
+                                        View
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <button variant="danger" type='button' className='float-right btn btn-info text-white ctm-border-radius' onClick={showPanAttachment} >
+                                      Upload
+                                    </button>
+                                  )}
+                                </div>
+                              </Form.Group>
+                            </Col>
                           </div>
                         </div>
                       </div>
@@ -244,31 +424,49 @@ export default function Document() {
                   {/* Passport */}
                   <div className='card shadow-none'>
                     <div className='card-header'>
-                      <h5 className=' text-primary card-title mb-0'>Passport (pdf only)</h5>
+                      <h5 className=' text-primary card-title mb-0'>Passport</h5>
                     </div>
                     <div className='card-body'>
                       <div className='row'>
                         <div className='col-12'>
                           <div className='document-up'>
-                            <DocumentAttachmentField
-                              documentState={passport}
-                              handleRemove={handleRemovePassport}
-                              handleView={showPassportAttachment}
-                              handleUpload={showPassportAttachment}
-                              downloadDocument={downloadDocument}
-                              fileName={'Passport'}
-                              controlId={'passport'}
-                            />
+                            <Col>
+                              <Form.Group controlId="passport">
+                                <div className='document-up col-12'>
+                                  <i className='mr-2 text-primary fa fa-file-pdf-o' aria-hidden='true'>
+                                  </i>
+                                  {passport.document ? 'View Your Document' : 'Select Document'}
+
+                                  {passport.document ? (
+                                    <>
+                                      <button type='button' className='float-right btn bg-danger text-white ctm-border-radius' onClick={handleRemovePassport} >
+                                        Remove
+                                      </button>
+                                      <button type='button' className='float-right ml-2 btn bg-success text-white ctm-border-radius' onClick={showPassportAttachment} >
+                                        View
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <button variant="danger" type='button' className='float-right btn btn-info text-white ctm-border-radius' onClick={showPassportAttachment} >
+                                      Upload
+                                    </button>
+                                  )}
+                                </div>
+                              </Form.Group>
+                            </Col>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
+
+
                   <div className='add-doc text-center'>
                     <Link
                       href='#0'
                       className='btn btn-theme  button-1 ctm-border-radius text-white text-center'
+                    // onClick={() => this.handleShow("add")}
                     >
                       Submit Documents
                     </Link>
@@ -281,37 +479,60 @@ export default function Document() {
 
       </div>
 
-      {/* Upload Adhar*/}
+      {/* Upload Adhar card*/}
       <AdharPopUpUpload
         adharCard={adharCard}
         setAdharCard={setAdharCard}
-        handleCloseButton={handleRemoveAdharCard}
+      />
+      {/* Upload Photo*/}
+      <PhotoPopUpUpload
+        photo={photo}
+        setPhoto={setPhoto}
+      />
+      {/* Upload Resume*/}
+      <ResumePopUpUpload
+        resume={resume}
+        setResume={setResume}
       />
       {/* Upload Passport*/}
       <PassportPopUpUpload
         passport={passport}
         setPassport={setPassport}
-        handleCloseButton={handleRemovePassport}
       />
-
+      {/* Upload Work Authorization*/}
+      <WorkAuthorizationPopUpUpload
+        workAuthorization={workAuthorization}
+        setWorkAuthorization={setWorkAuthorization}
+      />
+      {/* Upload I94 Travel History*/}
+      <I94TravelHistoryPopUpUpload
+        i94TravelHistory={i94TravelHistory}
+        setI94TravelHistory={setI94TravelHistory}
+      />
+      {/* Upload Photo id*/}
+      <PhotoIdPopUpUpload
+        photoId={photoId}
+        setPhotoId={setPhotoId}
+      />
+      {/* Upload Rental Agreeement*/}
+      <RentalAgreementPopUpUpload
+        rentalAgreement={rentalAgreememt}
+        setRentalAgreement={setRentalAgreememt}
+      />
+      {/* Upload Education Details*/}
+      <EducationDetailsPopUpUpload
+        educationDetails={educationDetails}
+        setEducationDetails={setEducationDetails}
+      />
+      {/* Upload I9 Copy*/}
+      <I9CopyPopUpUpload
+        i9Copy={i9Copy}
+        setI9Copy={setI9Copy}
+      />
       {/* Upload Pan card*/}
       <PanPopUpUpload
         pan={pan}
         setPan={setPan}
-        handleCloseButton={handleRemovePan}
-      />
-
-      {/* Upload Photo*/}
-      <CommonPopUpUpload
-        data={photo}
-        setData={setPhoto}
-        heading={"Upload Photo"}
-      />
-      {/* Upload Resume*/}
-      <CommonPopUpUpload
-        data={resume}
-        setData={setResume}
-        heading={"Upload Resume"}
       />
     </>
   );
