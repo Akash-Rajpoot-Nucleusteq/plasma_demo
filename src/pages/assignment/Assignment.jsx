@@ -1,7 +1,9 @@
 import React from "react";
-import { Table } from "antd";
-import SideBar from "../assignment/SideBar";
-import CommonTable from '../../components/CommonTable'
+import SideBar from "../../components/layout/SideBar";
+import CommonTable from "../../components/uiElements/CommonTable";
+import Header from "../../components/layout/Header";
+import { getCurrentUserDetails } from "../../utility/authentication/auth";
+import { HEADER_ASSIGNMENT } from "../../assets/common/constants";
 
 const Assignment = () => {
   const dummyData = [
@@ -87,22 +89,29 @@ const Assignment = () => {
   ];
 
   return (
-    <div className='page-wrapper'>
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
-            <SideBar />
-          </div>
-          <div className='col-xl-9 col-lg-8  col-md-12'>
-            <CommonTable
-              tableTitle={'Assignment'}
-              data={dummyData}
-              columns={columns}
-            />
+    <>
+      <Header />
+      <div className='page-wrapper'>
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
+              <SideBar
+                userRole={getCurrentUserDetails().role}
+                headerName={HEADER_ASSIGNMENT}
+                currentPageName={"Assignment"}
+              />
+            </div>
+            <div className='col-xl-9 col-lg-8  col-md-12'>
+              <CommonTable
+                tableTitle={"Assignment"}
+                data={dummyData}
+                columns={columns}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

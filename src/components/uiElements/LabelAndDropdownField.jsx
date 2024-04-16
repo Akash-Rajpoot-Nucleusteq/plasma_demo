@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Form, Col, Button } from 'react-bootstrap';
+import { formatDropdownOption } from '../../utility/commonFunctions/CommonFunctions';
 
 export default function LabelAndDropdownField({
     mdValue,
@@ -17,7 +18,8 @@ export default function LabelAndDropdownField({
     handleInputChange,
     errorMessage,
     isReadOnly,
-    defaultOptionName
+    defaultOptionName,
+    formatOption
 }) {
     return (
         <Col md={mdValue ? mdValue : 12} sm={smValue ? smValue : 12} xs={xsValue ? xsValue : 12} lg={lgValue ? lgValue : 12}>
@@ -27,7 +29,7 @@ export default function LabelAndDropdownField({
                     {showDefaultOption && <option value="">Select {defaultOptionName || 'Option'}</option>}
                     {optionList.map((value, index) => (
                         <option key={index} value={value}>
-                            {value}
+                            {formatOption ? formatDropdownOption(value) : value}
                         </option>
                     ))}
                 </Form.Control>

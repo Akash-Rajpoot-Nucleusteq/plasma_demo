@@ -9,6 +9,7 @@ import InputValidator from "../../../validations/InputValidator";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
 import { HEADER_ACCOUNT } from "../../../assets/common/constants.js";
 import Header from "../../../components/layout/Header.jsx";
+import LabelAndDropdownFieldForObject from "../../../components/uiElements/LabelAndDropdownFieldForObject.jsx";
 
 export const RecentOnboarding = () => {
   const allocationTypeList = ["Billable", "Investment"];
@@ -18,36 +19,37 @@ export const RecentOnboarding = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const [formData, setFormData] = useState({
-    customerName: "",
-    businessUnit: "",
-    project: "",
-    hiringManager: "",
+    clientId: "",
     positionName: "",
     skill: "",
     rate: "",
     customerBillingRate: "",
     margin: "",
     allocationType: "",
-    teamLead: "",
   });
 
+  const [selectedClient, setSelectedClient] = useState({
+    clientName: "",
+    businessUnit: "",
+    project: "",
+    teamLead: '',
+    hiringManager: '',
+  })
+
+
   const [formError, setFormError] = useState({
-    errorCustomerName: "",
-    errorBusinessUnit: "",
-    errorProject: "",
-    errorHiringManager: "",
+    errorClient: '',
     errorPositionName: "",
     errorSkill: "",
     errorRate: "",
     errorCustomerBillingRate: "",
     errorMargin: "",
     errorAllocationType: "",
-    errorTeamLead: "",
   });
 
   const dummyData = [
     {
-      Sno: 1,
+      employeeId: 'N0011',
       firstName: "Diksha",
       lastName: "Mandal",
       clientName: "--",
@@ -58,7 +60,7 @@ export const RecentOnboarding = () => {
       status: "Active",
     },
     {
-      Sno: 2,
+      employeeId: 'N0012',
       firstName: "Ashish",
       lastName: "Sahu",
       clientName: "--",
@@ -69,7 +71,7 @@ export const RecentOnboarding = () => {
       status: "Active",
     },
     {
-      Sno: 3,
+      employeeId: 'N0013',
       firstName: "Akash",
       lastName: "Rajpoot",
       clientName: "--",
@@ -80,7 +82,7 @@ export const RecentOnboarding = () => {
       status: "Active",
     },
     {
-      Sno: 4,
+      employeeId: 'N0014',
       firstName: "Anushree",
       lastName: "Das",
       clientName: "--",
@@ -91,7 +93,7 @@ export const RecentOnboarding = () => {
       status: "Active",
     },
     {
-      Sno: 5,
+      employeeId: 'N0015',
       firstName: "Priya",
       lastName: "Dubey",
       clientName: "--",
@@ -105,9 +107,9 @@ export const RecentOnboarding = () => {
 
   const column = [
     {
-      title: "S No",
-      dataIndex: "Sno",
-      key: "Sno",
+      title: "Employee Id",
+      dataIndex: "employeeId",
+      key: "employeeId",
     },
     {
       title: "First Name",
@@ -163,6 +165,34 @@ export const RecentOnboarding = () => {
     },
   ];
 
+  const clientList = [
+    {
+      clientId: 1,
+      clientName: "Amex",
+      businessUnit: "Finance",
+      project: "Financial Reporting System",
+      hiringManager: "John Doe",
+      teamLead: "Alice Smith"
+    },
+    {
+      clientId: 2,
+      clientName: "AAA",
+      businessUnit: "Marketing",
+      project: "Advertising Campaign",
+      hiringManager: "Jane Smith",
+      teamLead: "Bob Johnson"
+    },
+    {
+      clientId: 3,
+      clientName: "Kava",
+      businessUnit: "IT",
+      project: "Website Redesign",
+      hiringManager: "David Brown",
+      teamLead: "Emily Davis"
+    }
+  ];
+
+
   const handleRowClick = (employee) => {
     setSelectedEmployee(employee);
     setShowEmployeeDetailModal(true);
@@ -178,22 +208,50 @@ export const RecentOnboarding = () => {
     setSelectedEmployee(null);
   };
 
+  const clearData = () => {
+    setFormData({
+      ...formData,
+      clientId: "",
+      hiringManager: "",
+      positionName: "",
+      skill: "",
+      rate: "",
+      customerBillingRate: "",
+      margin: "",
+      allocationType: "",
+      teamLead: "",
+    })
+    setSelectedClient({
+      ...selectedClient,
+      clientName: "",
+      businessUnit: "",
+      project: "",
+    })
+  };
+
   const handleApproveModalClose = () => {
+    clearData();
     setShowAssignClientModal(false);
+  };
+
+  // Used to return variable name with error prefix.
+  const giveNameWithError = (name) => {
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+    const nameWithError = "error" + capitalizedName;
+    return nameWithError;
   };
 
   const handleInputChange = (event) => {
     const { id, value } = event.target;
+    const errorId = giveNameWithError(id);
     setFormData((prevState) => ({ ...prevState, [id]: value }));
+    setFormError((prevState) => ({ ...prevState, [errorId]: "" }));
   };
 
   const checkForError = () => {
     setFormError((prevState) => ({
       ...prevState,
-      errorCustomerName: InputValidator.isEmpty(formData.customerName),
-      errorBusinessUnit: InputValidator.isEmpty(formData.businessUnit),
-      errorProject: InputValidator.isEmpty(formData.project),
-      errorHiringManager: InputValidator.isEmpty(formData.hiringManager),
+      errorClient: InputValidator.isObjectEmpty(selectedClient) ? "Select a Client" : '',
       errorPositionName: InputValidator.isEmpty(formData.positionName),
       errorSkill: InputValidator.isEmpty(formData.skill),
       errorRate: InputValidator.isEmpty(formData.rate),
@@ -202,16 +260,38 @@ export const RecentOnboarding = () => {
       ),
       errorMargin: InputValidator.isEmpty(formData.margin),
       errorAllocationType: InputValidator.isEmpty(formData.allocationType),
-      errorTeamLead: InputValidator.isEmpty(formData.teamLead),
     }));
   };
 
   function handleModalSubmit() {
     checkForError();
     if (!InputValidator.isObjectEmpty(formData)) {
+      console.log('modal submitted: ', formData);
+      setShowAssignClientModal(false);
     } else {
       console.error("Failed from assign client modal");
+      console.log(formError);
     }
+  }
+
+  function setClientFromDropdown(value, controlId) {
+    console.log('selected client is : ', value);
+    console.log('selected controlId is : ', controlId);
+    const errorId = giveNameWithError(controlId);
+    setFormError((prevState) => ({ ...prevState, [errorId]: "" }));
+    setFormData({
+      ...formData,
+      clientId: value.clientId
+    })
+    setSelectedClient({
+      ...selectedClient,
+      clientName: value.clientName,
+      businessUnit: value.businessUnit,
+      project: value.project,
+      teamLead: value.teamLead,
+      hiringManager: value.hiringManager,
+
+    })
   }
 
   return (
@@ -257,20 +337,22 @@ export const RecentOnboarding = () => {
           handleCloseModal={handleApproveModalClose}
           extraFields={
             <>
-              <LabelAndInputField
+              <LabelAndDropdownFieldForObject
                 mdValue={6}
                 lgValue={6}
                 smValue={12}
                 xsValue={12}
-                controlId={"customerName"}
-                labelText={"Customer Name"}
+                controlId={'client'}
+                labelText={'Client'}
                 isCompulsary={true}
-                placeholder={"Enter Customer Name"}
-                inputType={"text"}
-                value={formData.customerName}
-                handleInputChange={handleInputChange}
-                errorMessage={formError.errorCustomerName}
+                optionList={clientList.map((client) => ({
+                  label: `${client.clientName}`,
+                  value: client,
+                }))}
+                handleInputChange={setClientFromDropdown}
+                errorMessage={formError.errorClient}
               />
+
               <LabelAndInputField
                 mdValue={6}
                 lgValue={6}
@@ -281,9 +363,8 @@ export const RecentOnboarding = () => {
                 isCompulsary={true}
                 placeholder={"Enter Business Unit"}
                 inputType={"text"}
-                value={formData.businessUnit}
-                handleInputChange={handleInputChange}
-                errorMessage={formError.errorBusinessUnit}
+                value={selectedClient.businessUnit}
+                isReadOnly={true}
               />
               <LabelAndInputField
                 mdValue={6}
@@ -295,9 +376,8 @@ export const RecentOnboarding = () => {
                 isCompulsary={true}
                 placeholder={"Enter Project"}
                 inputType={"text"}
-                value={formData.project}
-                handleInputChange={handleInputChange}
-                errorMessage={formError.errorProject}
+                value={selectedClient.project}
+                isReadOnly={true}
               />
               <LabelAndInputField
                 mdValue={6}
@@ -309,9 +389,23 @@ export const RecentOnboarding = () => {
                 isCompulsary={true}
                 placeholder={"Enter Hiring Manager"}
                 inputType={"text"}
-                value={formData.hiringManager}
+                value={selectedClient.hiringManager}
                 handleInputChange={handleInputChange}
-                errorMessage={formError.errorHiringManager}
+                isReadOnly={true}
+              />
+              <LabelAndInputField
+                mdValue={6}
+                lgValue={6}
+                smValue={12}
+                xsValue={12}
+                controlId={"teamLead"}
+                labelText={"Team Lead"}
+                isCompulsary={true}
+                placeholder={"Enter Team Lead"}
+                inputType={"text"}
+                value={selectedClient.teamLead}
+                handleInputChange={handleInputChange}
+                isReadOnly={true}
               />
               <LabelAndInputField
                 mdValue={6}
@@ -396,21 +490,7 @@ export const RecentOnboarding = () => {
                 optionList={allocationTypeList}
                 handleInputChange={handleInputChange}
                 errorMessage={formError.errorAllocationType}
-              />
-              <LabelAndInputField
-                mdValue={6}
-                lgValue={6}
-                smValue={12}
-                xsValue={12}
-                controlId={"teamLead"}
-                labelText={"Team Lead"}
-                isCompulsary={true}
-                placeholder={"Enter Team Lead"}
-                inputType={"text"}
-                value={formData.teamLead}
-                handleInputChange={handleInputChange}
-                isRequired={true}
-                errorMessage={formError.errorTeamLead}
+                formatOption={true}
               />
             </>
           }

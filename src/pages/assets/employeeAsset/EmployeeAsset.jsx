@@ -31,7 +31,6 @@ const EmployeeAsset = () => {
       workLocation: "Indore",
       workType: "Full-time",
     },
-    // Add more data...
     {
       id: 3,
       assetType: "Laptop",
@@ -184,7 +183,6 @@ const EmployeeAsset = () => {
         <div className='container-fluid'>
           <div className='row'>
             <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
-              {/* <Sidebar /> */}
               <SideBar
                 userRole={getCurrentUserDetails().role}
                 headerName={HEADER_ASSET}

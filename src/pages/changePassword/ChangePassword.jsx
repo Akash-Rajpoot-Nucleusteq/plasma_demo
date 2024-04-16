@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-// import Sidebar from './SideBar';
-import SideBar from "./../../components/SideBar";
 import { Form, Button, Col, Alert, Row } from "react-bootstrap";
-import InputFieldWithValidation from "../../components/InputFieldWithValidation";
-import Label from "../../components/Label";
-import ButtonComponent from "../../components/ButtonComponent";
-import { getCurrentUserDetails } from "../../authentication/auth";
+import SideBar from "../../components/layout/SideBar";
+import { getCurrentUserDetails } from "../../utility/authentication/auth";
+import Label from "../../components/uiElements/Label";
+import InputFieldWithValidation from "../../components/uiElements/InputFieldWithValidation";
 
 const ChangePassword = () => {
   const [formData, setFormData] = useState({
@@ -54,9 +52,8 @@ const ChangePassword = () => {
       <div className='container-fluid'>
         <div className='row'>
           <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
-            {/* <Sidebar /> */}
             <SideBar
-              userRole={getCurrentUserDetails().role}
+              userRole={getCurrentUserDetails()?.role}
               currentPageName={"Change Password"}
             />
           </div>

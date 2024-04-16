@@ -22,30 +22,26 @@ import { Inventory } from "./pages/asset/asset-inventory";
 import { TalentDashboard } from "./pages/dashboard/talent-dashboard";
 import { ClientDashboard } from "./pages/dashboard/client_dashboard";
 
-
 import { AccountManagementRecentOnboarding } from "./pages/account-management";
-import { CLIENT_MANAGER, EMPLOYEE, MANAGER, RECRUITER, RECRUITER_MANAGER } from "./assets/common/roles";
-
+import {
+  CLIENT_MANAGER,
+  EMPLOYEE,
+  MANAGER,
+  RECRUITER,
+  RECRUITER_MANAGER,
+} from "./assets/common/roles";
 
 const Customer = lazy(() => import("./pages/customer"));
 const AddClient = lazy(() => import("./pages/customer/add-client"));
 const ActiveClient = lazy(() => import("./pages/customer/active-client"));
-const Allocation = lazy(() =>
-  import("./pages/account-management/allocation")
-);
-const Billing = lazy(() =>
-  import("./pages/account-management/billing/index")
-);
+const Allocation = lazy(() => import("./pages/account-management/allocation"));
+const Billing = lazy(() => import("./pages/account-management/billing/index"));
 const ResourceRevenue = lazy(() =>
   import("./pages/account-management/employee-timesheet/index")
 );
-const Revenue = lazy(() =>
-  import("./pages/account-management/revenue/index")
-);
+const Revenue = lazy(() => import("./pages/account-management/revenue/index"));
 
-const Dashboard = lazy(() =>
-  import("./pages/dashboard/dashboard/index")
-);
+const Dashboard = lazy(() => import("./pages/dashboard/dashboard/index"));
 const Leave = lazy(() => import("./pages/leave"));
 const Employment = lazy(() => import("./pages/profile/employement/"));
 //profile
@@ -61,20 +57,13 @@ const ClientReport = lazy(() =>
   import("./pages/account-management/client-reports")
 );
 
-const CalendarPage = lazy(() =>
-  import("./pages/calendar/index")
-);
+const CalendarPage = lazy(() => import("./pages/calendar/index"));
 
-
-const NewOnboarding = lazy(() =>
-  import("./pages/recruiter/newonboarding")
-);
+const NewOnboarding = lazy(() => import("./pages/recruiter/newonboarding"));
 const OnboardingApproval = lazy(() =>
   import("./pages/recruiter/OnboardingApproval")
 );
-const ApprovalHistory = lazy(() =>
-  import("./pages/recruiter/ApprovalHistory")
-);
+const ApprovalHistory = lazy(() => import("./pages/recruiter/ApprovalHistory"));
 const OnboardingApprovalForm = lazy(() =>
   import("./pages/recruiter/OnboardingApprovalForm")
 );
@@ -94,11 +83,17 @@ const VendorOnboardingHistory = lazy(() =>
 
 // Assset
 const AssetsPage = lazy(() => import("./pages/asset/index"));
-const EmployeeAssetsPage = lazy(() => import("./pages/asset/employee-assets/index"));
-const AssignAssets = lazy(() => import("./pages/asset/assign-assets-to-employee/index"));
+const EmployeeAssetsPage = lazy(() =>
+  import("./pages/asset/employee-assets/index")
+);
+const AssignAssets = lazy(() =>
+  import("./pages/asset/assign-assets-to-employee/index")
+);
 // Timesheet
 const PendingTimesheetPage = lazy(() => import("./pages/timesheet/index"));
-const ApprovedTimesheetPage = lazy(() => import("./pages/timesheet/timesheet-approved/index"));
+const ApprovedTimesheetPage = lazy(() =>
+  import("./pages/timesheet/timesheet-approved/index")
+);
 const EmployeeTimesheetPage = lazy(() =>
   import("./pages/timesheet/employeetimesheet/index")
 );
@@ -652,7 +647,7 @@ const AppUniversal = function (props) {
               />
             </Route>
           )}
-          
+
           {/* Client manager */}
           {userDetails?.role === CLIENT_MANAGER && (
             <Route path='/client' element={<ClientManagerRoute />}>
@@ -1325,7 +1320,6 @@ const AppUniversal = function (props) {
                   </Suspense>
                 )}
               />
-
             </Route>
           )}
         </Switch>

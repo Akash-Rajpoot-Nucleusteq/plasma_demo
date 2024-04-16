@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import Holiday from "./Holiday";
 import ButtonComponent from "../uiElements/ButtonComponent";
 import CommonModal from "../uiElements/CommonModal";
@@ -32,14 +31,9 @@ export default function HolidayListComponent() {
             showModal={showHolidayModal}
             extraFields={
               <div class='container'>
-                <div class='row'>
-                  <div class='col'>
-                    <div class='d-flex justify-content-center'>
-                      <Holiday />
-                    </div>
-                  </div>
-                </div>
+                <Holiday />
               </div>
+
             }
             handleCloseModal={handleCloseHolidayModal}
           />

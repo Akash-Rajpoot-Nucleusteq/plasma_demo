@@ -9,3 +9,5 @@ export const currencyTypeList = ['USD', 'INR', 'CAD']
 export const onshoreOrOffshoreList = ['ONSHORE', 'OFFSHORE']
 export const genderList = ['MALE', 'FEMALE', 'OTHER']
 export const bloodGroupList = ['O_POSITIVE', 'O_NEGATIVE', 'A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE']
+export const leaveOptions = ['SICK_LEAVE', 'PAID_LEAVE', 'COMP_OFF', 'SABBATICAL', "CASUAL_LEAVE", "MATERNITY_LEAVE"];
+export const halfDayOptions = ['FULL_DAY', 'HALF_DAY'];

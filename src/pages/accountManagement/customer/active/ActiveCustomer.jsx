@@ -1,9 +1,10 @@
 import React from "react";
-import SideBar from "../../../../components/layout/SideBar";
-import { Toggle } from "../../../../components/layout/Toggle";
+import Toggle from "../../../../components/layout/Toggle";
+import { Table } from "antd";
 import CommonTable from "../../../../components/uiElements/CommonTable";
-import { getCurrentUserDetails } from "../../../../utility/authentication/auth";
+import SideBar from "../../../../components/layout/SideBar";
 import { HEADER_ACCOUNT } from "../../../../assets/common/constants";
+import { getCurrentUserDetails } from "../../../../utility/authentication/auth";
 import Header from "../../../../components/layout/Header";
 const ActiveCustomer = () => {
   const dummyData = [
@@ -90,9 +91,9 @@ const ActiveCustomer = () => {
           <div className='row'>
             <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
               <SideBar
-                userRole={getCurrentUserDetails().role}
                 headerName={HEADER_ACCOUNT}
-                currentPageName={"Customer"}
+                userRole={getCurrentUserDetails()?.role}
+                currentPageName={"Active Customers"}
               />
             </div>
             <div className='col-xl-9 col-lg-8  col-md-12'>

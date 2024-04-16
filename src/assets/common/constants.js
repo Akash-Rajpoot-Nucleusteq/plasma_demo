@@ -5,7 +5,7 @@ export const RECRUITER = "RECRUITER";
 export const RECRUITER_MANAGER = "RECRUITER_MANAGER";
 export const CLIENT_MANAGER = "CLIENT_MANAGER";
 
-//Header Names
+//Header Names 
 export const HEADER_DASHBOARD = "Dashboard";
 export const HEADER_TIMESHEET = "Timesheet";
 export const HEADER_ASSET = "Asset";

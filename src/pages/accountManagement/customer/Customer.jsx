@@ -2,7 +2,7 @@ import React from "react";
 import SideBar from "../../../components/layout/SideBar";
 import CommonTable from "../../../components/uiElements/CommonTable";
 import Header from "../../../components/layout/Header";
-import { Toggle } from "../../../components/layout/Toggle";
+import Toggle from "../../../components/layout/Toggle";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth";
 import { HEADER_ACCOUNT, HEADER_ASSET } from "../../../assets/common/constants";
 const Customer = () => {

@@ -9,12 +9,13 @@ export default function LabelAndPhoneNumberInputField({
     smValue,
     xsValue,
     lgValue,
-    
+
     controlId,
     labelText,
     isCompulsary,
     value,
     onChange,
+    isReadOnly,
     error
 }) {
     return (
@@ -27,6 +28,7 @@ export default function LabelAndPhoneNumberInputField({
                     onChange={onChange}
                     inputProps={{
                         required: true,
+                        disabled: isReadOnly,
                     }}
                     className='form-control'
                     inputClass='border-0'

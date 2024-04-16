@@ -7,8 +7,12 @@ import LabelAndInputField from "../../../components/uiElements/LabelAndInputFiel
 import ButtonComponent from "../../../components/uiElements/ButtonComponent";
 import Label from "../../../components/uiElements/Label";
 import { getCurrentDate } from "../../../utility/commonFunctions/CommonFunctions.jsx";
+import LabelAndDropdownFieldForObject from "../../../components/uiElements/LabelAndDropdownFieldForObject.jsx";
 
-export default function AssignAssetForm({ assetData }) {
+export default function AssignAssetForm(
+  { assetData }
+) {
+
   const [formData, setFormData] = useState({
     assetType: "",
     assetProvidedBy: "",
@@ -29,11 +33,11 @@ export default function AssignAssetForm({ assetData }) {
     errorEmployee: "",
   });
 
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
 
   const [value, setValue] = useState();
-  const [data, setData] = useState();
-  const [showOptions, setShowOptions] = useState(false);
+  const [valueWithName, setValueWithName] = useState(null);
+  const [valueWithEmployeeId, setValueWithEmployeeId] = useState(null);
 
   const employeeList = [
     {
@@ -118,81 +122,40 @@ export default function AssignAssetForm({ assetData }) {
     },
   ];
 
-  function formatDate(date) {
-    return moment(date).format("YYYY-MM-DD");
-  }
-
   useEffect(() => {
     if (assetData) {
       setFormData((prevData) => ({
         ...prevData,
         assetType:
           assetData.assetType !== undefined &&
-          assetData.assetType !== null &&
-          assetData.assetType !== ""
+            assetData.assetType !== null &&
+            assetData.assetType !== ""
             ? assetData.assetType
             : "",
         assetOs:
           assetData.assetOs !== undefined &&
-          assetData.assetOs !== null &&
-          assetData.assetOs !== ""
+            assetData.assetOs !== null &&
+            assetData.assetOs !== ""
             ? assetData.assetOs
             : "",
         assetProvidedBy:
           assetData.assetProvidedBy !== undefined &&
-          assetData.assetProvidedBy !== null &&
-          assetData.assetProvidedBy !== ""
+            assetData.assetProvidedBy !== null &&
+            assetData.assetProvidedBy !== ""
             ? assetData.assetProvidedBy
             : "",
         assetId:
           assetData.assetId !== undefined &&
-          assetData.assetId !== null &&
-          assetData.assetId !== ""
+            assetData.assetId !== null &&
+            assetData.assetId !== ""
             ? assetData.assetId
             : "",
       }));
     }
-    if (selectedEmployee) {
-      const selectedEmpData = employeeList.find(
-        (emp) => emp.employeeId === selectedEmployee
-      );
-      setFormData((prevData) => ({
-        ...prevData,
-        employeeClientPartner:
-          selectedEmpData.employeeClientPartner !== undefined &&
-          selectedEmpData.employeeClientPartner !== null
-            ? selectedEmpData.employeeClientPartner
-            : "",
-        employeeFirstName:
-          selectedEmpData.employeeFirstName !== undefined &&
-          selectedEmpData.employeeFirstName !== null
-            ? selectedEmpData.employeeFirstName
-            : "",
-        employeeLastName:
-          selectedEmpData.employeeLastName !== undefined &&
-          selectedEmpData.employeeLastName !== null
-            ? selectedEmpData.employeeLastName
-            : "",
-        employeeId:
-          selectedEmpData.employeeId !== undefined &&
-          selectedEmpData.employeeId !== null
-            ? selectedEmpData.employeeId
-            : "",
-        employeeWorkLocation:
-          selectedEmpData.employeeWorkLocation !== undefined &&
-          selectedEmpData.employeeWorkLocation !== null
-            ? selectedEmpData.employeeWorkLocation
-            : "",
-        employeeWorkType:
-          selectedEmpData.employeeWorkType !== undefined &&
-          selectedEmpData.employeeWorkType !== null
-            ? selectedEmpData.employeeWorkType
-            : "",
-      }));
-    }
-  }, [assetData, selectedEmployee]);
+  }, [assetData]);
 
   function checkForError() {
+    console.log('form data is :', formData);
     setFormError({
       ...formError,
       errorEmployee:
@@ -200,17 +163,53 @@ export default function AssignAssetForm({ assetData }) {
     });
   }
 
-  function setEmployee(event) {
-    setSelectedEmployee(event.target.value);
-    setFormError({
-      ...formError,
-      errorEmployee: "",
-    });
-  }
-
-  function setEmployeeFromDropdown(value) {
-    setSelectedEmployee(value.employeeId);
+  function setEmployeeFromDropdown(value, controlId) {
+    setSelectedEmployeeId(value.employeeId);
     setValue(`${value.employeeFirstName} ${value.employeeLastName}`);
+    setValueWithName({
+      ...valueWithName,
+      label: `${value.employeeFirstName} ${value.employeeLastName}`,
+      value: value,
+    })
+    setValueWithEmployeeId({
+      ...valueWithEmployeeId,
+      label: `${value.employeeId}`,
+      value: value,
+    })
+    const selectedEmpData = value;
+    setFormData((prevData) => ({
+      ...prevData,
+      employeeClientPartner:
+        selectedEmpData.employeeClientPartner !== undefined &&
+          selectedEmpData.employeeClientPartner !== null
+          ? selectedEmpData.employeeClientPartner
+          : "",
+      employeeFirstName:
+        selectedEmpData.employeeFirstName !== undefined &&
+          selectedEmpData.employeeFirstName !== null
+          ? selectedEmpData.employeeFirstName
+          : "",
+      employeeLastName:
+        selectedEmpData.employeeLastName !== undefined &&
+          selectedEmpData.employeeLastName !== null
+          ? selectedEmpData.employeeLastName
+          : "",
+      employeeId:
+        selectedEmpData.employeeId !== undefined &&
+          selectedEmpData.employeeId !== null
+          ? selectedEmpData.employeeId
+          : "",
+      employeeWorkLocation:
+        selectedEmpData.employeeWorkLocation !== undefined &&
+          selectedEmpData.employeeWorkLocation !== null
+          ? selectedEmpData.employeeWorkLocation
+          : "",
+      employeeWorkType:
+        selectedEmpData.employeeWorkType !== undefined &&
+          selectedEmpData.employeeWorkType !== null
+          ? selectedEmpData.employeeWorkType
+          : "",
+    }));
     setShowOptions(false);
     setFormError({
       ...formError,
@@ -225,11 +224,7 @@ export default function AssignAssetForm({ assetData }) {
     } else {
     }
   }
-  const onChange = (e) => {
-    setValue(e.target.value);
-    setData(employeeList);
-    setShowOptions(true);
-  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <div className='card-header'>
@@ -300,77 +295,37 @@ export default function AssignAssetForm({ assetData }) {
           <div className='col-12'>
             <div className='document-up'>
               <Row>
-                <Col md={6}>
-                  <Form.Group controlId='employeeName'>
-                    <Label labelText={"Select Employee"} />
-                    <ReactSelect
-                      options={employeeList.map((emp) => ({
-                        label: `${emp.employeeFirstName} ${emp.employeeLastName}`,
-                        value: emp,
-                      }))}
-                      onChange={(selectedOption) =>
-                        setEmployeeFromDropdown(selectedOption.value)
-                      }
-                      isClearable
-                      components={{
-                        ClearIndicator: null,
-                      }}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId='employeeName'>
-                    <Form.Label>Employee Name</Form.Label>
-                    <Form.Control
-                      as='select'
-                      onChange={setEmployee}
-                      value={formData.employeeId || ""}>
-                      <option value=''>Select Employee Name</option>
-                      {employeeList
-                        .sort((a, b) =>
-                          a.employeeFirstName.localeCompare(b.employeeFirstName)
-                        )
-                        .map((emp, index) => (
-                          <option key={index} value={emp.employeeId}>
-                            {emp.employeeFirstName} {emp.employeeLastName}
-                          </option>
-                        ))}
-                    </Form.Control>
-                    {formError.errorEmployee && (
-                      <span className='text-danger small'>
-                        {formError.errorEmployee}
-                      </span>
-                    )}
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId='employeeId'>
-                    <Form.Label>Employee Id</Form.Label>
-                    <Form.Control
-                      as='select'
-                      onChange={setEmployee}
-                      value={formData.employeeId || ""}>
-                      <option value=''>Select Employee Id</option>
-                      {employeeList
-                        .sort((a, b) =>
-                          a.employeeId.localeCompare(b.employeeId)
-                        )
-                        .map((emp, index) => (
-                          <option key={index} value={emp.employeeId}>
-                            {emp.employeeId}
-                          </option>
-                        ))}
-                    </Form.Control>
-                    {formError.errorEmployee && (
-                      <span className='text-danger small'>
-                        {formError.errorEmployee}
-                      </span>
-                    )}
-                  </Form.Group>
-                </Col>
+                <LabelAndDropdownFieldForObject
+                  mdValue={6}
+                  lgValue={6}
+                  smValue={12}
+                  xsValue={12}
+                  controlId={'employeeName'}
+                  labelText={'Select Employee'}
+                  value={valueWithName}
+                  optionList={employeeList.map((emp) => ({
+                    label: `${emp.employeeFirstName} ${emp.employeeLastName}`,
+                    value: emp,
+                  }))}
+                  handleInputChange={setEmployeeFromDropdown}
+                />
+                <LabelAndDropdownFieldForObject
+                  mdValue={6}
+                  lgValue={6}
+                  smValue={12}
+                  xsValue={12}
+                  controlId={'employeeId'}
+                  labelText={'Employee Id'}
+                  value={valueWithEmployeeId}
+                  optionList={employeeList
+                    .sort((a, b) =>
+                      a.employeeId.localeCompare(b.employeeId)
+                    ).map((emp) => ({
+                      label: `${emp.employeeId}`,
+                      value: emp,
+                    }))}
+                  handleInputChange={setEmployeeFromDropdown}
+                />
               </Row>
 
               <Row>
@@ -420,7 +375,7 @@ export default function AssignAssetForm({ assetData }) {
               variant={"primary"}
               type={"submit"}
               className={"btn btn-theme button-1 text-white ctm-border-radius "}
-              buttonText={"Approve"}
+              buttonText={"Assign"}
             />
           </div>
         </div>

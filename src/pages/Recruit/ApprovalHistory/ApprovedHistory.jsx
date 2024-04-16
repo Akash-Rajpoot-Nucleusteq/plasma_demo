@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import SideBar from "../../../components/layout/SideBar";
-import CommonTable from "../../../components/uiElements/CommonTable";
-import CommonModal from "../../../components/uiElements/CommonModal";
+import SideBar from "../../../components/layout/SideBar.jsx";
+import CommonTable from "../../../components/uiElements/CommonTable.jsx";
+import CommonModal from "../../../components/uiElements/CommonModal.jsx";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
-import { HEADER_RECRUITER } from "../../../assets/common/constants";
+import { HEADER_RECRUITER } from "../../../assets/common/constants.js";
 import Header from "../../../components/layout/Header.jsx";
 
 const ApprovedHistory = () => {
@@ -492,7 +492,6 @@ const ApprovedHistory = () => {
         <div className='container-fluid'>
           <div className='row'>
             <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
-              {/* <Sidebar /> */}
               <SideBar
                 userRole={getCurrentUserDetails().role}
                 headerName={HEADER_RECRUITER}

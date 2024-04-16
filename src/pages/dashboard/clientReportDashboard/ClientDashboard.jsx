@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { Button } from "react-bootstrap";
-// import SideBar from "../../documents/SideBar";
 import SideBar from "../../../components/SideBar";
 import { Select } from "antd";
 import { Option } from "antd/lib/mentions";
@@ -203,7 +202,6 @@ export const ClientDashboard = () => {
       <div className='container-fluid'>
         <div className='row'>
           <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
-            {/* <SideBar /> */}
             <SideBar
               userRole={getCurrentUserDetails().role}
               currentPageName={"Report"}

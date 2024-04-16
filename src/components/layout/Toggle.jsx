@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export const Toggle = () => {
+export default function Toggle() {
   return (
     <div className='card shadow-sm ctm-border-radius'>
       <div className='card-body align-center'>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../../components/layout/SideBar";
 import Abhay from "../../assets/images/Abhay.png";
 import Vivek from "../../assets/images/Vivek.png";
@@ -33,6 +33,7 @@ function Dashboard() {
     { profilePhoto: Abhay, message: "Festival wishes" },
     { profilePhoto: Vivek, message: "Calling for referral" },
   ];
+
   return (
     <>
       <Header />

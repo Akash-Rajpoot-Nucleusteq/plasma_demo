@@ -1,12 +1,24 @@
-import React, { useRef, useState } from "react";
-import { Modal, Row, Form, Col, Button } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Modal, Form, Col, Button } from "react-bootstrap";
 import InputValidator from "../../validations/InputValidator";
 import { getCountryList } from "../../utility/commonFunctions/CommonFunctions.jsx";
 import LabelAndDropdownField from "./LabelAndDropdownField.jsx";
-export function AdharPopUpUpload({ adharCard, setAdharCard }) {
+
+//popup to upload adhar.
+export function AdharPopUpUpload({ adharCard, setAdharCard, handleSubmitCustom }) {
   const fileInputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [documentView, setDocumentView] = useState(null);
+
+  let isGettingRealData = false;
+
+  useEffect(() => {
+    checkForHavingRealData();
+  }, [adharCard.showAttachmentModal])
+
+  function checkForHavingRealData() {
+    isGettingRealData = adharCard.adharAttachment ? true : false;
+  }
 
   function handleClose() {
     setAdharCard({
@@ -25,24 +37,27 @@ export function AdharPopUpUpload({ adharCard, setAdharCard }) {
     }
   }
   function handleCloseButton() {
-    if (InputValidator.isObjectEmpty(adharCard)) {
-      setAdharCard((prevState) => ({
-        ...prevState,
-        showAttachmentModal: false,
-        commingFromBackend: false,
-        adharAttachment: null,
-        adharNumber: "",
-        adharDob: "",
-      }));
-    } else {
-      setAdharCard((prevState) => ({
-        ...prevState,
-        commingFromBackend: false,
-        adharAttachment: null,
-        adharNumber: "",
-        adharDob: "",
-      }));
-    }
+    if (isGettingRealData) {
+      handleClose();
+    } else
+      if (InputValidator.isObjectEmpty(adharCard)) {
+        setAdharCard((prevState) => ({
+          ...prevState,
+          showAttachmentModal: false,
+          commingFromBackend: false,
+          adharAttachment: null,
+          adharNumber: "",
+          adharDob: "",
+        }));
+      } else {
+        setAdharCard((prevState) => ({
+          ...prevState,
+          commingFromBackend: false,
+          adharAttachment: null,
+          adharNumber: "",
+          adharDob: "",
+        }));
+      }
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -75,6 +90,7 @@ export function AdharPopUpUpload({ adharCard, setAdharCard }) {
         ...adharCard,
         showAttachmentModal: false,
       });
+      handleSubmitCustom && handleSubmitCustom(adharCard)
     }
   }
   const handleInputChange = (event) => {
@@ -183,11 +199,21 @@ export function AdharPopUpUpload({ adharCard, setAdharCard }) {
 }
 
 //popup to upload passport.
-export function PassportPopUpUpload({ passport, setPassport }) {
+export function PassportPopUpUpload({ passport, setPassport, handleSubmitCustom }) {
   const fileInputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [documentView, setDocumentView] = useState(null);
   const countryList = getCountryList();
+
+  let isGettingRealData = false;
+
+  useEffect(() => {
+    checkForHavingRealData();
+  }, [passport.showAttachmentModal])
+
+  function checkForHavingRealData() {
+    isGettingRealData = passport.passportAttachment ? true : false;
+  }
 
   function handleClose() {
     setPassport({
@@ -208,28 +234,31 @@ export function PassportPopUpUpload({ passport, setPassport }) {
   }
 
   function handleCloseButton() {
-    if (InputValidator.isObjectEmpty(passport)) {
-      setPassport((prevState) => ({
-        ...prevState,
-        showAttachmentModal: false,
-        commingFromBackend: false,
-        passportAttachment: null,
-        passportCountry: "",
-        passportIssueDate: "",
-        passportNumber: "",
-        passportExpDate: "",
-      }));
-    } else {
-      setPassport((prevState) => ({
-        ...prevState,
-        commingFromBackend: false,
-        passportAttachment: null,
-        passportCountry: "",
-        passportIssueDate: "",
-        passportNumber: "",
-        passportExpDate: "",
-      }));
-    }
+    if (isGettingRealData) {
+      handleClose();
+    } else
+      if (InputValidator.isObjectEmpty(passport)) {
+        setPassport((prevState) => ({
+          ...prevState,
+          showAttachmentModal: false,
+          commingFromBackend: false,
+          passportAttachment: null,
+          passportCountry: "",
+          passportIssueDate: "",
+          passportNumber: "",
+          passportExpDate: "",
+        }));
+      } else {
+        setPassport((prevState) => ({
+          ...prevState,
+          commingFromBackend: false,
+          passportAttachment: null,
+          passportCountry: "",
+          passportIssueDate: "",
+          passportNumber: "",
+          passportExpDate: "",
+        }));
+      }
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -265,6 +294,7 @@ export function PassportPopUpUpload({ passport, setPassport }) {
         ...passport,
         showAttachmentModal: false,
       });
+      handleSubmitCustom && handleSubmitCustom(passport)
     }
   }
 
@@ -288,17 +318,15 @@ export function PassportPopUpUpload({ passport, setPassport }) {
           <h4 className='modal-title mb-3'>Upload Passport</h4>
         </Modal.Header>
         <Modal.Body>
-          <Col>
-            <LabelAndDropdownField
-              controlId={"passportCountry"}
-              labelText={"Country"}
-              isCompulsary={true}
-              optionList={countryList}
-              value={passport.passportCountry}
-              showDefaultOption={true}
-              handleInputChange={handleInputChange}
-            />
-          </Col>
+          <LabelAndDropdownField
+            controlId={"passportCountry"}
+            labelText={"Country"}
+            isCompulsary={true}
+            optionList={countryList}
+            value={passport.passportCountry}
+            showDefaultOption={true}
+            handleInputChange={handleInputChange}
+          />
           <Col>
             <Form.Group controlId='passportIssueDate'>
               <Form.Label>
@@ -331,7 +359,7 @@ export function PassportPopUpUpload({ passport, setPassport }) {
                 Passport Number<span className='text-danger'>*</span>
               </Form.Label>
               <Form.Control
-                placeholder='Enter Employment Company'
+                placeholder='Enter Passport Number'
                 value={passport.passportNumber}
                 onChange={handleInputChange}
               />
@@ -402,10 +430,20 @@ export function PassportPopUpUpload({ passport, setPassport }) {
 export function WorkAuthorizationPopUpUpload({
   workAuthorization,
   setWorkAuthorization,
+  handleSubmitCustom
 }) {
   const fileInputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [documentView, setDocumentView] = useState(null);
+  let isGettingRealData = false;
+
+  useEffect(() => {
+    checkForHavingRealData();
+  }, [workAuthorization.showAttachmentModal])
+
+  function checkForHavingRealData() {
+    isGettingRealData = workAuthorization.workAuthorizationAttachment ? true : false;
+  }
 
   function handleClose() {
     if (InputValidator.isObjectEmpty(workAuthorization)) {
@@ -428,24 +466,27 @@ export function WorkAuthorizationPopUpUpload({
   }
 
   function handleCloseButton() {
-    if (InputValidator.isObjectEmpty(workAuthorization)) {
-      setWorkAuthorization((prevState) => ({
-        ...prevState,
-        showAttachmentModal: false,
-        commingFromBackend: false,
-        workAuthorizationAttachment: null,
-        workAuthorizationNumber: "",
-        workAuthorizationValidTill: "",
-      }));
-    } else {
-      setWorkAuthorization((prevState) => ({
-        ...prevState,
-        commingFromBackend: false,
-        workAuthorizationAttachment: null,
-        workAuthorizationNumber: "",
-        workAuthorizationValidTill: "",
-      }));
-    }
+    if (isGettingRealData) {
+      handleClose();
+    } else
+      if (InputValidator.isObjectEmpty(workAuthorization)) {
+        setWorkAuthorization((prevState) => ({
+          ...prevState,
+          showAttachmentModal: false,
+          commingFromBackend: false,
+          workAuthorizationAttachment: null,
+          workAuthorizationNumber: "",
+          workAuthorizationValidTill: "",
+        }));
+      } else {
+        setWorkAuthorization((prevState) => ({
+          ...prevState,
+          commingFromBackend: false,
+          workAuthorizationAttachment: null,
+          workAuthorizationNumber: "",
+          workAuthorizationValidTill: "",
+        }));
+      }
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -490,6 +531,7 @@ export function WorkAuthorizationPopUpUpload({
         ...workAuthorization,
         showAttachmentModal: false,
       });
+      handleSubmitCustom && handleSubmitCustom(workAuthorization)
     }
   }
 
@@ -591,10 +633,19 @@ export function WorkAuthorizationPopUpUpload({
 }
 
 //popup to upload pan card.
-export function PanPopUpUpload({ pan, setPan }) {
+export function PanPopUpUpload({ pan, setPan, handleSubmitCustom }) {
   const fileInputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [documentView, setDocumentView] = useState(null);
+  let isGettingRealData = false;
+
+  useEffect(() => {
+    checkForHavingRealData();
+  }, [pan.showAttachmentModal])
+
+  function checkForHavingRealData() {
+    isGettingRealData = pan.panAttachment ? true : false;
+  }
 
   function handleClose() {
     setPan({
@@ -615,22 +666,25 @@ export function PanPopUpUpload({ pan, setPan }) {
   }
 
   function handleCloseButton() {
-    if (InputValidator.isObjectEmpty(pan)) {
-      setPan((prevState) => ({
-        ...prevState,
-        showAttachmentModal: false,
-        commingFromBackend: false,
-        panNumber: "",
-        panAttachment: null,
-      }));
-    } else {
-      setPan((prevState) => ({
-        ...prevState,
-        panNumber: "",
-        panAttachment: null,
-        commingFromBackend: false,
-      }));
-    }
+    if (isGettingRealData) {
+      handleClose();
+    } else
+      if (InputValidator.isObjectEmpty(pan)) {
+        setPan((prevState) => ({
+          ...prevState,
+          showAttachmentModal: false,
+          commingFromBackend: false,
+          panNumber: "",
+          panAttachment: null,
+        }));
+      } else {
+        setPan((prevState) => ({
+          ...prevState,
+          panNumber: "",
+          panAttachment: null,
+          commingFromBackend: false,
+        }));
+      }
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -666,6 +720,7 @@ export function PanPopUpUpload({ pan, setPan }) {
         ...pan,
         showAttachmentModal: false,
       });
+      handleSubmitCustom && handleSubmitCustom(pan)
     }
   }
 
@@ -769,10 +824,20 @@ export function PanPopUpUpload({ pan, setPan }) {
   );
 }
 
-export function CommonPopUpUpload({ data, setData, heading }) {
+//popup to upload pan card.
+export function CommonPopUpUpload({ data, setData, heading, handleSubmitCustom }) {
   const [errorMessage, setErrorMessage] = useState("");
   const fileInputRef = useRef(null);
   const [documentView, setDocumentView] = useState(null);
+  let isGettingRealData = false;
+
+  useEffect(() => {
+    checkForHavingRealData();
+  }, [data.showAttachmentModal])
+
+  function checkForHavingRealData() {
+    isGettingRealData = data.document ? true : false;
+  }
 
   function handleClose() {
     setData((prevState) => ({
@@ -800,25 +865,29 @@ export function CommonPopUpUpload({ data, setData, heading }) {
       document: file,
       commingFromBackend: false,
     }));
-
     setErrorMessage("");
   }
 
   function handleCloseButton() {
-    if (InputValidator.isObjectEmpty(data)) {
-      setData({
-        ...data,
-        showAttachmentModal: false,
-        commingFromBackend: false,
-        document: null,
-      });
+    if (isGettingRealData) {
+      handleClose();
     } else {
-      setData({
-        ...data,
-        commingFromBackend: false,
-        document: null,
-      });
+      if (InputValidator.isObjectEmpty(data)) {
+        setData({
+          ...data,
+          showAttachmentModal: false,
+          commingFromBackend: false,
+          document: null,
+        });
+      } else {
+        setData({
+          ...data,
+          commingFromBackend: false,
+          document: null,
+        });
+      }
     }
+
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -833,6 +902,7 @@ export function CommonPopUpUpload({ data, setData, heading }) {
         ...data,
         showAttachmentModal: false,
       });
+      handleSubmitCustom && handleSubmitCustom(data)
     }
   }
 
@@ -898,6 +968,82 @@ export function CommonPopUpUpload({ data, setData, heading }) {
               onClick={handleSubmit}>
               Save Document
             </Button>
+          </Col>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
+
+
+
+//popup to view document.
+export function ViewDocument({ data, setData, heading }) {
+  const [documentView, setDocumentView] = useState(null);
+
+  function handleClose() {
+    setData((prevState) => ({
+      ...prevState,
+      showAttachmentModal: false,
+    }));
+  }
+
+  function showDocumentView(file) {
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const selectedDocument = reader.result;
+        setDocumentView(selectedDocument);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  const show = data.showAttachmentModal;
+  return (
+    <>
+      {!data.isDataAvailable && showDocumentView(data.document)}
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <h4 className='modal-title mb-3'>{heading || "Header"}</h4>
+        </Modal.Header>
+        <Modal.Body>
+          <Col>
+            <Form.Label>
+              Your Document
+            </Form.Label>
+          </Col>
+
+          {data.document && (
+            <div style={{ padding: "10px" }}>
+              <div style={{ padding: "10px" }}>
+                {data.isDataAvailable ? (
+                  <embed
+                    src={`data:application/pdf;base64,${data.document}`}
+                    type='application/pdf'
+                    width='100%'
+                    height='500px'
+                  />
+                ) : (
+                  <embed
+                    src={documentView}
+                    type='application/pdf'
+                    width='100%'
+                    height='500px'
+                  />
+                )}
+              </div>
+            </div>
+          )}
+
+          <Col className='mt-3'>
+            <Button
+              variant='danger'
+              className='ctm-border-radius float-right ml-3'
+              onClick={handleClose}>
+              Cancel
+            </Button>
+
           </Col>
         </Modal.Body>
       </Modal>

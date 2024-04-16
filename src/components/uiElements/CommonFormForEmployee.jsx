@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Form, Row } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, useNavigate } from "react-router-dom";
 import InputValidator from "../../validations/InputValidator";
 import "react-phone-input-2/lib/style.css";
 import {
@@ -36,7 +36,7 @@ import ButtonComponent from "../../components/uiElements/ButtonComponent";
 
 export default function EmployeeForm({ employeeData, parentComponentName }) {
   const fileInputRef = useRef(null);
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     phoneNumber: "",
     firstName: "",
@@ -91,7 +91,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     errorZipCode: "",
     errorCitizenship: "",
     errorEmploymentNature: "",
-    errorEmploymentCompany: "",
+    // errorEmploymentCompany: "",
     errorWorkMode: "",
     errorEmploymentStartDate: "",
     errorRole: "",
@@ -99,7 +99,6 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     errorEmploymentStatus: "",
     errorCtc: "",
     errorBonus: "",
-    errorEmploymentCompany: "",
     errorContractingCompany: "",
     errorContractingRate: "",
 
@@ -131,14 +130,14 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
   const [adharCard, setAdharCard] = useState({
     showAttachmentModal: false,
     adharAttachment: null,
-    commingFromBackend: false,
+    isDataAvailable: false,
     adharNumber: "",
     adharDob: "",
   });
   const [passport, setPassport] = useState({
     showAttachmentModal: false,
     passportAttachment: null,
-    commingFromBackend: false,
+    isDataAvailable: false,
     passportCountry: "",
     passportIssueDate: "",
     passportNumber: "",
@@ -147,49 +146,49 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
   const [workAuthorization, setWorkAuthorization] = useState({
     showAttachmentModal: false,
     workAuthorizationAttachment: null,
-    commingFromBackend: false,
+    isDataAvailable: false,
     workAuthorizationNumber: "",
     workAuthorizationValidTill: "",
   });
   const [pan, setPan] = useState({
     showAttachmentModal: false,
     panAttachment: null,
-    commingFromBackend: false,
+    isDataAvailable: false,
     panNumber: "",
   });
   const [photo, setPhoto] = useState({
     showAttachmentModal: false,
-    commingFromBackend: false,
+    isDataAvailable: false,
     document: null,
   });
   const [resume, setResume] = useState({
     showAttachmentModal: false,
-    commingFromBackend: false,
+    isDataAvailable: false,
     document: null,
   });
   const [i94TravelHistory, setI94TravelHistory] = useState({
     showAttachmentModal: false,
-    commingFromBackend: false,
+    isDataAvailable: false,
     document: null,
   });
   const [photoId, setPhotoId] = useState({
     showAttachmentModal: false,
-    commingFromBackend: false,
+    isDataAvailable: false,
     document: null,
   });
   const [rentalAgreememt, setRentalAgreememt] = useState({
     showAttachmentModal: false,
-    commingFromBackend: false,
+    isDataAvailable: false,
     document: null,
   });
   const [educationDetails, setEducationDetails] = useState({
     showAttachmentModal: false,
-    commingFromBackend: false,
+    isDataAvailable: false,
     document: null,
   });
   const [i9Copy, setI9Copy] = useState({
     showAttachmentModal: false,
-    commingFromBackend: false,
+    isDataAvailable: false,
     document: null,
   });
   useEffect(() => {
@@ -239,12 +238,12 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
 
       setResume({
         ...resume,
-        commingFromBackend: true,
+        isDataAvailable: true,
         document: employeeData.resumeAttachment?.fileContent || null,
       });
       setPhoto({
         ...photo,
-        commingFromBackend: true,
+        isDataAvailable: true,
         document: employeeData.photoAttachment?.fileContent || null,
       });
 
@@ -259,12 +258,12 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
   function setOnshoreDocument() {
     setI94TravelHistory({
       ...i94TravelHistory,
-      commingFromBackend: true,
+      isDataAvailable: true,
       document: employeeData.i94TravelHistoryAttachment?.fileContent || null,
     });
     setI9Copy({
       ...i9Copy,
-      commingFromBackend: true,
+      isDataAvailable: true,
       document: employeeData.i9Copy?.fileContent || null,
     });
     setPassport({
@@ -274,7 +273,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       passportExpDate: employeeData.passportExpDate || "",
       passportCountry: employeeData.passportCountry || "",
       passportAttachment: employeeData.resumeAttachment?.fileContent || null,
-      commingFromBackend: true,
+      isDataAvailable: true,
     });
     setWorkAuthorization({
       ...workAuthorization,
@@ -282,7 +281,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       workAuthorizationValidTill: employeeData.workAuthorizationValidTill || "",
       workAuthorizationAttachment:
         employeeData.workAuthorizationAttachment?.fileContent || null,
-      commingFromBackend: true,
+      isDataAvailable: true,
     });
   }
 
@@ -292,30 +291,30 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       adharNumber: employeeData.adharNumber || "",
       adharDob: employeeData.adharDob || "",
       adharAttachment: employeeData.adharAttachment?.fileContent || null,
-      commingFromBackend: true,
+      isDataAvailable: true,
     });
     setRentalAgreememt({
       ...rentalAgreememt,
-      commingFromBackend: true,
+      isDataAvailable: true,
       document: employeeData.rentalAgreementAttachment?.fileContent || null,
     });
     setEducationDetails({
       ...educationDetails,
-      commingFromBackend: true,
+      isDataAvailable: true,
       document:
         employeeData.educationCertificateAttachment?.fileContent || null,
     });
     setPhotoId({
       ...photoId,
-      commingFromBackend: true,
+      isDataAvailable: true,
       document: employeeData.photoIdAttachment?.fileContent || null,
     });
     setPan({
       ...pan,
-      commingFromBackend: true,
+      isDataAvailable: true,
       panNumber: employeeData.panNumber || "",
       panAttachment: employeeData.panAttachment?.fileContent || null,
-      commingFromBackend: true,
+      isDataAvailable: true,
     });
   }
 
@@ -379,9 +378,9 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       errorZipCode: InputValidator.isEmpty(formData.zipCode.toString()),
       errorCitizenship: InputValidator.isEmpty(formData.citizenship),
       errorEmploymentNature: InputValidator.isEmpty(formData.employmentNature),
-      errorEmploymentCompany: InputValidator.isEmpty(
-        formData.employmentCompany
-      ),
+      // errorEmploymentCompany: InputValidator.isEmpty(
+      //   formData.employmentCompany
+      // ),
       errorWorkMode: InputValidator.isEmpty(formData.workMode),
       errorEmploymentStartDate: InputValidator.isEmpty(
         formData.employmentStartDate.toString()
@@ -399,9 +398,9 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
           ? InputValidator.isEmpty(formData.bonus)
           : "",
 
-      errorEmploymentCompany: InputValidator.isEmpty(
-        formData.employmentCompany
-      ),
+      // errorEmploymentCompany: InputValidator.isEmpty(
+      //   formData.employmentCompany
+      // ),
       errorContractingRate:
         formData.employmentNature === "Contract"
           ? InputValidator.isEmpty(formData.contractingRate)
@@ -429,48 +428,48 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
 
       errorI94TravelHistory:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[0] &&
-        InputValidator.isObjectEmpty(i94TravelHistory)
+          InputValidator.isObjectEmpty(i94TravelHistory)
           ? "Select Attachment"
           : "",
       errorI9Copy:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[0] &&
-        InputValidator.isObjectEmpty(i9Copy)
+          InputValidator.isObjectEmpty(i9Copy)
           ? "Select Attachment"
           : "",
       errorPassport:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[0] &&
-        InputValidator.isObjectEmpty(passport)
+          InputValidator.isObjectEmpty(passport)
           ? "Select Attachment"
           : "",
       errorWorkAuthorization:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[0] &&
-        InputValidator.isObjectEmpty(workAuthorization)
+          InputValidator.isObjectEmpty(workAuthorization)
           ? "Select Attachment"
           : "",
 
       errorAdharCard:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[1] &&
-        InputValidator.isObjectEmpty(adharCard)
+          InputValidator.isObjectEmpty(adharCard)
           ? "Select Attachment"
           : "",
       errorRentalAgreement:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[1] &&
-        InputValidator.isObjectEmpty(rentalAgreememt)
+          InputValidator.isObjectEmpty(rentalAgreememt)
           ? "Select Attachment"
           : "",
       errorEducationCertificate:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[1] &&
-        InputValidator.isObjectEmpty(educationDetails)
+          InputValidator.isObjectEmpty(educationDetails)
           ? "Select Attachment"
           : "",
       errorPhotoId:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[1] &&
-        InputValidator.isObjectEmpty(photoId)
+          InputValidator.isObjectEmpty(photoId)
           ? "Select Attachment"
           : "",
       errorPan:
         formData.onshoreOrOffshore === onshoreOrOffshoreList[1] &&
-        InputValidator.isObjectEmpty(pan)
+          InputValidator.isObjectEmpty(pan)
           ? "Select Attachment"
           : "",
     }));
@@ -478,7 +477,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
 
   //Used to go to the onboarding approval page.
   function handleBackButtonClick() {
-    history.push("/recruiter-manager/onboarding-approval");
+    navigate("/onboarding-approval");
   }
 
   function excludeProperties(data) {
@@ -495,6 +494,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       visaExpenseCurrency,
       otherExpenseCurrency,
       contractingRateCurrency,
+      employmentCompany,
       ...newData
     } = data;
 
@@ -542,47 +542,47 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
         photoAttachment: isFileObject(photo.document)
           ? photo.document
           : byteArrayToFile(
-              photo.document,
-              employeeData.photoAttachment?.fileName
-            ),
+            photo.document,
+            employeeData.photoAttachment?.fileName
+          ),
         resumeAttachment: isFileObject(resume.document)
           ? resume.document
           : byteArrayToFile(
-              resume.document,
-              employeeData.resumeAttachment?.fileName
-            ),
+            resume.document,
+            employeeData.resumeAttachment?.fileName
+          ),
         ...adharCard,
         adharCardAttachment: isFileObject(adharCard.adharAttachment)
           ? adharCard.adharAttachment
           : byteArrayToFile(
-              adharCard.adharAttachment,
-              employeeData.adharAttachment?.fileName
-            ),
+            adharCard.adharAttachment,
+            employeeData.adharAttachment?.fileName
+          ),
         rentalAgreementAttachment: isFileObject(rentalAgreememt.document)
           ? rentalAgreememt.document
           : byteArrayToFile(
-              rentalAgreememt.document,
-              employeeData.rentalAgreementAttachment?.fileName
-            ),
+            rentalAgreememt.document,
+            employeeData.rentalAgreementAttachment?.fileName
+          ),
         educationCertificateAttachment: isFileObject(educationDetails.document)
           ? educationDetails.document
           : byteArrayToFile(
-              educationDetails.document,
-              employeeData.educationDetails?.fileName
-            ),
+            educationDetails.document,
+            employeeData.educationDetails?.fileName
+          ),
         photoIdAttachment: isFileObject(photoId.document)
           ? photoId.document
           : byteArrayToFile(
-              photoId.document,
-              employeeData.photoIdAttachment?.fileName
-            ),
+            photoId.document,
+            employeeData.photoIdAttachment?.fileName
+          ),
         ...pan,
         panAttachment: isFileObject(pan.panAttachment)
           ? pan.panAttachment
           : byteArrayToFile(
-              pan.panAttachment,
-              employeeData.panAttachment?.fileName
-            ),
+            pan.panAttachment,
+            employeeData.panAttachment?.fileName
+          ),
       };
     } else if (formData.onshoreOrOffshore === onshoreOrOffshoreList[0]) {
       apiData = {
@@ -590,47 +590,47 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
         photoAttachment: isFileObject(photo.document)
           ? photo.document
           : byteArrayToFile(
-              photo.document,
-              employeeData.photoAttachment?.fileName
-            ),
+            photo.document,
+            employeeData.photoAttachment?.fileName
+          ),
         resumeAttachment: isFileObject(resume.document)
           ? resume.document
           : byteArrayToFile(
-              resume.document,
-              employeeData.resumeAttachment?.fileName
-            ),
+            resume.document,
+            employeeData.resumeAttachment?.fileName
+          ),
         i94TravelHistoryAttachment: isFileObject(i94TravelHistory.document)
           ? i94TravelHistory.document
           : byteArrayToFile(
-              i94TravelHistory.document,
-              employeeData.i94TravelHistoryAttachment?.fileName
-            ),
+            i94TravelHistory.document,
+            employeeData.i94TravelHistoryAttachment?.fileName
+          ),
         i9CopyAttachment: isFileObject(i9Copy.document)
           ? i9Copy.document
           : byteArrayToFile(
-              i9Copy.document,
-              employeeData.i9CopyAttachment?.fileName
-            ),
+            i9Copy.document,
+            employeeData.i9CopyAttachment?.fileName
+          ),
         ...passport,
         passportAttachment: isFileObject(passport.passportAttachment)
           ? passport.passportAttachment
           : byteArrayToFile(
-              passport.passportAttachment,
-              employeeData.passportAttachment?.fileName
-            ),
+            passport.passportAttachment,
+            employeeData.passportAttachment?.fileName
+          ),
         ...workAuthorization,
         workAuthorizationAttachment: isFileObject(
           workAuthorization.workAuthorizationAttachment
         )
           ? workAuthorization.workAuthorizationAttachment
           : byteArrayToFile(
-              workAuthorization.workAuthorizationAttachment,
-              employeeData.workAuthorizationAttachment?.fileName
-            ),
+            workAuthorization.workAuthorizationAttachment,
+            employeeData.workAuthorizationAttachment?.fileName
+          ),
       };
     }
     delete apiData.showAttachmentModal;
-    delete apiData.commingFromBackend;
+    delete apiData.isDataAvailable;
 
     if (
       apiData.employmentNature &&
@@ -690,9 +690,12 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       delete apiDataNewOnboard.otherExpenseCurrency;
       delete apiDataNewOnboard.visaExpenseCurrency;
 
-      location.reload();
+      // location.reload();
     } else {
       console.error("Failed data error: ", formError);
+      console.log('formError is ', formError, 'value is : ', InputValidator.isFormErrorEmpty(formError))
+      console.log('newOnboardingMandatoryFieldData is ', newOnboardingMandatoryFieldData, 'value is : ', !InputValidator.isObjectEmpty(newOnboardingMandatoryFieldData))
+      console.log('isDocumentFieldEmpty value is : ', isDocumentFieldEmpty())
     }
   }
 
@@ -731,7 +734,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       setAdharCard((prevState) => ({
         ...prevState,
         showAttachmentModal: false,
-        commingFromBackend: false,
+        isDataAvailable: false,
         adharAttachment: null,
         adharNumber: "",
         adharDob: "",
@@ -739,7 +742,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     } else {
       setAdharCard((prevState) => ({
         ...prevState,
-        commingFromBackend: false,
+        isDataAvailable: false,
         adharAttachment: null,
         adharNumber: "",
         adharDob: "",
@@ -767,7 +770,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       setPassport((prevState) => ({
         ...prevState,
         showAttachmentModal: false,
-        commingFromBackend: false,
+        isDataAvailable: false,
         passportAttachment: null,
         passportCountry: "",
         passportIssueDate: "",
@@ -777,7 +780,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     } else {
       setPassport((prevState) => ({
         ...prevState,
-        commingFromBackend: false,
+        isDataAvailable: false,
         passportAttachment: null,
         passportCountry: "",
         passportIssueDate: "",
@@ -804,7 +807,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       setWorkAuthorization((prevState) => ({
         ...prevState,
         showAttachmentModal: false,
-        commingFromBackend: false,
+        isDataAvailable: false,
         workAuthorizationNumber: "",
         workAuthorizationValidTill: "",
         workAuthorizationAttachment: null,
@@ -812,7 +815,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     } else {
       setWorkAuthorization((prevState) => ({
         ...prevState,
-        commingFromBackend: false,
+        isDataAvailable: false,
         workAuthorizationNumber: "",
         workAuthorizationValidTill: "",
         workAuthorizationAttachment: null,
@@ -837,14 +840,14 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       setPan((prevState) => ({
         ...prevState,
         showAttachmentModal: false,
-        commingFromBackend: false,
+        isDataAvailable: false,
         panNumber: "",
         panAttachment: null,
       }));
     } else {
       setPan((prevState) => ({
         ...prevState,
-        commingFromBackend: false,
+        isDataAvailable: false,
         panNumber: "",
         panAttachment: null,
       }));
@@ -867,7 +870,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     setPhoto((prevState) => ({
       ...prevState,
       showAttachmentModal: false,
-      commingFromBackend: false,
+      isDataAvailable: false,
       document: null,
     }));
   }
@@ -888,7 +891,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     setResume((prevState) => ({
       ...prevState,
       showAttachmentModal: false,
-      commingFromBackend: false,
+      isDataAvailable: false,
       document: null,
     }));
   }
@@ -909,7 +912,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     setI94TravelHistory((prevState) => ({
       ...prevState,
       showAttachmentModal: false,
-      commingFromBackend: false,
+      isDataAvailable: false,
       document: null,
     }));
   }
@@ -930,7 +933,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     setPhotoId((prevState) => ({
       ...prevState,
       showAttachmentModal: false,
-      commingFromBackend: false,
+      isDataAvailable: false,
       document: null,
     }));
   }
@@ -951,7 +954,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     setRentalAgreememt((prevState) => ({
       ...prevState,
       showAttachmentModal: false,
-      commingFromBackend: false,
+      isDataAvailable: false,
       document: null,
     }));
   }
@@ -972,7 +975,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     setEducationDetails((prevState) => ({
       ...prevState,
       showAttachmentModal: false,
-      commingFromBackend: false,
+      isDataAvailable: false,
       document: null,
     }));
   }
@@ -993,7 +996,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     setI9Copy((prevState) => ({
       ...prevState,
       showAttachmentModal: false,
-      commingFromBackend: false,
+      isDataAvailable: false,
       document: null,
     }));
   }
@@ -1087,6 +1090,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={countries}
             handleInputChange={handleCountryChange}
             errorMessage={formError.errorCountry}
+            formatOption={true}
           />
         </Row>
 
@@ -1105,6 +1109,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={states}
             handleInputChange={handleInputChange}
             errorMessage={formError.errorState}
+            formatOption={true}
           />
           <LabelAndInputField
             mdValue={6}
@@ -1195,6 +1200,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={genderList}
             handleInputChange={handleInputChange}
             errorMessage={formError.errorGender}
+            formatOption={true}
           />
           <LabelAndDropdownField
             mdValue={6}
@@ -1207,6 +1213,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             value={formData.bloodGroup}
             optionList={bloodGroupList}
             handleInputChange={handleInputChange}
+            formatOption={true}
           />
         </Row>
 
@@ -1238,6 +1245,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={onshoreOrOffshoreList}
             handleInputChange={handleInputChange}
             errorMessage={formError.errorOnshoreOrOffshore}
+            formatOption={true}
           />
         </Row>
 
@@ -1254,6 +1262,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             value={formData.visaStatus}
             optionList={visaStatusList}
             handleInputChange={handleInputChange}
+            formatOption={true}
           />
           <LabelAndDropdownField
             mdValue={6}
@@ -1268,6 +1277,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={countries}
             handleInputChange={handleInputChange}
             errorMessage={formError.errorCitizenship}
+            formatOption={true}
           />
         </Row>
 
@@ -1286,20 +1296,23 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={employmentNatureList}
             handleInputChange={handleInputChange}
             errorMessage={formError.errorEmploymentNature}
+            formatOption={true}
           />
-          <LabelAndInputField
-            mdValue={6}
-            lgValue={6}
-            smValue={12}
-            xsValue={12}
-            controlId={"employmentCompany"}
-            labelText={"Employment Company"}
-            isCompulsary={true}
-            placeholder={"Enter Employment Company"}
-            value={formData.employmentCompany}
-            handleInputChange={handleInputChange}
-            errorMessage={formError.errorEmploymentCompany}
-          />
+          {formData.employmentNature === employmentNatureList[1] && (
+            <LabelAndInputField
+              mdValue={6}
+              lgValue={6}
+              smValue={12}
+              xsValue={12}
+              controlId={"employmentCompany"}
+              labelText={"Employment Company"}
+              // isCompulsary={true}
+              placeholder={"Enter Employment Company"}
+              value={formData.employmentCompany}
+              handleInputChange={handleInputChange}
+            // errorMessage={formError.errorEmploymentCompany}
+            />
+          )}
         </Row>
 
         {/* Contracting rate and currency and company */}
@@ -1361,6 +1374,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={workingRemoteList}
             handleInputChange={handleInputChange}
             errorMessage={formError.errorWorkMode}
+            formatOption={true}
           />
           <LabelAndInputField
             mdValue={6}
@@ -1393,6 +1407,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={roleList}
             handleInputChange={handleInputChange}
             errorMessage={formError.errorRole}
+            formatOption={true}
           />
           <LabelAndDropdownField
             mdValue={6}
@@ -1407,6 +1422,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             optionList={designationList}
             handleInputChange={handleInputChange}
             errorMessage={formError.errorDesignation}
+            formatOption={true}
           />
         </Row>
 
@@ -1438,6 +1454,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             handleInputChange={handleInputChange}
             errorMessage={formError.errorEmploymentStatus}
             isReadOnly={true}
+            formatOption={true}
           />
         </Row>
 
@@ -1758,7 +1775,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
                 <div>
                   <ButtonComponent
                     variant={"primary"}
-                    type={"text"}
+                    type={"button"}
                     className={"btn bg-secondary ctm-border-radius text-center"}
                     buttonText={"Back"}
                     onClickHandler={handleBackButtonClick}
@@ -1782,91 +1799,73 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       </Form>
 
       {/* Upload Adhar*/}
-      {adharCard.showAttachmentModal && (
-        <AdharPopUpUpload adharCard={adharCard} setAdharCard={setAdharCard} />
-      )}
+      <AdharPopUpUpload
+        adharCard={adharCard}
+        setAdharCard={setAdharCard}
+      />
+
       {/* Upload Passport*/}
-      {passport.showAttachmentModal && (
-        <PassportPopUpUpload
-          passport={passport}
-          setPassport={setPassport}
-          handleCloseButton={handleRemovePassport}
-        />
-      )}
+      <PassportPopUpUpload
+        passport={passport}
+        setPassport={setPassport}
+        handleCloseButton={handleRemovePassport}
+      />
       {/* Upload Work Authorization*/}
-      {workAuthorization.showAttachmentModal && (
-        <WorkAuthorizationPopUpUpload
-          workAuthorization={workAuthorization}
-          setWorkAuthorization={setWorkAuthorization}
-          handleCloseButton={handleRemoveWorkAuthorization}
-        />
-      )}
+      <WorkAuthorizationPopUpUpload
+        workAuthorization={workAuthorization}
+        setWorkAuthorization={setWorkAuthorization}
+        handleCloseButton={handleRemoveWorkAuthorization}
+      />
       {/* Upload Pan card*/}
-      {pan.showAttachmentModal && (
-        <PanPopUpUpload
-          pan={pan}
-          setPan={setPan}
-          handleCloseButton={handleRemovePan}
-        />
-      )}
+      <PanPopUpUpload
+        pan={pan}
+        setPan={setPan}
+        handleCloseButton={handleRemovePan}
+      />
 
       {/* Upload Photo*/}
-      {photo.showAttachmentModal && (
-        <CommonPopUpUpload
-          data={photo}
-          setData={setPhoto}
-          heading={"Upload Photo"}
-        />
-      )}
+      <CommonPopUpUpload
+        data={photo}
+        setData={setPhoto}
+        heading={"Upload Photo"}
+      />
       {/* Upload Resume*/}
-      {resume.showAttachmentModal && (
-        <CommonPopUpUpload
-          data={resume}
-          setData={setResume}
-          heading={"Upload Resume"}
-        />
-      )}
+      <CommonPopUpUpload
+        data={resume}
+        setData={setResume}
+        heading={"Upload Resume"}
+      />
 
       {/* Upload I94 Travel History*/}
-      {i94TravelHistory.showAttachmentModal && (
-        <CommonPopUpUpload
-          data={i94TravelHistory}
-          setData={setI94TravelHistory}
-          heading={"Upload I94 Travel History"}
-        />
-      )}
+      <CommonPopUpUpload
+        data={i94TravelHistory}
+        setData={setI94TravelHistory}
+        heading={"Upload I94 Travel History"}
+      />
       {/* Upload Photo id*/}
-      {photoId.showAttachmentModal && (
-        <CommonPopUpUpload
-          data={photoId}
-          setData={setPhotoId}
-          heading={"Upload Photo Id"}
-        />
-      )}
+      <CommonPopUpUpload
+        data={photoId}
+        setData={setPhotoId}
+        heading={"Upload Photo Id"}
+      />
       {/* Upload Rental Agreeement*/}
-      {rentalAgreememt.showAttachmentModal && (
-        <CommonPopUpUpload
-          data={rentalAgreememt}
-          setData={setRentalAgreememt}
-          heading={"Upload Rental Agreement"}
-        />
-      )}
+      <CommonPopUpUpload
+        data={rentalAgreememt}
+        setData={setRentalAgreememt}
+        heading={"Upload Rental Agreement"}
+      />
       {/* Upload Education Details*/}
-      {educationDetails.showAttachmentModal && (
-        <CommonPopUpUpload
-          data={educationDetails}
-          setData={setEducationDetails}
-          heading={"Upload Education Detail"}
-        />
-      )}
+      <CommonPopUpUpload
+        data={educationDetails}
+        setData={setEducationDetails}
+        heading={"Upload Education Detail"}
+      />
       {/* Upload I9 Copy*/}
-      {i9Copy.showAttachmentModal && (
-        <CommonPopUpUpload
-          data={i9Copy}
-          setData={setI9Copy}
-          heading={"Upload I9 Copy"}
-        />
-      )}
+      <CommonPopUpUpload
+        data={i9Copy}
+        setData={setI9Copy}
+        heading={"Upload I9 Copy"}
+      />
     </>
   );
 }

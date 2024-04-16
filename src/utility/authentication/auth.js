@@ -5,19 +5,19 @@ import {
   MANAGER,
   RECRUITER,
   RECRUITER_MANAGER,
-} from "../../assets/common/roles";
-import { data } from "jquery";
+} from "../../assets/common/constants";
 
 export const doLogin = (data) => {
-  // console.log(data.email + "data");
-  let userData = { ...data, role: determineUserRole(data.email) };
-  localStorage.setItem("data", JSON.stringify(userData));
-  return localStorage.getItem("data");
-  // console.log(userData);
+  if (determineUserRole(data.email) !== 'Unknown Role') {
+    let userData = { ...data, role: determineUserRole(data.email) };
+    localStorage.setItem("data", JSON.stringify(userData));
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const determineUserRole = (email) => {
-  // console.log(email + "mail");
   if (email === "recruiter.manager@nucleusteq.com") {
     return RECRUITER_MANAGER;
   } else if (email === "recruiter@nucleusteq.com") {
@@ -35,7 +35,6 @@ export const determineUserRole = (email) => {
 
 export const isLoggedIn = () => {
   let data = localStorage.getItem("data");
-  console.log(data + "inloggedIn");
   if (data === null) {
     return false;
   } else {
@@ -51,7 +50,6 @@ export const getCurrentUserDetails = () => {
   if (isLoggedIn()) {
     return JSON.parse(localStorage.getItem("data"));
   } else {
-    console.log("comes in eslse");
     return undefined;
   }
 };

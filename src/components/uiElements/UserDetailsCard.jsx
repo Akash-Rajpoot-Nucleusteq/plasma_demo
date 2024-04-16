@@ -11,7 +11,7 @@ import PROFILE_PHOTO from "../../assets/images/Profile Photo.jpg";
 import RECRUITER_IMAGE from "../../assets/images/Prachi.png";
 import RECRUITER_MANAGER_IMAGE from "../../assets/images/Ankita.png";
 import CLIENT_MANAGER_IMAGE from "../../assets/images/Vishesh.png";
-import MANAGER_IMAGE from "../../assets/images/Jitendra.png";
+import MANAGER_IMAGE from "../../assets/images/Archit.png";
 import DUMMY_IMAGE from "../../assets/images/img-1.jpg";
 import moment from "moment";
 
@@ -41,7 +41,7 @@ export default function UserDetailsCard({ userRole }) {
           seetEmployeeData({
             ...employeeData,
             profilePhoto: MANAGER_IMAGE,
-            employeeName: "Jitendra",
+            employeeName: "Archit",
             employeeId: "N0004",
           });
         }

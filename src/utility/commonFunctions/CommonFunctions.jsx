@@ -1,4 +1,3 @@
-// import countryStateData from '../assets/lists/countryStateData.json'
 import countryStateData from '../../assets/common/countryStateData.json'
 import moment from "moment";
 import html2pdf from "html2pdf.js";
@@ -90,4 +89,18 @@ export const handleDownloadPage = async (contentRef, fileName) => {
             console.error("Error generating PDF:", error);
         }
     }
+};
+
+export const getNameWithErrorPrefix = (name) => {
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+    const nameWithError = "error" + capitalizedName;
+    return nameWithError;
+};
+
+export const formatDropdownOption = (value) => {
+    const formattedValue = value.replace(/_/g, ' ');
+    return formattedValue
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
 };

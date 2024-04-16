@@ -222,7 +222,7 @@ export default function Revenue() {
       render: (_, record) => `${record.firstName} ${record.lastName}`,
     },
     {
-      title: "Billing Rate (USD / H)",
+      title: "Billing Rate (USD/hr)",
       dataIndex: "billingRate",
       key: "billingRate",
     },
@@ -239,7 +239,7 @@ export default function Revenue() {
     { title: "Nov", dataIndex: "nov", key: "nov" },
     { title: "Dec", dataIndex: "dec", key: "dec" },
     {
-      title: "Total",
+      title: "Total (USD)",
       dataIndex: "total",
       key: "total",
       fixed: "right",
@@ -281,7 +281,7 @@ export default function Revenue() {
     ].forEach((month) => {
       updatedItem[month] *= parseFloat(updatedItem.billingRate.slice(1));
     });
-    updatedItem.total = null; // Reset the total property
+    updatedItem.total = null;
     return updatedItem;
   });
 

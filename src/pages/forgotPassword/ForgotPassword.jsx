@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import IMG01 from '../../assets/images/logo.png';
 import IMG01 from '../../assets/images/logo_nucleusteq.png';
 import { Link } from 'react-router-dom';
 import InputValidator from '../../validations/InputValidator'
@@ -66,7 +65,7 @@ class ForgotPassword extends Component {
 									</form>
 
 
-									<div className="text-center dont-have">Remember your password? <Link to="login">Login</Link></div>
+									<div className="text-center dont-have">Remember your password? <Link to="/">Login</Link></div>
 								</div>
 							</div>
 						</div>

@@ -20,13 +20,14 @@ import {
 import { HEADER_LEAVE } from "../../assets/common/constants";
 import { Form } from "react-bootstrap";
 import Header from "../../components/layout/Header";
+import { halfDayOptions, leaveOptions } from "../../assets/common/lists";
 
 const Leave = () => {
   const [formData, setFormData] = useState({
     fromDate: "",
     toDate: "",
     leaveType: "",
-    halfDay: "No",
+    fullOrHalfDay: halfDayOptions[0],
     reason: "",
   });
 
@@ -41,16 +42,6 @@ const Leave = () => {
     useState(false);
 
   const userDetails = getCurrentUserDetails();
-
-  const leaveOptions = [
-    "Sick Leave",
-    "Paid Leave",
-    "Casual Leave",
-    "Comp Off",
-    "Sabotical Leave",
-    "Maternity Leave",
-  ];
-  const halfDayOptions = ["Yes", "No"];
 
   function handleShowApplyLeaveModal() {
     setShowApplyLeaveConfirmationModal(true);
@@ -106,7 +97,7 @@ const Leave = () => {
       toDate: "",
       leaveType: "",
       reason: "",
-      halfDay: "No",
+      fullOrHalfDay: halfDayOptions[0],
     });
   }
 
@@ -175,6 +166,7 @@ const Leave = () => {
                             optionList={leaveOptions}
                             handleInputChange={handleInputChange}
                             errorMessage={formError.errorLeaveType}
+                            formatOption={true}
                           />
                           {formData.fromDate &&
                             formData.toDate &&
@@ -188,9 +180,10 @@ const Leave = () => {
                                 labelText={"Half Day"}
                                 isCompulsary={true}
                                 showDefaultOption={true}
-                                value={formData.halfDay}
+                                value={formData.fullOrHalfDay}
                                 optionList={halfDayOptions}
                                 handleInputChange={handleInputChange}
+                                formatOption={true}
                               />
                             )}
                         </Row>
@@ -235,16 +228,16 @@ const Leave = () => {
                 {(userDetails.role === MANAGER ||
                   userDetails.role === RECRUITER_MANAGER ||
                   userDetails.role === CLIENT_MANAGER) && (
-                  <>
-                    <div className='col-md-12'>
-                      <LeavesToBeApproved />
-                    </div>
+                    <>
+                      <div className='col-md-12'>
+                        <LeavesToBeApproved />
+                      </div>
 
-                    <div className='col-md-12'>
-                      <ApprovedLeaves />
-                    </div>
-                  </>
-                )}
+                      <div className='col-md-12'>
+                        <ApprovedLeaves />
+                      </div>
+                    </>
+                  )}
               </div>
             </div>
           </div>

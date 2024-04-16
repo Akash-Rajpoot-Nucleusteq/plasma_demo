@@ -24,6 +24,8 @@ import HolidayListComponent from "../holiday/HolidayListComponent";
 import LeaveCircleComponent from "../leave/LeaveCircleComponent";
 
 export default function SideBar({ headerName, userRole, currentPageName }) {
+  const currentLocation = location.pathname;
+
   const totalSickLeave = 7;
   const sickLeavesConsumed = 2;
   const sickLeavesRemaining = totalSickLeave - sickLeavesConsumed;
@@ -34,13 +36,6 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
   const consumedPaidLeave = 2;
   const remainingPaidLeave = totalPaidLeaveAfterMonth - consumedPaidLeave;
 
-  const assetData = {
-    assetType: "Laptop",
-    assetOs: "Windows",
-    assetId: "L1234EEf",
-    assetProvidedBy: "NucleusTeq",
-  };
-
   const employeeNav = {
     timesheet: [{ title: "My Timesheet", pageLink: "/timesheet" }],
     assets: [{ title: "My Asset", pageLink: "/asset" }],
@@ -49,19 +44,25 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       { title: "Past Assignment", pageLink: "/past-assignment" },
       { title: "Future Assignment", pageLink: "/future-assignment" },
     ],
+    document: [
+      {
+        title: "My Documents",
+        pageLink: "/document",
+        highlightedPage: `${
+          currentLocation === "/edit-document" ? "active" : ""
+        }`,
+      },
+    ],
     profile: [
-      { title: "Employment", pageLink: "/employment" },
-      { title: "Detail", pageLink: "/details" },
+      { title: "Employment", pageLink: "/profile/employment" },
+      { title: "Detail", pageLink: "/profile/details" },
     ],
   };
 
   const managerNav = {
     timesheet: [
       { title: "My Timesheet", pageLink: "/timesheet" },
-      {
-        title: "Pending Timesheet",
-        pageLink: "/pending-timesheet",
-      },
+      { title: "Pending Timesheet", pageLink: "/pending-timesheet" },
       { title: "Approved Timesheet", pageLink: "/approved-timesheet" },
     ],
     assets: [
@@ -73,9 +74,18 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       { title: "Past Assignment", pageLink: "/past-assignment" },
       { title: "Future Assignment", pageLink: "/future-assignment" },
     ],
+    document: [
+      {
+        title: "My Documents",
+        pageLink: "/document",
+        highlightedPage: `${
+          currentLocation === "/edit-document" ? "active" : ""
+        }`,
+      },
+    ],
     profile: [
-      { title: "Employment", pageLink: "/employment" },
-      { title: "Detail", pageLink: "/details" },
+      { title: "Employment", pageLink: "/profile/employment" },
+      { title: "Detail", pageLink: "/profile/details" },
     ],
   };
 
@@ -89,48 +99,40 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
     ],
     recruiter: [
       { title: "Recent Onboarding", pageLink: "/onboarding" },
+      { title: "New Employee Onboarding", pageLink: "/new-onboarding" },
+      { title: "New Vendor Onboarding", pageLink: "/new-vendor-onboarding" },
+    ],
+    document: [
       {
-        title: "New Employee Onboarding",
-        pageLink: "/new-onboarding",
-      },
-      {
-        title: "New Vendor Onboarding",
-        pageLink: "/vendor-onboarding",
-      },
-      {
-        title: "Vendors",
-        pageLink: "/vendors",
+        title: "My Documents",
+        pageLink: "/document",
+        highlightedPage: `${
+          currentLocation === "/edit-document" ? "active" : ""
+        }`,
       },
     ],
     profile: [
-      { title: "Employment", pageLink: "/recruiter/employment" },
-      { title: "Detail", pageLink: "/recruiter/details" },
+      { title: "Employment", pageLink: "/profile/employment" },
+      { title: "Detail", pageLink: "/profile/details" },
     ],
   };
 
   const recruiterManagerNav = {
     timesheet: [
       { title: "My Timesheet", pageLink: "/timesheet" },
-      {
-        title: "Pending Timesheet",
-        pageLink: "/pending-timesheet",
-      },
-      {
-        title: "Approved Timesheet",
-        pageLink: "/approved-timesheet",
-      },
+      { title: "Pending Timesheet", pageLink: "/pending-timesheet" },
+      { title: "Approved Timesheet", pageLink: "/approved-timesheet" },
     ],
     assets: [
       { title: "My Asset", pageLink: "/asset" },
       { title: "Add Asset", pageLink: "/add-asset" },
       { title: "Inventory", pageLink: "/asset-inventory" },
-
       {
         title: "Assign Asset",
-        pageLink: {
-          pathname: "/assign-asset",
-          state: { assetData: assetData },
-        },
+        pageLink: { pathname: "/assign-asset-table" },
+        highlightedPage: `${
+          currentLocation === "/assign-asset" ? "active" : ""
+        }`,
       },
     ],
     assignment: [
@@ -139,65 +141,52 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       { title: "Future Assignment", pageLink: "/future-assignment" },
     ],
     recruiter: [
-      {
-        title: "Recent Onboarding",
-        pageLink: "/onboarding",
-      },
-      {
-        title: "New Employee Onboarding",
-        pageLink: "/new-onboarding",
-      },
+      { title: "Recent Onboarding", pageLink: "/onboarding" },
+      { title: "New Employee Onboarding", pageLink: "/new-onboarding" },
       {
         title: "Onboarding Approval",
         pageLink: "/onboarding-approval",
+        highlightedPage: `${
+          currentLocation === "/onboarding-approval-form" ? "active" : ""
+        }`,
       },
+      { title: "Approval History", pageLink: "/approval-history" },
+      { title: "New Vendor Onboarding", pageLink: "/new-vendor-onboarding" },
       {
-        title: "Approval History",
-        pageLink: "/approval-history",
+        title: "Vendor Onboarding Approval",
+        pageLink: "/new-vendor-onboarding-approval",
+        highlightedPage: `${
+          currentLocation === "/new-vendor-onboarding-approval-form"
+            ? "active"
+            : ""
+        }`,
       },
-      {
-        title: "New Vendor Onboarding",
-        pageLink: "/vendor-onboarding",
-      },
-      {
-        title: "Vendors",
-        pageLink: "/vendors",
-      },
-      {
-        title: "Manage Vendor",
-        pageLink: "/manage-vendor",
-      },
-      {
-        title: "Approve Vendor",
-        pageLink: "/vendor-approval",
-      },
-      {
-        title: "Vendor Resources",
-        pageLink: "/vendor-approval",
-      },
+      { title: "Manage Vendor", pageLink: "/manage-vendor" },
+      { title: "Add Vendor Resource", pageLink: "/add-vendor-resource" },
+      { title: "Vendor Resources", pageLink: "/vendor-resources" },
     ],
     profile: [
-      { title: "Employment", pageLink: "/employment" },
-      { title: "Detail", pageLink: "/details" },
+      { title: "Employment", pageLink: "/profile/employment" },
+      { title: "Detail", pageLink: "/profile/details" },
     ],
     document: [
-      { title: "My Document", pageLink: "/document" },
+      {
+        title: "My Documents",
+        pageLink: "/document",
+        highlightedPage: `${
+          currentLocation === "/edit-document" ? "active" : ""
+        }`,
+      },
       { title: "Document Approval", pageLink: "/document-approval" },
-      { title: "Approval History", pageLink: "/document-history" },
+      { title: "Approval History", pageLink: "/document-approval-history" },
     ],
   };
 
   const clientManagerNav = {
     timesheet: [
       { title: "My Timesheet", pageLink: "/timesheet" },
-      {
-        title: "Pending Timesheet",
-        pageLink: "/pending-timesheet",
-      },
-      {
-        title: "Approved Timesheet",
-        pageLink: "/approved-timesheet",
-      },
+      { title: "Pending Timesheet", pageLink: "/pending-timesheet" },
+      { title: "Approved Timesheet", pageLink: "/approved-timesheet" },
     ],
     assets: [
       { title: "My Asset", pageLink: "/asset" },
@@ -210,17 +199,33 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
     ],
     account: [
       { title: "Available Pool", pageLink: "/recent-onboarding" },
-      { title: "Customer", pageLink: "/customer" },
+      {
+        title: "Customer",
+        pageLink: "/customer",
+        highlightedPage: `${
+          currentLocation === "/client-active" ||
+          currentLocation === "/customer-add"
+            ? "active"
+            : ""
+        }`,
+      },
       { title: "Allocations", pageLink: "/allocation" },
+      { title: "Timesheet", pageLink: "/client-employee-timesheet" },
       { title: "Revenue", pageLink: "/revenue" },
-      { title: "Resource Revenue", pageLink: "/resource-revenue" },
-      { title: "Forecasting", pageLink: "/client/forecast" },
-      // { title: 'Billing', pageLink: '/client/billing' },
-      // { title: 'Report', pageLink: '/client/reports' },
+      { title: "Forecasting", pageLink: "/forecast" },
     ],
     profile: [
-      { title: "Employment", pageLink: "/client/employment" },
-      { title: "Detail", pageLink: "/client/details" },
+      { title: "Employment", pageLink: "/profile/employment" },
+      { title: "Detail", pageLink: "/profile/details" },
+    ],
+    document: [
+      {
+        title: "My Documents",
+        pageLink: "/document",
+        highlightedPage: `${
+          currentLocation === "/edit-document" ? "active" : ""
+        }`,
+      },
     ],
   };
 
@@ -231,12 +236,14 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       [HEADER_TIMESHEET]: managerNav.timesheet,
       [HEADER_ASSIGNMENT]: managerNav.assignment,
       [HEADER_PROFILE]: managerNav.profile,
+      [HEADER_DOCUMENT]: managerNav.document,
     },
     [EMPLOYEE]: {
       [HEADER_ASSET]: employeeNav.assets,
       [HEADER_TIMESHEET]: employeeNav.timesheet,
       [HEADER_ASSIGNMENT]: employeeNav.assignment,
       [HEADER_PROFILE]: employeeNav.profile,
+      [HEADER_DOCUMENT]: employeeNav.document,
     },
     [RECRUITER]: {
       [HEADER_ASSET]: recruiterNav.assets,
@@ -244,6 +251,7 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       [HEADER_ASSIGNMENT]: recruiterNav.assignment,
       [HEADER_PROFILE]: recruiterNav.profile,
       [HEADER_RECRUITER]: recruiterNav.recruiter,
+      [HEADER_DOCUMENT]: recruiterNav.document,
     },
     [RECRUITER_MANAGER]: {
       [HEADER_ASSET]: recruiterManagerNav.assets,
@@ -259,6 +267,7 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       [HEADER_ASSIGNMENT]: clientManagerNav.assignment,
       [HEADER_ACCOUNT]: clientManagerNav.account,
       [HEADER_PROFILE]: clientManagerNav.profile,
+      [HEADER_DOCUMENT]: clientManagerNav.document,
     },
   };
 
@@ -280,7 +289,7 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
                   <div className='custom-breadcrumb'>
                     <ol className='breadcrumb no-bg-color d-inline-block p-0 m-0 mb-2'>
                       <li className='breadcrumb-item d-inline-block'>
-                        <Link to='dashboard' className='text-dark'>
+                        <Link to='/dashboard' className='text-dark'>
                           Home
                         </Link>
                       </li>
@@ -310,7 +319,7 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
                 <NavLink
                   key={index}
                   to={item.pageLink}
-                  className='list-group-item text-center button-6'
+                  className={`list-group-item text-center button-6 ${item.highlightedPage}`}
                   activeClassName='active'
                   exact>
                   {item.title}
@@ -331,18 +340,21 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
           />
         )}
 
-        {/*Sick Leave circle */}
+        {/*Sick Leave circle and holiday list */}
         {(headerName === HEADER_DASHBOARD || headerName === HEADER_LEAVE) && (
-          <LeaveCircleComponent
-            title={"Sick Leave Details"}
-            totalLeave={totalSickLeave}
-            leavesConsumed={sickLeavesConsumed}
-            leavesRemaining={sickLeavesRemaining}
-          />
+          <>
+            <LeaveCircleComponent
+              title={"Sick Leave Details"}
+              totalLeave={totalSickLeave}
+              leavesConsumed={sickLeavesConsumed}
+              leavesRemaining={sickLeavesRemaining}
+            />
+            <HolidayListComponent />
+          </>
         )}
 
         {/* holiday list */}
-        {headerName === HEADER_DASHBOARD && <HolidayListComponent />}
+        {/* {headerName === HEADER_DASHBOARD && <HolidayListComponent />} */}
       </aside>
     </>
   );

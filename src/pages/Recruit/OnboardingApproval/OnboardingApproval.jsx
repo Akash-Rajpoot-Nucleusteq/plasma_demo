@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import SideBar from "../../../components/layout/SideBar.jsx";
 import CommonTable from "../../../components/uiElements/CommonTable.jsx";
 import ButtonComponent from "../../../components/uiElements/ButtonComponent.jsx";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../../components/layout/Header.jsx";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
 import { HEADER_RECRUITER } from "../../../assets/common/constants.js";
 
 const OnboardingApproval = () => {
-  const Navigate = useNavigate();
+const navigate = useNavigate();
+
+const handleApproveReject = (record) => {
+  navigate("/onboarding-approval-form", { state: { employeeData: record } });
+};
   const employeeData = [
     {
       firstName: "Ashish",
@@ -290,9 +294,6 @@ const OnboardingApproval = () => {
       personalEmailId: "chetan@nucleusteq.com",
     },
   ];
-  const handleApproveReject = (record) => {
-    Navigate("/approval-form", { state: { employeeData: record } });
-  };
   const column = [
     {
       title: "Action",
@@ -304,11 +305,6 @@ const OnboardingApproval = () => {
           onClickHandler={() => handleApproveReject(record)}
         />
       ),
-    },
-    {
-      title: "Employee Id",
-      dataIndex: "employeeId",
-      key: "employeeId",
     },
     {
       title: "First Name",
@@ -341,6 +337,8 @@ const OnboardingApproval = () => {
       key: "city",
     },
   ];
+
+
 
   return (
     <>

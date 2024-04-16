@@ -4,6 +4,7 @@ import IMG01 from "../../../assets/images/Krishna.png";
 import IMG02 from "../../../assets/images/Profile Photo.jpg";
 import IMG04 from "../../../assets/images/Vivek.png";
 import CommonTable from "../../../components/uiElements/CommonTable";
+import { getStatusBadgeClass } from "../../../utility/commonFunctions/CommonFunctions";
 
 const ApprovedLeaves = () => {
   const data = [
@@ -17,7 +18,7 @@ const ApprovedLeaves = () => {
       Days: "3",
       Remaining: "9",
       Notes: "Parenting Leave",
-      Status: "approved",
+      Status: "Approved",
     },
     {
       id: 2,
@@ -29,7 +30,7 @@ const ApprovedLeaves = () => {
       Days: "3",
       Remaining: "9",
       Notes: "Parenting Leave",
-      Status: "approved",
+      Status: "Approved",
     },
     {
       id: 3,
@@ -41,7 +42,7 @@ const ApprovedLeaves = () => {
       Days: "3",
       Remaining: "9",
       Notes: "Parenting Leave",
-      Status: "approved",
+      Status: "Approved",
     },
   ];
 
@@ -80,6 +81,9 @@ const ApprovedLeaves = () => {
     {
       title: "Status",
       dataIndex: "Status",
+      render: (status) => (
+        <span className={getStatusBadgeClass(status)}>{status}</span>
+      ),
     },
   ];
 
@@ -88,7 +92,7 @@ const ApprovedLeaves = () => {
       <CommonTable
         data={data}
         columns={columns}
-        tableTitle={"Approved Leave History"}
+        tableTitle={"Leave History"}
       />
     </>
   );
