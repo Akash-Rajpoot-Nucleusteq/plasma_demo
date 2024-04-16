@@ -13,7 +13,7 @@ import { TalentDashboard } from "../../pages/dashboard/talentDashboard/TalentDas
 import Document from "../../pages/document/document.jsx";
 
 import DocumentApproval from "../../pages/document/documentApproval/DocumentApproval.jsx";
-import DocumentHistory from "../../pages/document/documentHistory/documentHistory.jsx";
+import DocumentHistory from "../../pages/document/documentHistory/DocumentHistory.jsx";
 import EditDocument from "../../pages/document/editDocument/editDocument.jsx";
 
 import Leave from "../../pages/leave/Leave.jsx";
@@ -28,9 +28,9 @@ import { AddAssets } from "../../pages/assets/addAsset/AddAssets.jsx";
 
 import AssignAsset from "../../pages/assets/assignAsset/AssignAsset.jsx";
 import AssignAssetTable from "../../pages/assets/assignAsset/AssignAssetTable.jsx";
-import OnboardingApproval from "../../pages/recruit/onboardingApproval/OnboardingApproval.jsx";
+import OnboardingApproval from "../../pages/recruit/OnboardingApproval/OnboardingApproval.jsx";
 import OnboardingApprovalForm from "../../pages/recruit/onboardingApprovalForm/OnboardingApprovalForm.jsx";
-import ApprovedHistory from "../../pages/recruit/approvalHistory/ApprovedHistory.jsx";
+import ApprovedHistory from "../../pages/recruit/ApprovalHistory/ApprovedHistory.jsx";
 import Revenue from "../../pages/accountManagement/revenue/Revenue.jsx";
 import NotFound from "../../pages/notFound/NotFound.jsx";
 import Login from "../../pages/login/Login.jsx";
