@@ -24,7 +24,6 @@ import EmployeeAsset from "../../pages/assets/employeeAsset/EmployeeAsset.jsx";
 import PendingTimesheet from "../../pages/timesheet/pendingTimesheet/PendingTimesheet.jsx";
 import ApprovedTimesheet from "../../pages/timesheet/timesheetApproved/ApprovedTimesheet.jsx";
 import NewOnboarding from "../../pages/Recruit/NewOnboarding/NewOnboarding.jsx";
-F;
 import { AddAssets } from "../../pages/assets/addAsset/AddAssets.jsx";
 
 import AssignAsset from "../../pages/assets/assignAsset/AssignAsset.jsx";
