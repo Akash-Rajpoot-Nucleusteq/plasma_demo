@@ -12,7 +12,7 @@ import Dashboard from "../../pages/dashboard/Dashboard.jsx";
 import { TalentDashboard } from "../../pages/dashboard/talentDashboard/TalentDashboard.jsx";
 import Document from "../../pages/document/document.jsx";
 
-import DocumentApproval from "../../pages/document/documentApproval/documentApproval.jsx";
+import DocumentApproval from "../../pages/document/documentApproval/DocumentApproval.jsx";
 import DocumentHistory from "../../pages/document/documentHistory/documentHistory.jsx";
 import EditDocument from "../../pages/document/editDocument/editDocument.jsx";
 
