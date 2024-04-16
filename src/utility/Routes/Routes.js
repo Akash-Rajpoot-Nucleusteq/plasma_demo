@@ -18,19 +18,20 @@ import EditDocument from "../../pages/document/editDocument/editDocument.jsx";
 
 import Leave from "../../pages/leave/Leave.jsx";
 import Timesheet from "../../pages/timesheet/Timesheet.jsx";
-import Onboarding from "../../pages/recruit/recentOnboarding/RecentOnboarding.jsx";
+import Onboarding from "../../pages/Recruit/recentOnboarding/RecentOnboarding.jsx";
 import { AssetInventory } from "../../pages/assets/inventory/AssetInventory.jsx";
 import EmployeeAsset from "../../pages/assets/employeeAsset/EmployeeAsset.jsx";
 import PendingTimesheet from "../../pages/timesheet/pendingTimesheet/PendingTimesheet.jsx";
 import ApprovedTimesheet from "../../pages/timesheet/timesheetApproved/ApprovedTimesheet.jsx";
-import NewOnboarding from "../../pages/recruit/newOnboarding/NewOnboarding.jsx";
+import NewOnboarding from "../../pages/Recruit/newOnboarding/NewOnboarding.jsx";
+F;
 import { AddAssets } from "../../pages/assets/addAsset/AddAssets.jsx";
 
 import AssignAsset from "../../pages/assets/assignAsset/AssignAsset.jsx";
 import AssignAssetTable from "../../pages/assets/assignAsset/AssignAssetTable.jsx";
-import OnboardingApproval from "../../pages/recruit/OnboardingApproval/OnboardingApproval.jsx";
-import OnboardingApprovalForm from "../../pages/recruit/onboardingApprovalForm/OnboardingApprovalForm.jsx";
-import ApprovedHistory from "../../pages/recruit/ApprovalHistory/ApprovedHistory.jsx";
+import OnboardingApproval from "../../pages/Recruit/OnboardingApproval/OnboardingApproval.jsx";
+import OnboardingApprovalForm from "../../pages/Recruit/onboardingApprovalForm/OnboardingApprovalForm.jsx";
+import ApprovedHistory from "../../pages/Recruit/ApprovalHistory/ApprovedHistory.jsx";
 import Revenue from "../../pages/accountManagement/revenue/Revenue.jsx";
 import NotFound from "../../pages/notFound/NotFound.jsx";
 import Login from "../../pages/login/Login.jsx";
@@ -47,12 +48,12 @@ import Employment from "../../pages/profile/employement/Employment.jsx";
 import Details from "../../pages/profile/details/Details.jsx";
 import ForgotPassword from "../../pages/forgotPassword/ForgotPassword.jsx";
 
-import NewVendorOnboarding from "../../pages/recruit/newVendorOnboarding/NewVendorOnboarding.jsx";
-import NewVendorOnboardingApproval from "../../pages/recruit/newVendorOnboardingApproval/NewVendorOnboardingApproval.jsx";
-import NewVendorOnboardingApprovalForm from "../../pages/recruit/newVendorOnboardingApprovalForm/NewVendorOnboardingAprovalForm.jsx";
-import ManageVendor from "../../pages/recruit/manageVendor/ManageVendor.jsx";
-import VendorResources from "../../pages/recruit/vendorResources/VendorResources.jsx";
-import AddVendorResource from "../../pages/recruit/addVendorResource/AddVendorResource.jsx";
+import NewVendorOnboarding from "../../pages/Recruit/newVendorOnboarding/NewVendorOnboarding.jsx";
+import NewVendorOnboardingApproval from "../../pages/Recruit/newVendorOnboardingApproval/NewVendorOnboardingApproval.jsx";
+import NewVendorOnboardingApprovalForm from "../../pages/Recruit/newVendorOnboardingApprovalForm/NewVendorOnboardingAprovalForm.jsx";
+import ManageVendor from "../../pages/Recruit/manageVendor/ManageVendor.jsx";
+import VendorResources from "../../pages/Recruit/vendorResources/VendorResources.jsx";
+import AddVendorResource from "../../pages/Recruit/addVendorResource/AddVendorResource.jsx";
 import PastAssignment from "../../pages/assignment/pastAssignment/PastAssignment.jsx";
 import FutureAssignment from "../../pages/assignment/futureAssignment/FutureAssignment.jsx";
 
