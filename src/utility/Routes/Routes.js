@@ -18,19 +18,19 @@ import EditDocument from "../../pages/document/editDocument/editDocument.jsx";
 
 import Leave from "../../pages/leave/Leave.jsx";
 import Timesheet from "../../pages/timesheet/Timesheet.jsx";
-import Onboarding from "../../pages/Recruit/recentOnboarding/RecentOnboarding.jsx";
+import Onboarding from "../../pages/Recruit/RecentOnboarding/RecentOnboarding.jsx";
 import { AssetInventory } from "../../pages/assets/inventory/AssetInventory.jsx";
 import EmployeeAsset from "../../pages/assets/employeeAsset/EmployeeAsset.jsx";
 import PendingTimesheet from "../../pages/timesheet/pendingTimesheet/PendingTimesheet.jsx";
 import ApprovedTimesheet from "../../pages/timesheet/timesheetApproved/ApprovedTimesheet.jsx";
-import NewOnboarding from "../../pages/Recruit/newOnboarding/NewOnboarding.jsx";
+import NewOnboarding from "../../pages/Recruit/NewOnboarding/NewOnboarding.jsx";
 F;
 import { AddAssets } from "../../pages/assets/addAsset/AddAssets.jsx";
 
 import AssignAsset from "../../pages/assets/assignAsset/AssignAsset.jsx";
 import AssignAssetTable from "../../pages/assets/assignAsset/AssignAssetTable.jsx";
 import OnboardingApproval from "../../pages/Recruit/OnboardingApproval/OnboardingApproval.jsx";
-import OnboardingApprovalForm from "../../pages/Recruit/onboardingApprovalForm/OnboardingApprovalForm.jsx";
+import OnboardingApprovalForm from "../../pages/Recruit/OnboardingApprovalForm/OnboardingApprovalForm.jsx";
 import ApprovedHistory from "../../pages/Recruit/ApprovalHistory/ApprovedHistory.jsx";
 import Revenue from "../../pages/accountManagement/revenue/Revenue.jsx";
 import NotFound from "../../pages/notFound/NotFound.jsx";
