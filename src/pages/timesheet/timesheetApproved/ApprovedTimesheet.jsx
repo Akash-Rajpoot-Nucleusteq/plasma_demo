@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import ViewTimesheet from "../viewtimesheet/ViewTimesheet.jsx";
-import { Modal, Button } from "react-bootstrap";
-import CommonTable from "../../../components/uiElements/CommonTable";
-import SideBar from "../../../components/layout/SideBar";
-import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
+import { Modal } from "react-bootstrap";
 import { HEADER_TIMESHEET } from "../../../assets/common/constants";
 import Header from "../../../components/layout/Header.jsx";
+import SideBar from "../../../components/layout/SideBar";
 import ButtonComponent from "../../../components/uiElements/ButtonComponent.jsx";
+import CommonTable from "../../../components/uiElements/CommonTable";
+import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
+import ViewTimesheet from "../viewTimesheet/ViewTimesheet.jsx";
 
 const ApprovedTimesheet = () => {
   const [showViewModal, setShowViewModal] = useState(false);
