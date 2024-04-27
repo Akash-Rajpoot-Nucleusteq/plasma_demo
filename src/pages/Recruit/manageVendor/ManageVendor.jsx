@@ -1,21 +1,16 @@
-import React, { useState } from "react";
-import CommonTable from "../../../components/uiElements/CommonTable";
-import CommonModal from "../../../components/uiElements/CommonModal";
-import SideBar from "../../../components/layout/SideBar";
-import { HEADER_RECRUITER } from "../../../assets/common/constants";
-import { getCurrentUserDetails } from "../../../utility/authentication/auth";
-import Header from "../../../components/layout/Header";
-import { Row } from "react-bootstrap";
-import LabelAndDropdownField from "../../../components/uiElements/LabelAndDropdownField";
-import LabelAndInputField from "../../../components/uiElements/LabelAndInputField";
-import LabelAndPhoneNumberInputField from "../../../components/uiElements/LabelAndPhoneNumberInputField";
-import {
-  getCountryList,
-  getNameWithErrorPrefix,
-  getStatesListByCountry,
-} from "../../../utility/commonFunctions/CommonFunctions";
-import InputValidator from "../../../validations/InputValidator";
-import ButtonComponent from "../../../components/uiElements/ButtonComponent";
+import React, { useState } from 'react';
+import { HEADER_RECRUITER } from '../../../assets/common/constants';
+import Header from '../../../components/layout/Header';
+import SideBar from '../../../components/layout/SideBar';
+import ButtonComponent from '../../../components/uiElements/ButtonComponent';
+import CommonModal from '../../../components/uiElements/CommonModal';
+import CommonTable from '../../../components/uiElements/CommonTable';
+import LabelAndDropdownField from '../../../components/uiElements/LabelAndDropdownField';
+import LabelAndInputField from '../../../components/uiElements/LabelAndInputField';
+import LabelAndPhoneNumberInputField from '../../../components/uiElements/LabelAndPhoneNumberInputField';
+import { getCurrentUserDetails } from '../../../utility/authentication/auth';
+import { getCountryList, getNameWithErrorPrefix, getStatesListByCountry } from '../../../utility/commonFunctions/CommonFunctions';
+import InputValidator from '../../../validations/InputValidator';
 
 const ManageVendor = () => {
   const [modalData, setModalData] = useState({});
@@ -298,66 +293,61 @@ const ManageVendor = () => {
     setShowModal(true);
   }
 
-  const [countries, setCountries] = useState(getCountryList);
-  const [states, setStates] = useState([]);
-  const [formError, setFormError] = useState({
-    errorCompanyName: "",
-    errorTaxId: "",
-    errorEinNumber: "",
-    errorFirstName: "",
-    errorLastName: "",
-    errorPhoneNumber: "",
-    errorAddressLine1: "",
-    errorCity: "",
-    errorState: "",
-    errorCountry: "",
-    errorStateOfIncorporation: "",
-  });
-  const handleInputChange = (event) => {
-    const { id, value } = event.target;
-    const errorId = getNameWithErrorPrefix(id);
-    setModalData((prevState) => ({ ...prevState, [id]: value }));
-    setFormError((prevState) => ({ ...prevState, [errorId]: "" }));
-  };
-  const handleCountryChange = (event) => {
-    const { id, value } = event.target;
-    const errorId = getNameWithErrorPrefix(id);
-    setModalData((prevState) => ({ ...prevState, [id]: value }));
-    setFormError((prevState) => ({ ...prevState, [errorId]: "" }));
-    setStates(getStatesListByCountry(value));
-  };
-  const checkForError = () => {
-    setFormError({
-      ...formError,
-      errorCompanyName: InputValidator.isEmpty(modalData.companyName),
-      errorTaxId: InputValidator.isEmpty(modalData.taxId),
-      errorEinNumber: InputValidator.isEmpty(modalData.einNumber),
-      errorFirstName: InputValidator.isEmpty(modalData.firstName),
-      errorLastName: InputValidator.isEmpty(modalData.lastName),
-      errorPhoneNumber: InputValidator.isEmpty(
-        modalData.phoneNumber.toString()
-      ),
-      errorAddressLine1: InputValidator.isEmpty(modalData.addressLine1),
-      errorState: InputValidator.isEmpty(modalData.state),
-      errorCountry: InputValidator.isEmpty(modalData.country),
-      errorCity: InputValidator.isEmpty(modalData.city),
-      errorStateOfIncorporation: InputValidator.isEmpty(
-        modalData.stateOfIncorporation
-      ),
-    });
-  };
-  function handleModalSubmit() {
-    checkForError();
-    const mandatoryData = { ...modalData };
-    delete mandatoryData.middleName;
-    delete mandatoryData.addressLine2;
-    if (!InputValidator.isObjectEmpty(mandatoryData)) {
-      console.log("modal submitted: ", mandatoryData);
-      setShowModal(false);
-    } else {
-      console.error("Failed from Updating vendor modal");
+    const [countries, setCountries] = useState(getCountryList);
+    const [states, setStates] = useState([]);
+    const [formError, setFormError] = useState({
+        errorCompanyName: '',
+        errorTaxId: '',
+        errorEinNumber: '',
+        errorFirstName: '',
+        errorLastName: '',
+        errorPhoneNumber: '',
+        errorAddressLine1: '',
+        errorCity: '',
+        errorState: '',
+        errorCountry: '',
+        errorStateOfIncorporation: '',
+    })
+    const handleInputChange = (event) => {
+        const { id, value } = event.target;
+        const errorId = getNameWithErrorPrefix(id);
+        setModalData(prevState => ({ ...prevState, [id]: value }));
+        setFormError(prevState => ({ ...prevState, [errorId]: '' }))
+    };
+    const handleCountryChange = (event) => {
+        const { id, value } = event.target;
+        const errorId = getNameWithErrorPrefix(id);
+        setModalData(prevState => ({ ...prevState, [id]: value }));
+        setFormError(prevState => ({ ...prevState, [errorId]: '' }))
+        setStates(getStatesListByCountry(value))
+    };
+    const checkForError = () => {
+        setFormError({
+            ...formError,
+            errorCompanyName: InputValidator.isEmpty(modalData.companyName),
+            errorTaxId: InputValidator.isEmpty(modalData.taxId),
+            errorEinNumber: InputValidator.isEmpty(modalData.einNumber),
+            errorFirstName: InputValidator.isEmpty(modalData.firstName),
+            errorLastName: InputValidator.isEmpty(modalData.lastName),
+            errorPhoneNumber: InputValidator.isEmpty(modalData.phoneNumber.toString()),
+            errorAddressLine1: InputValidator.isEmpty(modalData.addressLine1),
+            errorState: InputValidator.isEmpty(modalData.state),
+            errorCountry: InputValidator.isEmpty(modalData.country),
+            errorCity: InputValidator.isEmpty(modalData.city),
+            errorStateOfIncorporation: InputValidator.isEmpty(modalData.stateOfIncorporation),
+        });
     }
-  }
+    function handleModalSubmit() {
+        checkForError();
+        const mandatoryData = { ...modalData };
+        delete mandatoryData.middleName;
+        delete mandatoryData.addressLine2;
+        if (!InputValidator.isObjectEmpty(mandatoryData)) {
+            setShowModal(false);
+        } else {
+            console.error("Failed from Updating vendor modal");
+        }
+    }
 
   return (
     <>

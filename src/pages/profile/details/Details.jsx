@@ -1,564 +1,289 @@
-import React, { Component } from "react";
-import { Modal } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import EMPLOYEE_IMAGE from "../../../assets/images/Profile Photo.jpg";
-import MANAGER_IMAGE from "../../../assets/images/Archit.png";
-import CLIENT_MANAGER_IMAGE from "../../../assets/images/Vishesh.png";
-import RECRUITER_IMAGE from "../../../assets/images/Prachi.png";
-import RECRUITER_MANAGER_IMAGE from "../../../assets/images/Ankita.png";
+import React from "react";
 import {
   CLIENT_MANAGER,
   EMPLOYEE,
   MANAGER,
   RECRUITER,
   RECRUITER_MANAGER,
+  SUPER_ADMIN,
 } from "../../../assets/common/constants";
 import { HEADER_PROFILE } from "../../../assets/common/constants";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth";
 import SideBar from "../../../components/layout/SideBar";
 import Header from "../../../components/layout/Header";
 
-class Details extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: null,
+function Details() {
 
-      storedData: JSON.parse(localStorage.getItem("data")) || {},
-    };
+  const clientManagerData = {
+    userDetails: {
+      firstName: "Manjunath",
+      lastName: "Siddaiah",
+      nationality: "India",
+      dateOfBirth: "05 May 1980",
+      gender: "Male",
+      bloodGroup: "O+",
+    },
+    contactDetails: {
+      phoneNumber: "987654321",
+      personalEmail: "manjunath@gmail.com",
+      workEmail: "manjunath.siddaiah@nucleusteq.com",
+      secondaryNumber: "986754231",
+    },
+    datesInfo: {
+      startDate: "06 Jun 2017",
+      visaStartDate: "09 Jun 2017",
+      visaExpiryDate: "06 Jun 2020",
+      passportExpiryDate: "06 Aug 2025",
+    },
   }
-  handleClose = () => {
-    this.setState({
-      show: false,
-    });
-  };
+  const recruiterManagerData = {
+    userDetails: {
+      firstName: "Ankita",
+      lastName: "Sharma",
+      nationality: "India",
+      dateOfBirth: "05 May 1980",
+      gender: "Female",
+      bloodGroup: "O+",
+    },
+    contactDetails: {
+      phoneNumber: "987654321",
+      personalEmail: "ankita@gmail.com",
+      workEmail: "ankita.sharma@nucleusteq.com",
+      secondaryNumber: "986754231",
+    },
+    datesInfo: {
+      startDate: "06 Jun 2017",
+      visaStartDate: "09 Jun 2017",
+      visaExpiryDate: "06 Jun 2020",
+      passportExpiryDate: "06 Aug 2025",
+    },
+  }
+  const managerData = {
+    userDetails: {
+      firstName: "Archit",
+      lastName: "Ojha",
+      nationality: "India",
+      dateOfBirth: "05 May 1980",
+      gender: "Male",
+      bloodGroup: "O+",
+    },
+    contactDetails: {
+      phoneNumber: "987654321",
+      personalEmail: "archit@gmail.com",
+      workEmail: "archit.ojha@nucleusteq.com",
+      secondaryNumber: "986754231",
+    },
+    datesInfo: {
+      startDate: "06 Jun 2017",
+      visaStartDate: "09 Jun 2017",
+      visaExpiryDate: "06 Jun 2020",
+      passportExpiryDate: "06 Aug 2025",
+    },
+  }
+  const recruiterData = {
+    userDetails: {
+      firstName: "Prachi",
+      lastName: "Dua",
+      nationality: "India",
+      dateOfBirth: "05 May 1980",
+      gender: "Female",
+      bloodGroup: "O+",
+    },
+    contactDetails: {
+      phoneNumber: "987654321",
+      personalEmail: "prachi@gmail.com",
+      workEmail: "prachi.dua@nucleusteq.com",
+      secondaryNumber: "986754231",
+    },
+    datesInfo: {
+      startDate: "06 Jun 2017",
+      visaStartDate: "09 Jun 2017",
+      visaExpiryDate: "06 Jun 2020",
+      passportExpiryDate: "06 Aug 2025",
+    },
+  }
+  const employeeData = {
+    userDetails: {
+      firstName: "Ashish",
+      lastName: "Sahu",
+      nationality: "India",
+      dateOfBirth: "05 May 2002",
+      gender: "Female",
+      bloodGroup: "O+",
+    },
+    contactDetails: {
+      phoneNumber: "987654321",
+      personalEmail: "ashish@gmail.com",
+      workEmail: "ashish.sahu@nucleusteq.com",
+      secondaryNumber: "986754231",
+    },
+    datesInfo: {
+      startDate: "06 Jun 2017",
+      visaStartDate: "09 Jun 2017",
+      visaExpiryDate: "06 Jun 2020",
+      passportExpiryDate: "06 Aug 2025",
+    },
+  }
+  const superAdminData = {
+    userDetails: {
+      firstName: "Ashish",
+      lastName: "Baghel",
+      nationality: "India",
+      dateOfBirth: "05 May 1977",
+      gender: "Male",
+      bloodGroup: "O+",
+    },
+    contactDetails: {
+      phoneNumber: "987654321",
+      personalEmail: "ashishbaghel@gmail.com",
+      workEmail: "ashish.baghel@nucleusteq.com",
+      secondaryNumber: "986754231",
+    },
+    datesInfo: {
+      startDate: "06 Jun 2017",
+      visaStartDate: "09 Jun 2017",
+      visaExpiryDate: "06 Jun 2020",
+      passportExpiryDate: "06 Aug 2025",
+    },
+  }
 
-  handleShow = (id) => {
-    this.setState({
-      show: id,
-    });
-  };
+  const filteredEmployeeData = {
+    [RECRUITER_MANAGER]: {
+      ...recruiterManagerData
+    },
+    [RECRUITER]: {
+      ...recruiterData
+    },
+    [CLIENT_MANAGER]: {
+      ...clientManagerData
+    },
+    [MANAGER]: {
+      ...managerData
+    },
+    [EMPLOYEE]: {
+      ...employeeData
+    },
+    [SUPER_ADMIN]: {
+      ...superAdminData
+    },
+  }
 
-  render() {
-    let employeeName;
-    let profilePhoto;
+  const fillEmpData = filteredEmployeeData[getCurrentUserDetails()?.role]
+    ? filteredEmployeeData[getCurrentUserDetails()?.role]
+    : {};
 
-    switch (this.state.storedData.role) {
-      case EMPLOYEE:
-        employeeName = "Ashish";
-        profilePhoto = EMPLOYEE_IMAGE;
-        break;
-      case MANAGER:
-        employeeName = "Archit";
-        profilePhoto = MANAGER_IMAGE;
-        break;
-      case CLIENT_MANAGER:
-        employeeName = "Vishesh";
-        profilePhoto = CLIENT_MANAGER_IMAGE;
-        break;
-      case RECRUITER:
-        employeeName = "Prachi";
-        profilePhoto = RECRUITER_IMAGE;
-        break;
-      case RECRUITER_MANAGER:
-        employeeName = "Ankita";
-        profilePhoto = RECRUITER_MANAGER_IMAGE;
-        break;
-      default:
-      // Handle default case if necessary
-    }
-
-    return (
-      <>
-        <Header />
-        <div className='page-wrapper'>
-          <div className='container-fluid'>
-            <div className='row'>
-              <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
-                <SideBar
-                  userRole={getCurrentUserDetails()?.role}
-                  headerName={HEADER_PROFILE}
-                  currentPageName={"Profile"}
-                />
-              </div>
-              <div className='col-xl-9 col-lg-8  col-md-12'>
-                <div className='row'>
-                  <div className='col-xl-4 col-lg-6 col-md-6 d-flex'>
-                    <div className='card flex-fill ctm-border-radius shadow-sm'>
-                      <div className='card-header'>
-                        <h4 className='card-title mb-0'>Basic Information</h4>
-                      </div>
-                      <div className='card-body text-center'>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>First Name :</span> Maria
-                        </p>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>Last Name : </span>Cotton
-                        </p>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>Nationality :</span>{" "}
-                          India
-                        </p>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>Date of Birth :</span> 05
-                          May 1990
-                        </p>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>Gender : </span>Female
-                        </p>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>Blood Group :</span> A+
-                        </p>
-                      </div>
+  return (
+    <>
+      <Header />
+      <div className='page-wrapper'>
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-xl-3 col-lg-4 col-md-12 theiaStickySidebar'>
+              <SideBar
+                userRole={getCurrentUserDetails()?.role}
+                headerName={HEADER_PROFILE}
+                currentPageName={"Profile"}
+              />
+            </div>
+            <div className='col-xl-9 col-lg-8  col-md-12'>
+              <div className='row'>
+                <div className='col-xl-4 col-lg-6 col-md-6 d-flex'>
+                  <div className='card flex-fill ctm-border-radius shadow-sm'>
+                    <div className='card-header'>
+                      <h4 className='card-title mb-0'>Basic Information</h4>
+                    </div>
+                    <div className='card-body text-center'>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>First Name : </span>
+                        {/* {userDetails.firstName} */}
+                        {fillEmpData.userDetails.firstName}
+                      </p>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Last Name : </span>
+                        {fillEmpData.userDetails.lastName}
+                      </p>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Nationality : </span>{" "}
+                        {fillEmpData.userDetails.nationality}
+                      </p>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Date of Birth : </span>
+                        {fillEmpData.userDetails.dateOfBirth}
+                      </p>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Gender : </span>
+                        {fillEmpData.userDetails.gender}
+                      </p>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Blood Group : </span>
+                        {fillEmpData.userDetails.bloodGroup}
+                      </p>
                     </div>
                   </div>
-                  <div className='col-xl-4 col-lg-6 col-md-6 d-flex'>
-                    <div className='card flex-fill  ctm-border-radius shadow-sm'>
-                      <div className='card-header'>
-                        <h4 className='card-title mb-0'>Contact</h4>
-                      </div>
-                      <div className='card-body text-center'>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>Phone Number : </span>
-                          987654321
-                        </p>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>Personal Email : </span>
-                          mariacotton@gmail.com
-                        </p>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>Work Email : </span>
-                          mariacotton@nucleusteq.com
-                        </p>
-                        <p className='card-text mb-3'>
-                          <span className='text-primary'>
-                            Secondary Number :{" "}
-                          </span>
-                          986754231
-                        </p>
-                      </div>
+                </div>
+
+
+                <div className='col-xl-4 col-lg-6 col-md-6 d-flex'>
+                  <div className='card flex-fill  ctm-border-radius shadow-sm'>
+                    <div className='card-header'>
+                      <h4 className='card-title mb-0'>Contact</h4>
+                    </div>
+                    <div className='card-body text-center'>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Phone Number : </span>
+                        {fillEmpData.contactDetails.phoneNumber}
+                      </p>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Personal Email : </span>
+                        {fillEmpData.contactDetails.personalEmail}
+                      </p>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Work Email : </span>
+                        {fillEmpData.contactDetails.workEmail}
+                      </p>
+                      <p className='card-text mb-3'>
+                        <span className='text-primary'>Secondary Number : </span>
+                        {fillEmpData.contactDetails.secondaryNumber}
+                      </p>
                     </div>
                   </div>
-                  {/*col */}
-                  <div className='col-xl-4 col-lg-12 col-md-12'>
-                    <div className='row'>
-                      <div className='col-xl-12 col-lg-6 col-md-6 d-flex'>
-                        <div className='card ctm-border-radius shadow-sm flex-fill'>
-                          <div className='card-header'>
-                            <h4 className='card-title mb-0'>Dates</h4>
-                          </div>
-                          <div className='card-body text-center'>
-                            <p className='card-text mb-3'>
-                              <span className='text-primary'>Start Date : </span>
-                              06 Jun 2017
-                            </p>
-                            <p className='card-text mb-3'>
-                              <span className='text-primary'>
-                                Visa Start Date :{" "}
-                              </span>
-                              09 Jun 2017
-                            </p>
-                            <p className='card-text mb-3'>
-                              <span className='text-primary'>
-                                Visa Expiry Date :{" "}
-                              </span>
-                              06 Jun 2020
-                            </p>
-                            <p className='card-text mb-3'>
-                              <span className='text-primary'>
-                                Passport Expiry Date :{" "}
-                              </span>
-                              06 Aug 2025
-                            </p>
-                          </div>
+                </div>
+                <div className='col-xl-4 col-lg-12 col-md-12'>
+                  <div className='row'>
+                    <div className='col-xl-12 col-lg-6 col-md-6 d-flex'>
+                      <div className='card ctm-border-radius shadow-sm flex-fill'>
+                        <div className='card-header'>
+                          <h4 className='card-title mb-0'>Dates</h4>
+                        </div>
+                        <div className='card-body text-center'>
+                          <p className='card-text mb-3'>
+                            <span className='text-primary'>Start Date : </span>
+                            {fillEmpData.datesInfo.startDate}
+                          </p>
+                          <p className='card-text mb-3'>
+                            <span className='text-primary'>Visa Start Date : </span>
+                            {fillEmpData.datesInfo.visaStartDate}
+                          </p>
+                          <p className='card-text mb-3'>
+                            <span className='text-primary'>Visa Expiry Date : </span>
+                            {fillEmpData.datesInfo.visaExpiryDate}
+                          </p>
+                          <p className='card-text mb-3'>
+                            <span className='text-primary'>Passport Expiry Date : </span>
+                            {fillEmpData.datesInfo.passportExpiryDate}
+                          </p>
                         </div>
                       </div>
-                      <div className='col-xl-12 col-lg-6 col-md-6 d-flex'></div>
                     </div>
+                    <div className='col-xl-12 col-lg-6 col-md-6 d-flex'></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Basic Information*/}
-          <Modal
-            show={this.state.show === "basic"}
-            onHide={this.handleClose}
-            centered>
-            <Modal.Header closeButton>
-              <h4 className='modal-title mb-3'>Basic Information</h4>
-            </Modal.Header>
-            <Modal.Body>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Preferred Name'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='First Name'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Last Name'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Nationality'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  className='form-control datetimepicker date-enter'
-                  type='text'
-                  placeholder='Add Date of Birth'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Gender'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Blood Group'
-                />
-              </div>
-              <button
-                type='button'
-                className='btn btn-danger text-white ctm-border-radius float-right ml-3'
-                data-dismiss='modal'>
-                Cancel
-              </button>
-              <button
-                type='button'
-                className='btn btn-theme  button-1 text-white ctm-border-radius float-right'>
-                Add
-              </button>
-            </Modal.Body>
-          </Modal>
-          {/* Edit Basic Information*/}
-          <Modal
-            Modal
-            show={this.state.show === "edit"}
-            onHide={this.handleClose}
-            centered>
-            <Modal.Header closeButton>
-              <h4 className='modal-title mb-3'>Edit Basic Information</h4>
-            </Modal.Header>
-            <Modal.Body>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Preferred Name'
-                  value='Maria'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='First Name'
-                  value='Maria'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Last Name'
-                  value='Cotton'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Nationality'
-                  value='American'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  className='form-control datetimepicker date-enter'
-                  type='text'
-                  placeholder='Add Date of Birth'
-                  value='05-07-1990'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Gender'
-                  value='Female'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Blood Group'
-                  value='A+'
-                />
-              </div>
-              <button
-                type='button'
-                className='btn btn-danger float-right ml-3'
-                data-dismiss='modal'>
-                Cancel
-              </button>
-              <button
-                type='button'
-                className='btn btn-theme  button-1 text-white ctm-border-radius float-right'>
-                Save
-              </button>
-            </Modal.Body>
-          </Modal>
-          {/* Add Contact*/}
-          <Modal
-            Modal
-            show={this.state.show === "addcontact"}
-            onHide={this.handleClose}
-            centered>
-            <Modal.Header closeButton>
-              <h4 className='modal-title mb-3'>Add Contact</h4>
-            </Modal.Header>
-            <Modal.Body>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Phone Number'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='email'
-                  className='form-control'
-                  placeholder='Login Email'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='email'
-                  className='form-control'
-                  placeholder='Add Personal Email'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Seconary Phone Number'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Web Site'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Connect Your Linkedin'
-                />
-              </div>
-              <button
-                type='button'
-                className='btn btn-danger text-white ctm-border-radius float-right ml-3'
-                data-dismiss='modal'>
-                Cancel
-              </button>
-              <button
-                type='button'
-                className='btn btn-theme  button-1 text-white ctm-border-radius float-right'>
-                Save
-              </button>
-            </Modal.Body>
-          </Modal>
-          {/* edit Contact*/}
-          <Modal
-            Modal
-            show={this.state.show === "editcontact"}
-            onHide={this.handleClose}
-            centered>
-            <Modal.Header closeButton>
-              <h4 className='modal-title mb-3'>Edit Contact</h4>
-            </Modal.Header>
-            <Modal.Body>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Phone Number'
-                  value='987654321'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='email'
-                  className='form-control'
-                  placeholder='Login Email'
-                  value='mariacotton@example.com'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='email'
-                  className='form-control'
-                  placeholder='Add Personal Email'
-                  value='maria@example.com'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Seconary Phone Number'
-                  value='986754231'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Add Web Site'
-                  value='www.focustechnology.com'
-                />
-              </div>
-              <div className='input-group mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Connect Your Linkedin'
-                  value='#mariacotton'
-                />
-              </div>
-              <button
-                type='button'
-                className='btn btn-danger text-white ctm-border-radius float-right ml-3'
-                data-dismiss='modal'>
-                Cancel
-              </button>
-              <button
-                type='button'
-                className='btn btn-theme  button-1 text-white ctm-border-radius float-right'>
-                Save
-              </button>
-            </Modal.Body>
-          </Modal>
-          {/* add date*/}
-          <Modal
-            Modal
-            show={this.state.show === "adddate"}
-            onHide={this.handleClose}
-            centered>
-            <Modal.Header closeButton>
-              <h4 className='modal-title mb-3'>Add New Date</h4>
-            </Modal.Header>
-            <Modal.Body>
-              <div className='modal-body'>
-                <div className='form-group'>
-                  <div className='input-group mb-1'>
-                    <DatePicker
-                      className={"form-control datetimepicker"}
-                      placeholderText='Date Type'
-                      selected={this.state.startDate}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                </div>
-                <div className='form-group'>
-                  <DatePicker
-                    className={"form-control datetimepicker"}
-                    placeholderText='Select Date'
-                    selected={this.state.startDate}
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <button
-                  type='button'
-                  className='btn btn-danger text-white ctm-border-radius float-right ml-3'
-                  data-dismiss='modal'>
-                  Cancel
-                </button>
-                <button
-                  type='button'
-                  className='btn btn-theme  button-1 text-white ctm-border-radius float-right'>
-                  Add
-                </button>
-              </div>
-            </Modal.Body>
-          </Modal>
-          {/* edit date*/}
-          <Modal
-            Modal
-            show={this.state.show === "editdate"}
-            onHide={this.handleClose}
-            centered>
-            <Modal.Header closeButton>
-              <h4 className='modal-title mb-3'>Add New Date</h4>
-            </Modal.Header>
-            <Modal.Body>
-              <div className='modal-body'>
-                <div className='form-group'>
-                  <div className='input-group mb-1'>
-                    <DatePicker
-                      selected={this.state.startDate}
-                      onChange={this.handleChange}
-                      placeholderText='Date Type'
-                      className='form-control datetimepicker date-enter'
-                    />
-                  </div>
-                </div>
-                <div className='form-group'>
-                  <div className='input-group mb-3'>
-                    <DatePicker
-                      selected={this.state.startDate}
-                      onChange={this.handleChange}
-                      placeholderText='Key Date'
-                      className='form-control datetimepicker date-enter'
-                    />
-                  </div>
-                </div>
-                <button
-                  type='button'
-                  className='btn btn-danger text-white ctm-border-radius float-right ml-3'
-                  data-dismiss='modal'>
-                  Cancel
-                </button>
-                <button
-                  type='button'
-                  className='btn btn-theme  button-1 text-white ctm-border-radius float-right'>
-                  Add
-                </button>
-              </div>
-            </Modal.Body>
-          </Modal>
         </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 }
-
 export default Details;

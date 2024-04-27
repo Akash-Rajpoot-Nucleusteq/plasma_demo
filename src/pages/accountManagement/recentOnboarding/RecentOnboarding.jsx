@@ -26,6 +26,10 @@ export const RecentOnboarding = () => {
     customerBillingRate: "",
     margin: "",
     allocationType: "",
+    billableStartDate: '',
+    billableEndDate: '',
+    investmentStartDate: '',
+    investmentEndDate: '',
   });
 
   const [selectedClient, setSelectedClient] = useState({
@@ -45,6 +49,10 @@ export const RecentOnboarding = () => {
     errorCustomerBillingRate: "",
     errorMargin: "",
     errorAllocationType: "",
+    errorBillableStartDate: '',
+    errorBillableEndDate: '',
+    errorInvestmentStartDate: '',
+    errorInvestmentEndDate: '',
   });
 
   const dummyData = [
@@ -192,7 +200,6 @@ export const RecentOnboarding = () => {
     }
   ];
 
-
   const handleRowClick = (employee) => {
     setSelectedEmployee(employee);
     setShowEmployeeDetailModal(true);
@@ -260,23 +267,40 @@ export const RecentOnboarding = () => {
       ),
       errorMargin: InputValidator.isEmpty(formData.margin),
       errorAllocationType: InputValidator.isEmpty(formData.allocationType),
+      errorBillableStartDate: formData.allocationType === allocationTypeList[0]
+        ? InputValidator.isEmpty(formData.billableStartDate)
+        : '',
+      errorBillableEndDate: formData.allocationType === allocationTypeList[0]
+        ? InputValidator.isEmpty(formData.billableEndDate)
+        : '',
+      errorInvestmentStartDate: formData.allocationType === allocationTypeList[1]
+        ? InputValidator.isEmpty(formData.investmentStartDate)
+        : '',
+      errorInvestmentEndDate: formData.allocationType === allocationTypeList[1]
+        ? InputValidator.isEmpty(formData.investmentEndDate)
+        : '',
     }));
   };
 
   function handleModalSubmit() {
     checkForError();
-    if (!InputValidator.isObjectEmpty(formData)) {
-      console.log('modal submitted: ', formData);
+    const mandatoryFields = { ...formData }
+    if (mandatoryFields.allocationType === allocationTypeList[0]) {
+      delete mandatoryFields.investmentStartDate;
+      delete mandatoryFields.investmentEndDate;
+    } else if (mandatoryFields.allocationType === allocationTypeList[1]) {
+      delete mandatoryFields.billableStartDate;
+      delete mandatoryFields.billableEndDate;
+    }
+    if (!InputValidator.isObjectEmpty(mandatoryFields)) {
       setShowAssignClientModal(false);
     } else {
       console.error("Failed from assign client modal");
-      console.log(formError);
+      console.error(formError);
     }
   }
 
   function setClientFromDropdown(value, controlId) {
-    console.log('selected client is : ', value);
-    console.log('selected controlId is : ', controlId);
     const errorId = giveNameWithError(controlId);
     setFormError((prevState) => ({ ...prevState, [errorId]: "" }));
     setFormData({
@@ -492,6 +516,65 @@ export const RecentOnboarding = () => {
                 errorMessage={formError.errorAllocationType}
                 formatOption={true}
               />
+              {formData.allocationType !== '' && formData.allocationType === allocationTypeList[0]
+                ? <>
+                  <LabelAndInputField
+                    mdValue={6}
+                    lgValue={6}
+                    smValue={12}
+                    xsValue={12}
+                    controlId={"billableStartDate"}
+                    labelText={"Billable Start Date"}
+                    isCompulsary={true}
+                    inputType={"date"}
+                    value={formData.billableStartDate}
+                    handleInputChange={handleInputChange}
+                    errorMessage={formError.errorBillableStartDate}
+                  />
+                  <LabelAndInputField
+                    mdValue={6}
+                    lgValue={6}
+                    smValue={12}
+                    xsValue={12}
+                    controlId={"billableEndDate"}
+                    labelText={"Billable End Date"}
+                    isCompulsary={true}
+                    inputType={"date"}
+                    value={formData.billableEndDate}
+                    handleInputChange={handleInputChange}
+                    errorMessage={formError.errorBillableEndDate}
+                  />
+                </>
+                : formData.allocationType === allocationTypeList[1] &&
+                <>
+                  <LabelAndInputField
+                    mdValue={6}
+                    lgValue={6}
+                    smValue={12}
+                    xsValue={12}
+                    controlId={"investmentStartDate"}
+                    labelText={"Investment Start Date"}
+                    isCompulsary={true}
+                    inputType={"date"}
+                    value={formData.investmentStartDate}
+                    handleInputChange={handleInputChange}
+                    errorMessage={formError.errorInvestmentStartDate}
+                  />
+                  <LabelAndInputField
+                    mdValue={6}
+                    lgValue={6}
+                    smValue={12}
+                    xsValue={12}
+                    controlId={"investmentEndDate"}
+                    labelText={"Investment End Date"}
+                    isCompulsary={true}
+                    inputType={"date"}
+                    value={formData.investmentEndDate}
+                    handleInputChange={handleInputChange}
+                    errorMessage={formError.errorInvestmentEndDate}
+                  />
+                </>
+              }
             </>
           }
           extraButton={

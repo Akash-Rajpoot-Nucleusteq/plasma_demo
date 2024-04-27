@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import 'react-phone-input-2/lib/style.css';
-// import Sidebar from '../SideBar'
-// import CommonFormForVendor from '../CommonForm/CommonFormForVendor'
-// import { getCurrentUserDetails } from '../../../authentication/auth';
 import { HEADER_RECRUITER } from '../../../assets/common/constants';
 import SideBar from '../../../components/layout/SideBar';
 import { useLocation } from 'react-router';

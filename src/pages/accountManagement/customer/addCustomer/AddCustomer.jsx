@@ -232,7 +232,6 @@ const AddCustomer = () => {
     formData.directContract === directContractList[0] && delete mandatoryFieldData.vendorId;
 
     if (InputValidator.isFormErrorEmpty(formError) && !InputValidator.isObjectEmpty(mandatoryFieldData)) {
-      console.log('success: ', formData);
     } else {
       console.error('error:', formError);
     }

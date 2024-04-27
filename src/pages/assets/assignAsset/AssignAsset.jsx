@@ -52,14 +52,13 @@ import { useLocation } from 'react-router';
 
 
 export default function AssignAsset(props) {
-  
+
   const location = useLocation();
   const [assetData, setAssetData] = useState({});
 
   useEffect(() => {
     const { assetData } = location.state ? location.state : '';
     setAssetData(assetData);
-    console.log('from useeffect: ',assetData);
   })
   return (
     <>

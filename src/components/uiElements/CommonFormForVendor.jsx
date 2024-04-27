@@ -250,7 +250,6 @@ export default function CommonFormForVendor({ employeeData, parentComponentName 
         if (InputValidator.isFormErrorEmpty(formError) &&
             isDocumentFieldEmpty()
         ) {
-            console.log("Succed vendor from approval");
         } else {
             console.error('Failed vendor onboard error: ', formError);
         }

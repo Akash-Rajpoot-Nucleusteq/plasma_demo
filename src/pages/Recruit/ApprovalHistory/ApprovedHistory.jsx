@@ -5,6 +5,7 @@ import CommonModal from "../../../components/uiElements/CommonModal.jsx";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
 import { HEADER_RECRUITER } from "../../../assets/common/constants.js";
 import Header from "../../../components/layout/Header.jsx";
+import { formatDropdownOption, formatPhoneNumber } from '../../../utility/commonFunctions/CommonFunctions.jsx'
 
 const ApprovedHistory = () => {
   const [modalData, setModalData] = useState({});
@@ -324,6 +325,7 @@ const ApprovedHistory = () => {
       title: "Phone Number",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
+      render: (_, record) => formatPhoneNumber(record.phoneNumber),
     },
     {
       title: "Personal Email Id",
@@ -406,7 +408,7 @@ const ApprovedHistory = () => {
       key: "employmentNature",
     },
     {
-      title: "Working Remote",
+      title: "Work Location Type",
       dataIndex: "workMode",
       key: "workMode",
     },
@@ -461,6 +463,7 @@ const ApprovedHistory = () => {
       title: "Phone Number",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
+      render: (_, record) => formatPhoneNumber(record.phoneNumber),
     },
     {
       title: "State",
@@ -479,9 +482,21 @@ const ApprovedHistory = () => {
   }
 
   function setingModalData(data) {
+    const formattedData = ({
+      ...data,
+      phoneNumber: formatPhoneNumber(data.phoneNumber),
+      gender: formatDropdownOption(data.gender),
+      bloodGroup: formatDropdownOption(data.bloodGroup),
+      onshoreOrOffshore: formatDropdownOption(data.onshoreOrOffshore),
+      visaStatus: formatDropdownOption(data.visaStatus),
+      employmentNature: formatDropdownOption(data.employmentNature),
+      workMode: formatDropdownOption(data.workMode),
+      designation: formatDropdownOption(data.designation),
+      employmentStatus: formatDropdownOption(data.employmentStatus),
+    });
     setModalData({
       ...modalData,
-      ...data,
+      ...formattedData,
     });
     setShowModal(true);
   }

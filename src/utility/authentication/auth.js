@@ -5,6 +5,7 @@ import {
   MANAGER,
   RECRUITER,
   RECRUITER_MANAGER,
+  SUPER_ADMIN,
 } from "../../assets/common/constants";
 
 export const doLogin = (data) => {
@@ -28,6 +29,8 @@ export const determineUserRole = (email) => {
     return CLIENT_MANAGER;
   } else if (email === "employee@nucleusteq.com") {
     return EMPLOYEE;
+  } else if (email === "super.admin@nucleusteq.com") {
+    return SUPER_ADMIN;
   } else {
     return "Unknown Role";
   }

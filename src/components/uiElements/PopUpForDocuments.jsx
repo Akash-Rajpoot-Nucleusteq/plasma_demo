@@ -10,14 +10,14 @@ export function AdharPopUpUpload({ adharCard, setAdharCard, handleSubmitCustom }
   const [errorMessage, setErrorMessage] = useState("");
   const [documentView, setDocumentView] = useState(null);
 
-  let isGettingRealData = false;
+  let isPresentValidData = false;
 
   useEffect(() => {
-    checkForHavingRealData();
+    validateDataPresence();
   }, [adharCard.showAttachmentModal])
 
-  function checkForHavingRealData() {
-    isGettingRealData = adharCard.adharAttachment ? true : false;
+  function validateDataPresence() {
+    isPresentValidData = adharCard.adharAttachment ? true : false;
   }
 
   function handleClose() {
@@ -37,7 +37,7 @@ export function AdharPopUpUpload({ adharCard, setAdharCard, handleSubmitCustom }
     }
   }
   function handleCloseButton() {
-    if (isGettingRealData) {
+    if (isPresentValidData) {
       handleClose();
     } else
       if (InputValidator.isObjectEmpty(adharCard)) {
@@ -109,13 +109,13 @@ export function AdharPopUpUpload({ adharCard, setAdharCard, handleSubmitCustom }
         showDocumentView(adharCard.adharAttachment)}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <h4 className='modal-title mb-3'>Upload Adhar Card</h4>
+          <h4 className='modal-title mb-3'>Upload Aadhar Card</h4>
         </Modal.Header>
         <Modal.Body>
           <Col>
             <Form.Group controlId='adharNumber'>
               <Form.Label>
-                Adhar Number<span className='text-danger'>*</span>
+                Aadhar Number<span className='text-danger'>*</span>
               </Form.Label>
               <Form.Control
                 pattern='[0-9]*'
@@ -205,14 +205,14 @@ export function PassportPopUpUpload({ passport, setPassport, handleSubmitCustom 
   const [documentView, setDocumentView] = useState(null);
   const countryList = getCountryList();
 
-  let isGettingRealData = false;
+  let isPresentValidData = false;
 
   useEffect(() => {
-    checkForHavingRealData();
+    validateDataPresence();
   }, [passport.showAttachmentModal])
 
-  function checkForHavingRealData() {
-    isGettingRealData = passport.passportAttachment ? true : false;
+  function validateDataPresence() {
+    isPresentValidData = passport.passportAttachment ? true : false;
   }
 
   function handleClose() {
@@ -234,7 +234,7 @@ export function PassportPopUpUpload({ passport, setPassport, handleSubmitCustom 
   }
 
   function handleCloseButton() {
-    if (isGettingRealData) {
+    if (isPresentValidData) {
       handleClose();
     } else
       if (InputValidator.isObjectEmpty(passport)) {
@@ -435,14 +435,14 @@ export function WorkAuthorizationPopUpUpload({
   const fileInputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [documentView, setDocumentView] = useState(null);
-  let isGettingRealData = false;
+  let isPresentValidData = false;
 
   useEffect(() => {
-    checkForHavingRealData();
+    validateDataPresence();
   }, [workAuthorization.showAttachmentModal])
 
-  function checkForHavingRealData() {
-    isGettingRealData = workAuthorization.workAuthorizationAttachment ? true : false;
+  function validateDataPresence() {
+    isPresentValidData = workAuthorization.workAuthorizationAttachment ? true : false;
   }
 
   function handleClose() {
@@ -466,7 +466,7 @@ export function WorkAuthorizationPopUpUpload({
   }
 
   function handleCloseButton() {
-    if (isGettingRealData) {
+    if (isPresentValidData) {
       handleClose();
     } else
       if (InputValidator.isObjectEmpty(workAuthorization)) {
@@ -637,14 +637,14 @@ export function PanPopUpUpload({ pan, setPan, handleSubmitCustom }) {
   const fileInputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [documentView, setDocumentView] = useState(null);
-  let isGettingRealData = false;
+  let isPresentValidData = false;
 
   useEffect(() => {
-    checkForHavingRealData();
+    validateDataPresence();
   }, [pan.showAttachmentModal])
 
-  function checkForHavingRealData() {
-    isGettingRealData = pan.panAttachment ? true : false;
+  function validateDataPresence() {
+    isPresentValidData = pan.panAttachment ? true : false;
   }
 
   function handleClose() {
@@ -666,7 +666,7 @@ export function PanPopUpUpload({ pan, setPan, handleSubmitCustom }) {
   }
 
   function handleCloseButton() {
-    if (isGettingRealData) {
+    if (isPresentValidData) {
       handleClose();
     } else
       if (InputValidator.isObjectEmpty(pan)) {
@@ -829,14 +829,14 @@ export function CommonPopUpUpload({ data, setData, heading, handleSubmitCustom }
   const [errorMessage, setErrorMessage] = useState("");
   const fileInputRef = useRef(null);
   const [documentView, setDocumentView] = useState(null);
-  let isGettingRealData = false;
+  let isPresentValidData = false;
 
   useEffect(() => {
-    checkForHavingRealData();
+    validateDataPresence();
   }, [data.showAttachmentModal])
 
-  function checkForHavingRealData() {
-    isGettingRealData = data.document ? true : false;
+  function validateDataPresence() {
+    isPresentValidData = data.document ? true : false;
   }
 
   function handleClose() {
@@ -869,7 +869,7 @@ export function CommonPopUpUpload({ data, setData, heading, handleSubmitCustom }
   }
 
   function handleCloseButton() {
-    if (isGettingRealData) {
+    if (isPresentValidData) {
       handleClose();
     } else {
       if (InputValidator.isObjectEmpty(data)) {

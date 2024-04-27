@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import SideBar from "../../../components/layout/SideBar";
-import ViewTimesheet from "../../../pages/timesheet/viewTimesheet/ViewTimesheet.jsx";
+import ViewTimesheet from '../viewtimesheet/ViewTimesheet.jsx'
 import ButtonComponent from "../../../components/uiElements/ButtonComponent.jsx";
 import CommonModal from "../../../components/uiElements/CommonModal.jsx";
 import CommonTable from "../../../components/uiElements/CommonTable.jsx";
@@ -33,9 +33,9 @@ const PendingTimesheet = () => {
 
   const pendingTimesheetData = [
     {
-      sno: 1,
+      employeeId: 'N0006',
       assigneeName: "John Doe",
-      period: "1st January 2024",
+      period: "01/01/2024",
       hoursSubmitted: 40,
       clientName: "ABC Corp",
       businessUnit: "Sales",
@@ -43,9 +43,9 @@ const PendingTimesheet = () => {
       task: "Task A",
     },
     {
-      sno: 2,
+      employeeId: 'N0007',
       assigneeName: "Jane Smith",
-      period: "1st January 2024",
+      period: "01/01/2024",
       hoursSubmitted: 45,
       clientName: "DEF Ltd",
       businessUnit: "Marketing",
@@ -53,9 +53,9 @@ const PendingTimesheet = () => {
       task: "Task C",
     },
     {
-      sno: 3,
+      employeeId: 'N0008',
       assigneeName: "Alex Johnson",
-      period: "26 December 2023",
+      period: "26/12/2023",
       hoursSubmitted: 55,
       clientName: "GHI Corporation",
       businessUnit: "Finance",
@@ -63,9 +63,9 @@ const PendingTimesheet = () => {
       task: "Task D",
     },
     {
-      sno: 4,
+      employeeId: 'N0009',
       assigneeName: "Emily Davis",
-      period: "8th January 2023",
+      period: "08/01/2023",
       hoursSubmitted: 30,
       clientName: "JKL Enterprises",
       businessUnit: "Operations",
@@ -75,7 +75,7 @@ const PendingTimesheet = () => {
   ];
 
   const pendingTimesheetColumns = [
-    { title: "S.No", dataIndex: "sno", key: "sno" },
+    { title: "Employee Id", dataIndex: "employeeId", key: "employeeId" },
     { title: "Assignee Name", dataIndex: "assigneeName", key: "assigneeName" },
     { title: "Period (Week)", dataIndex: "period", key: "period" },
     {
@@ -93,18 +93,16 @@ const PendingTimesheet = () => {
       width: 500,
       render: (text, record) => (
         <div>
-          <a
-            href='#0'
-            className='btn btn-theme ctm-border-radius text-white btn-sm'
-            onClick={openApprovedLeaveModal}>
-            Approve
-          </a>
-          <a
-            href='#0'
-            className='btn btn-danger ctm-border-radius text-white btn-sm'
-            onClick={handleShowRejectModal}>
-            Reject
-          </a>
+          <ButtonComponent
+            className={'btn btn-theme ctm-border-radius text-white btn-sm'}
+            onClickHandler={openApprovedLeaveModal}
+            buttonText={'Approved'}
+          />
+          <ButtonComponent
+            className={'btn btn-danger ctm-border-radius text-white btn-sm'}
+            onClickHandler={handleShowRejectModal}
+            buttonText={'Reject'}
+          />
         </div>
       ),
     },
@@ -112,12 +110,12 @@ const PendingTimesheet = () => {
       title: "View",
       dataIndex: "view",
       render: (text, record) => (
-        <Button
-          variant='info'
-          className='ctm-border-radius text-white btn-sm'
-          onClick={() => handleShowViewModal(record)}>
-          View
-        </Button>
+        <ButtonComponent
+          variant={'info'}
+          className={'ctm-border-radius text-white btn-sm'}
+          onClickHandler={() => handleShowViewModal(record)}
+          buttonText={'View'}
+        />
       ),
     },
   ];
@@ -160,12 +158,15 @@ const PendingTimesheet = () => {
             <Modal.Title>View Timesheet</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ViewTimesheet />
+            <ViewTimesheet employeeData={selectedTimesheet} />
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='secondary' onClick={handleCloseViewModal}>
-              Close
-            </Button>
+            <ButtonComponent
+              type={'button'}
+              className={'btn btn-danger ctm-border-radius text-white'}
+              onClickHandler={handleCloseViewModal}
+              buttonText={'Close'}
+            />
           </Modal.Footer>
         </Modal>
 
@@ -189,9 +190,7 @@ const PendingTimesheet = () => {
             extraButton={
               <>
                 <ButtonComponent
-                  className={
-                    "btn btn-theme button-1 ctm-border-radius text-white text-center"
-                  }
+                  className={"btn btn-theme button-1 ctm-border-radius text-white text-center"}
                   variant={"primary"}
                   buttonText={"Approve"}
                 />
@@ -220,9 +219,7 @@ const PendingTimesheet = () => {
             extraButton={
               <>
                 <ButtonComponent
-                  className={
-                    "btn btn-theme button-1 ctm-border-radius text-white text-center"
-                  }
+                  className={"btn btn-theme button-1 ctm-border-radius text-white text-center"}
                   variant={"primary"}
                   buttonText={"Reject"}
                 />

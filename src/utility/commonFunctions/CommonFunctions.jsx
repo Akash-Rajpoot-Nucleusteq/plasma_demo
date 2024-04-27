@@ -1,6 +1,7 @@
 import countryStateData from '../../assets/common/countryStateData.json'
 import moment from "moment";
 import html2pdf from "html2pdf.js";
+import { formatPhoneNumberIntl } from 'react-phone-number-input'
 
 export function handleDownload(downloadDocument) {
     if (downloadDocument) {
@@ -104,3 +105,7 @@ export const formatDropdownOption = (value) => {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(' ');
 };
+
+export const formatPhoneNumber = (value) => {
+    return formatPhoneNumberIntl('+' + value)
+}

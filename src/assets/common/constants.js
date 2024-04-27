@@ -4,6 +4,7 @@ export const MANAGER = "MANAGER";
 export const RECRUITER = "RECRUITER";
 export const RECRUITER_MANAGER = "RECRUITER_MANAGER";
 export const CLIENT_MANAGER = "CLIENT_MANAGER";
+export const SUPER_ADMIN = "SUPER_ADMIN";
 
 //Header Names 
 export const HEADER_DASHBOARD = "Dashboard";

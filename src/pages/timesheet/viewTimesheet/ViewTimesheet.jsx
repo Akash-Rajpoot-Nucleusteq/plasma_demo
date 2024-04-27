@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
+import LabelAndInputField from "../../../components/uiElements/LabelAndInputField";
+import ButtonComponent from "../../../components/uiElements/ButtonComponent";
 
-const ViewTimesheet = () => {
+const ViewTimesheet = ({ employeeData }) => {
   const [formData, setFormData] = useState({
-    sno: "",
-    assigneeName: "",
-    period: "",
-    hoursSubmitted: "",
-    clientName: "",
-    businessUnit: "",
-    project: "",
-    task: "",
+    employeeId: employeeData?.employeeId,
+    assigneeName: employeeData?.assigneeName,
+    period: employeeData?.period,
+    hoursSubmitted: employeeData?.hoursSubmitted,
+    clientName: employeeData?.clientName,
+    businessUnit: employeeData?.businessUnit,
+    project: employeeData?.project,
   });
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { id, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [id]: value,
     });
   };
 
@@ -45,107 +45,104 @@ const ViewTimesheet = () => {
     <div>
       <Form onSubmit={handleSubmit}>
         <Row>
-          <Col md={6}>
-            <Form.Group controlId='sno'>
-              <Form.Label>Sno:</Form.Label>
-              <Form.Control
-                type='number'
-                name='sno'
-                value={formData.sno}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId='assigneeName'>
-              <Form.Label>Assignee Name:</Form.Label>
-              <Form.Control
-                type='text'
-                name='assigneeName'
-                value={formData.assigneeName}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
+          <LabelAndInputField
+            mdValue={6}
+            lgValue={6}
+            smValue={12}
+            xsValue={12}
+            controlId={"employeeId"}
+            labelText={"Employee Id"}
+            placeholder={'Enter Employee Id'}
+            value={formData.employeeId}
+            handleInputChange={handleChange}
+            isReadOnly={true}
+          />
+          <LabelAndInputField
+            mdValue={6}
+            lgValue={6}
+            smValue={12}
+            xsValue={12}
+            controlId={"assigneeName"}
+            labelText={"Assignee Name"}
+            placeholder={'Enter Assignee Name'}
+            value={formData.assigneeName}
+            handleInputChange={handleChange}
+            isReadOnly={true}
+          />
         </Row>
 
         <Row>
-          <Col>
-            <Form.Group controlId='period'>
-              <Form.Label>Period:</Form.Label>
-              <Form.Control
-                type='text'
-                name='period'
-                value={formData.period}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId='hoursSubmitted'>
-              <Form.Label>Hours Submitted:</Form.Label>
-              <Form.Control
-                type='number'
-                name='hoursSubmitted'
-                value={formData.hoursSubmitted}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
+          <LabelAndInputField
+            mdValue={6}
+            lgValue={6}
+            smValue={12}
+            xsValue={12}
+            controlId={"period"}
+            labelText={"Period"}
+            placeholder={'Enter Period'}
+            value={formData.period}
+            handleInputChange={handleChange}
+            isReadOnly={true}
+          />
+          <LabelAndInputField
+            mdValue={6}
+            lgValue={6}
+            smValue={12}
+            xsValue={12}
+            controlId={"hoursSubmitted"}
+            labelText={"Hours Submitted"}
+            placeholder={'Enter Hours Submitted'}
+            inputType={'number'}
+            value={formData.hoursSubmitted}
+            handleInputChange={handleChange}
+            isReadOnly={true}
+          />
         </Row>
 
         <Row>
-          <Col>
-            <Form.Group controlId='clientName'>
-              <Form.Label>Client Name:</Form.Label>
-              <Form.Control
-                type='text'
-                name='clientName'
-                value={formData.clientName}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId='businessUnit'>
-              <Form.Label>Business Unit:</Form.Label>
-              <Form.Control
-                type='text'
-                name='businessUnit'
-                value={formData.businessUnit}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
+          <LabelAndInputField
+            mdValue={6}
+            lgValue={6}
+            smValue={12}
+            xsValue={12}
+            controlId={"clientName"}
+            labelText={"Client Name"}
+            placeholder={'Enter Client Name'}
+            value={formData.clientName}
+            handleInputChange={handleChange}
+            isReadOnly={true}
+          />
+          <LabelAndInputField
+            mdValue={6}
+            lgValue={6}
+            smValue={12}
+            xsValue={12}
+            controlId={"businessUnit"}
+            labelText={"Business Unit"}
+            placeholder={'Enter Business Unit'}
+            value={formData.businessUnit}
+            handleInputChange={handleChange}
+            isReadOnly={true}
+          />
         </Row>
 
         <Row>
-          <Col>
-            <Form.Group controlId='project'>
-              <Form.Label>Project:</Form.Label>
-              <Form.Control
-                type='text'
-                name='project'
-                value={formData.project}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId='task'>
-              <Form.Label>Task:</Form.Label>
-              <Form.Control
-                type='text'
-                name='task'
-                value={formData.task}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
+          <LabelAndInputField
+            mdValue={6}
+            lgValue={6}
+            smValue={12}
+            xsValue={12}
+            controlId={"project"}
+            labelText={"Project"}
+            placeholder={'Enter Project'}
+            value={formData.project}
+            handleInputChange={handleChange}
+            isReadOnly={true}
+          />
         </Row>
 
         <div style={{ overflowX: "auto" }}>
-          <table className='table table-hover'>
+          <table className='table table-hover table-striped'>
             <thead>
               <tr>
                 <th>Week</th>
@@ -180,12 +177,17 @@ const ViewTimesheet = () => {
         </div>
 
         <div className='d-flex justify-content-center'>
-          <Button variant='primary' type='submit'>
-            Approve
-          </Button>
-          <Button variant='primary' type='button'>
-            Reject
-          </Button>
+          <ButtonComponent
+            type={'submit'}
+            variant={'primary'}
+            buttonText={'Approve'}
+            className={'btn btn-theme button-1 text-white ctm-border-radius'}
+          />
+          <ButtonComponent
+            type={'button'}
+            buttonText={'Reject'}
+            className={'btn btn-danger ctm-border-radius text-white'}
+          />
         </div>
       </Form>
     </div>

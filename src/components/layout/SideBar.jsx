@@ -3,25 +3,24 @@ import { Link, NavLink } from "react-router-dom";
 import {
   CLIENT_MANAGER,
   EMPLOYEE,
-  HEADER_DOCUMENT,
-  MANAGER,
-  RECRUITER,
-  RECRUITER_MANAGER,
-} from "../../assets/common/constants";
-import {
   HEADER_ACCOUNT,
   HEADER_ASSET,
   HEADER_ASSIGNMENT,
   HEADER_DASHBOARD,
+  HEADER_DOCUMENT,
   HEADER_LEAVE,
   HEADER_PROFILE,
   HEADER_RECRUITER,
   HEADER_TIMESHEET,
+  MANAGER,
+  RECRUITER,
+  RECRUITER_MANAGER,
+  SUPER_ADMIN,
 } from "../../assets/common/constants";
-import UserDetailsCard from "../uiElements/UserDetailsCard";
 import QuoteComponent from "../dashboard/QuoteComponent";
 import HolidayListComponent from "../holiday/HolidayListComponent";
 import LeaveCircleComponent from "../leave/LeaveCircleComponent";
+import UserDetailsCard from "../uiElements/UserDetailsCard";
 
 export default function SideBar({ headerName, userRole, currentPageName }) {
   const currentLocation = location.pathname;
@@ -161,9 +160,9 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
             : ""
         }`,
       },
-      { title: "Manage Vendor", pageLink: "/manage-vendor" },
-      { title: "Add Vendor Resource", pageLink: "/add-vendor-resource" },
-      { title: "Vendor Resources", pageLink: "/vendor-resources" },
+      { title: 'Manage Vendor', pageLink: '/manage-vendor' },
+      { title: 'Vendor Resources', pageLink: '/vendor-resources' }
+
     ],
     profile: [
       { title: "Employment", pageLink: "/profile/employment" },
@@ -198,21 +197,16 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       { title: "Future Assignment", pageLink: "/future-assignment" },
     ],
     account: [
-      { title: "Available Pool", pageLink: "/recent-onboarding" },
+      { title: 'Available Pool', pageLink: '/available-pool' },
       {
-        title: "Customer",
-        pageLink: "/customer",
-        highlightedPage: `${
-          currentLocation === "/client-active" ||
-          currentLocation === "/customer-add"
-            ? "active"
-            : ""
-        }`,
+        title: 'Customer',
+        pageLink: '/customer',
+        highlightedPage: `${currentLocation === '/client-active' || currentLocation === '/customer-add' ? 'active' : ''}`
       },
-      { title: "Allocations", pageLink: "/allocation" },
-      { title: "Timesheet", pageLink: "/client-employee-timesheet" },
-      { title: "Revenue", pageLink: "/revenue" },
-      { title: "Forecasting", pageLink: "/forecast" },
+      { title: 'Allocations', pageLink: '/allocation' },
+      { title: 'Timesheet', pageLink: '/client-employee-timesheet' },
+      { title: 'Revenue', pageLink: '/revenue' },
+      { title: 'Forecasting', pageLink: '/forecast' },
     ],
     profile: [
       { title: "Employment", pageLink: "/profile/employment" },
@@ -222,10 +216,74 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       {
         title: "My Documents",
         pageLink: "/document",
-        highlightedPage: `${
-          currentLocation === "/edit-document" ? "active" : ""
-        }`,
+        highlightedPage: `${currentLocation === '/edit-document' ? 'active' : ''}`
       },
+    ]
+  };
+
+  const superAdminNav = {
+    timesheet: [
+      { title: "My Timesheet", pageLink: "/timesheet" },
+      { title: "Pending Timesheet", pageLink: "/pending-timesheet" },
+      { title: "Approved Timesheet", pageLink: "/approved-timesheet" },
+    ],
+    assets: [
+      { title: "My Asset", pageLink: "/asset" },
+      { title: "Add Asset", pageLink: "/add-asset" },
+      { title: "Inventory", pageLink: "/asset-inventory" },
+      {
+        title: "Assign Asset",
+        pageLink: { pathname: "/assign-asset-table", },
+        highlightedPage: `${currentLocation === '/assign-asset' ? 'active' : ''}`
+      },
+    ],
+    assignment: [
+      { title: "Current Assignment", pageLink: "/assignment" },
+      { title: "Past Assignment", pageLink: "/past-assignment" },
+      { title: "Future Assignment", pageLink: "/future-assignment" },
+    ],
+    recruiter: [
+      { title: "Recent Onboarding", pageLink: "/onboarding", },
+      { title: "New Employee Onboarding", pageLink: "/new-onboarding", },
+      {
+        title: "Onboarding Approval",
+        pageLink: "/onboarding-approval",
+        highlightedPage: `${currentLocation === '/onboarding-approval-form' ? 'active' : ''}`
+      },
+      { title: "Approval History", pageLink: "/approval-history", },
+      { title: 'New Vendor Onboarding', pageLink: '/new-vendor-onboarding' },
+      {
+        title: 'Vendor Onboarding Approval',
+        pageLink: '/new-vendor-onboarding-approval',
+        highlightedPage: `${currentLocation === '/new-vendor-onboarding-approval-form' ? 'active' : ''}`
+      },
+      { title: 'Manage Vendor', pageLink: '/manage-vendor' },
+      { title: 'Vendor Resources', pageLink: '/vendor-resources' }
+    ],
+    account: [
+      { title: 'Available Pool', pageLink: '/available-pool' },
+      {
+        title: 'Customer',
+        pageLink: '/customer',
+        highlightedPage: `${currentLocation === '/client-active' || currentLocation === '/customer-add' ? 'active' : ''}`
+      },
+      { title: 'Allocations', pageLink: '/allocation' },
+      { title: 'Timesheet', pageLink: '/client-employee-timesheet' },
+      { title: 'Revenue', pageLink: '/revenue' },
+      { title: 'Forecasting', pageLink: '/forecast' },
+    ],
+    profile: [
+      { title: "Employment", pageLink: "/profile/employment" },
+      { title: "Detail", pageLink: "/profile/details" },
+    ],
+    document: [
+      {
+        title: "My Documents",
+        pageLink: "/document",
+        highlightedPage: `${currentLocation === '/edit-document' ? 'active' : ''}`
+      },
+      { title: "Document Approval", pageLink: "/document-approval" },
+      { title: "Approval History", pageLink: "/document-approval-history" },
     ],
   };
 
@@ -269,6 +327,15 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       [HEADER_PROFILE]: clientManagerNav.profile,
       [HEADER_DOCUMENT]: clientManagerNav.document,
     },
+    [SUPER_ADMIN]: {
+      [HEADER_ASSET]: superAdminNav.assets,
+      [HEADER_TIMESHEET]: superAdminNav.timesheet,
+      [HEADER_ASSIGNMENT]: superAdminNav.assignment,
+      [HEADER_RECRUITER]: superAdminNav.recruiter,
+      [HEADER_ACCOUNT]: clientManagerNav.account,
+      [HEADER_PROFILE]: superAdminNav.profile,
+      [HEADER_DOCUMENT]: superAdminNav.document,
+    },
   };
 
   const navData = navigationData[userRole]
@@ -276,6 +343,8 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
       ? navigationData[userRole][headerName]
       : []
     : [];
+
+
 
   return (
     <>
@@ -353,9 +422,7 @@ export default function SideBar({ headerName, userRole, currentPageName }) {
           </>
         )}
 
-        {/* holiday list */}
-        {/* {headerName === HEADER_DASHBOARD && <HolidayListComponent />} */}
-      </aside>
+      </aside >
     </>
   );
 }

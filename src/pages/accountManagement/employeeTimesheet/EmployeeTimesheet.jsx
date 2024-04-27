@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from "../../../components/layout/SideBar";
-import { Button } from 'react-bootstrap';
+import { Button, Row } from 'react-bootstrap';
 import CommonTable from '../../../components/uiElements/CommonTable';
 import { HEADER_ACCOUNT } from '../../../assets/common/constants';
 import { getCurrentUserDetails } from '../../../utility/authentication/auth';
 import Header from '../../../components/layout/Header';
+import LabelAndDropdownField from '../../../components/uiElements/LabelAndDropdownField';
 
 export default function EmployeeTimesheet() {
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const [resourceTableData, setResourceTableData] = useState([])
+    const [selectedClient, setSelectedClient] = useState("");
 
     const allResourceTableData = [
         {
             employeeId: 'N0001',
+            clientName: 'AAA',
             firstName: 'Akash',
             lastName: 'Rajpoot',
             billingRate: '$80',
@@ -24,6 +27,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0002',
+            clientName: 'Amex',
             firstName: 'Emily',
             lastName: 'Smith',
             billingRate: '$75',
@@ -35,6 +39,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0003',
+            clientName: 'AAA',
             firstName: 'John',
             lastName: 'Doe',
             billingRate: '$90',
@@ -46,6 +51,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0004',
+            clientName: 'Amex',
             firstName: 'Sophia',
             lastName: 'Johnson',
             billingRate: '$85',
@@ -57,6 +63,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0005',
+            clientName: 'AAA',
             firstName: 'Daniel',
             lastName: 'Williams',
             billingRate: '$95',
@@ -68,6 +75,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0006',
+            clientName: 'Amex',
             firstName: 'Olivia',
             lastName: 'Brown',
             billingRate: '$78',
@@ -79,6 +87,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0007',
+            clientName: 'AAA',
             firstName: 'Liam',
             lastName: 'Jones',
             billingRate: '$88',
@@ -90,6 +99,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0008',
+            clientName: 'Amex',
             firstName: 'Ava',
             lastName: 'Davis',
             billingRate: '$82',
@@ -101,6 +111,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0009',
+            clientName: 'AAA',
             firstName: 'Noah',
             lastName: 'Miller',
             billingRate: '$87',
@@ -112,6 +123,7 @@ export default function EmployeeTimesheet() {
         },
         {
             employeeId: 'N0010',
+            clientName: 'Amex',
             firstName: 'Isabella',
             lastName: 'Moore',
             billingRate: '$91',
@@ -125,6 +137,7 @@ export default function EmployeeTimesheet() {
 
     const resourceColumn = [
         { title: 'Employee Id', dataIndex: 'employeeId', key: 'employeeId', },
+        { title: "Client Name", dataIndex: "clientName", key: "clientName" },
         {
             title: 'Resource Name',
             dataIndex: 'fullName',
@@ -158,9 +171,12 @@ export default function EmployeeTimesheet() {
 
     ]
 
+    const clientsList = [...new Set(allResourceTableData.map(item => item.clientName))];
+
     useEffect(() => {
         const filteredResourceData = filterDataByYear(allResourceTableData, selectedYear);
         setResourceTableData(filteredResourceData);
+        setSelectedClient('')
     }, [selectedYear]);
 
     const filterDataByYear = (data, year) => {
@@ -174,6 +190,14 @@ export default function EmployeeTimesheet() {
     const handleNextYearClick = () => {
         setSelectedYear(selectedYear + 1);
     };
+
+    const handleClientChange = (event) => {
+        setSelectedClient(event.target.value);
+    };
+
+    const filteredData = selectedClient
+        ? resourceTableData.filter(item => item.clientName === selectedClient)
+        : resourceTableData;
 
     return (
         <>
@@ -218,10 +242,28 @@ export default function EmployeeTimesheet() {
                                                     Next Year
                                                 </Button>
                                             </div>
+
+                                            <div className="col-xl-9 col-lg-8  col-md-12 mb-3">
+                                                <Row className='align-items-center'>
+                                                    <LabelAndDropdownField
+                                                        mdValue={6}
+                                                        lgValue={6}
+                                                        smValue={12}
+                                                        xsValue={12}
+                                                        controlId={"client"}
+                                                        labelText={"Select Client"}
+                                                        showDefaultOption={true}
+                                                        value={selectedClient}
+                                                        optionList={clientsList}
+                                                        handleInputChange={handleClientChange}
+                                                    />
+                                                </Row>
+                                            </div>
+
                                             <div className='table-responsive'>
                                                 <CommonTable
                                                     columns={resourceColumn}
-                                                    data={resourceTableData}
+                                                    data={filteredData}
                                                     tableTitle={'Timesheet'}
                                                 />
 

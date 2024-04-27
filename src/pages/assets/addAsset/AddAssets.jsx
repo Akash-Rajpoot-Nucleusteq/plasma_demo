@@ -7,33 +7,66 @@ import { Row } from "react-bootstrap";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
 import { HEADER_ASSET } from "../../../assets/common/constants";
 import Header from "../../../components/layout/Header.jsx";
+import { getNameWithErrorPrefix } from "../../../utility/commonFunctions/CommonFunctions.jsx";
+import InputValidator from "../../../validations/InputValidator.jsx";
 
 export const AddAssets = () => {
   const [formData, setFormData] = useState({
     assetName: "",
     serialNo: "",
-    modelNo: "",
     allocationDate: "",
     provider: "",
     clientPartner: "",
     clientName: "",
     workLocation: "",
-    workType: "",
     assetType: "",
+  });
+  const [formError, setFormError] = useState({
+    errorAssetName: "",
+    errorSerialNo: "",
+    errorAllocationDate: "",
+    errorProvider: "",
+    errorClientPartner: "",
+    errorClientName: "",
+    errorWorkLocation: "",
+    errorAssetType: "",
   });
 
   const assetTypeList = ["Laptop", "Desktop", "Printer"];
 
   const handleChangeById = (e) => {
     const { id, value } = e.target;
+    const errorId = getNameWithErrorPrefix(id);
     setFormData({
       ...formData,
       [id]: value,
     });
+    setFormError((prevState) => ({ ...prevState, [errorId]: "" }));
   };
+
+  const checkForError = () => {
+    setFormError((prevState) => ({
+      ...prevState,
+      errorAssetName: InputValidator.isEmpty(formData.assetName),
+      errorSerialNo: InputValidator.isEmpty(formData.serialNo),
+      errorAllocationDate: InputValidator.isEmpty(formData.allocationDate),
+      errorProvider: InputValidator.isEmpty(formData.provider),
+      errorClientPartner: InputValidator.isEmpty(formData.clientPartner),
+      errorClientName: InputValidator.isEmpty(formData.clientName),
+      errorWorkLocation: InputValidator.isEmpty(formData.workLocation),
+      errorAssetType: InputValidator.isEmpty(formData.assetType),
+    })
+    )
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    checkForError();
+    if (InputValidator.isFormErrorEmpty(formError)
+      && !InputValidator.isObjectEmpty(formData)) {
+    } else {
+      console.error('error while submitting adding asset');
+    }
   };
 
   return (
@@ -64,11 +97,12 @@ export const AddAssets = () => {
                         xsValue={12}
                         controlId={"assetName"}
                         labelText={"Asset Name"}
-                        isCompulsary={true}
+                        //isCompulsary={true}
                         inputType={"text"}
                         placeholder={"Enter Asset Name"}
                         value={formData.assetName}
                         handleInputChange={handleChangeById}
+                        errorMessage={formError.errorAssetName}
                       />
                       <LabelAndInputField
                         mdValue={6}
@@ -77,11 +111,12 @@ export const AddAssets = () => {
                         xsValue={12}
                         controlId={"serialNo"}
                         labelText={"Serial Number"}
-                        isCompulsary={true}
+                        //isCompulsary={true}
                         inputType={"text"}
                         placeholder={"Enter Serial Number"}
                         value={formData.serialNo}
                         handleInputChange={handleChangeById}
+                        errorMessage={formError.errorSerialNo}
                       />
                     </Row>
                     <Row>
@@ -90,26 +125,14 @@ export const AddAssets = () => {
                         lgValue={6}
                         smValue={12}
                         xsValue={12}
-                        controlId={"modelNo"}
-                        labelText={"Model Number"}
-                        isCompulsary={true}
-                        inputType={"text"}
-                        placeholder={"Enter Model Number"}
-                        value={formData.modelNo}
-                        handleInputChange={handleChangeById}
-                      />
-                      <LabelAndInputField
-                        mdValue={6}
-                        lgValue={6}
-                        smValue={12}
-                        xsValue={12}
                         controlId={"allocationDate"}
                         labelText={"Allocation Date"}
-                        isCompulsary={true}
+                        //isCompulsary={true}
                         inputType={"date"}
                         placeholder={"Enter Allocation Date"}
                         value={formData.allocationDate}
                         handleInputChange={handleChangeById}
+                        errorMessage={formError.errorAllocationDate}
                       />
                     </Row>
                     <Row>
@@ -120,11 +143,12 @@ export const AddAssets = () => {
                         xsValue={12}
                         controlId={"provider"}
                         labelText={"Provider"}
-                        isCompulsary={true}
+                        //isCompulsary={true}
                         inputType={"text"}
                         placeholder={"Enter Provider"}
                         value={formData.provider}
                         handleInputChange={handleChangeById}
+                        errorMessage={formError.errorProvider}
                       />
                       <LabelAndDropdownField
                         mdValue={6}
@@ -133,12 +157,13 @@ export const AddAssets = () => {
                         xsValue={12}
                         controlId={"assetType"}
                         labelText={"Asset Type"}
-                        isCompulsary={true}
+                        //isCompulsary={true}
                         showDefaultOption={true}
                         value={formData.assetType}
                         optionList={assetTypeList}
                         handleInputChange={handleChangeById}
                         formatOption={true}
+                        errorMessage={formError.errorAssetType}
                       />
                     </Row>
                     <Row>
@@ -149,11 +174,12 @@ export const AddAssets = () => {
                         xsValue={12}
                         controlId={"clientName"}
                         labelText={"Client Name"}
-                        isCompulsary={true}
+                        //isCompulsary={true}
                         inputType={"text"}
                         placeholder={"Enter Client Name"}
                         value={formData.clientName}
                         handleInputChange={handleChangeById}
+                        errorMessage={formError.errorClientName}
                       />
                       <LabelAndInputField
                         mdValue={6}
@@ -162,11 +188,12 @@ export const AddAssets = () => {
                         xsValue={12}
                         controlId={"clientPartner"}
                         labelText={"Client Partner"}
-                        isCompulsary={true}
+                        //isCompulsary={true}
                         inputType={"text"}
                         placeholder={"Enter Client Partner"}
                         value={formData.clientPartner}
                         handleInputChange={handleChangeById}
+                        errorMessage={formError.errorClientPartner}
                       />
                     </Row>
                     <Row>
@@ -177,24 +204,12 @@ export const AddAssets = () => {
                         xsValue={12}
                         controlId={"workLocation"}
                         labelText={"Work Location"}
-                        isCompulsary={true}
+                        //isCompulsary={true}
                         inputType={"text"}
                         placeholder={"Enter Work Location"}
                         value={formData.workLocation}
                         handleInputChange={handleChangeById}
-                      />
-                      <LabelAndInputField
-                        mdValue={6}
-                        lgValue={6}
-                        smValue={12}
-                        xsValue={12}
-                        controlId={"workType"}
-                        labelText={"Work Type"}
-                        isCompulsary={true}
-                        inputType={"text"}
-                        placeholder={"Enter Work Type"}
-                        value={formData.workType}
-                        handleInputChange={handleChangeById}
+                        errorMessage={formError.errorWorkLocation}
                       />
                     </Row>
                     <ButtonComponent

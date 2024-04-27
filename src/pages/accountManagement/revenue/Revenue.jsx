@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../../../components/layout/SideBar";
-import { Button } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import CommonTable from "../../../components/uiElements/CommonTable";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
 import { HEADER_ACCOUNT } from "../../../assets/common/constants.js";
 import Header from "../../../components/layout/Header.jsx";
+import LabelAndDropdownField from "../../../components/uiElements/LabelAndDropdownField.jsx";
 
 export default function Revenue() {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [resourceTableData, setResourceTableData] = useState([]);
+  const [selectedClient, setSelectedClient] = useState("");
 
   const allResourceTableData = [
     {
       employeeId: "N0001",
+      clientName: 'Amex',
       firstName: "Akash",
       lastName: "Rajpoot",
       billingRate: "$80",
@@ -33,6 +36,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0002",
+      clientName: 'AAA',
       firstName: "Emily",
       lastName: "Smith",
       billingRate: "$75",
@@ -53,6 +57,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0003",
+      clientName: 'Amex',
       firstName: "John",
       lastName: "Doe",
       billingRate: "$90",
@@ -73,6 +78,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0004",
+      clientName: 'AAA',
       firstName: "Sophia",
       lastName: "Johnson",
       billingRate: "$85",
@@ -93,6 +99,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0005",
+      clientName: 'Amex',
       firstName: "Daniel",
       lastName: "Williams",
       billingRate: "$95",
@@ -113,6 +120,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0006",
+      clientName: 'AAA',
       firstName: "Olivia",
       lastName: "Brown",
       billingRate: "$78",
@@ -133,6 +141,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0007",
+      clientName: 'Amex',
       firstName: "Liam",
       lastName: "Jones",
       billingRate: "$88",
@@ -153,6 +162,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0008",
+      clientName: 'AAA',
       firstName: "Ava",
       lastName: "Davis",
       billingRate: "$82",
@@ -173,6 +183,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0009",
+      clientName: 'Amex',
       firstName: "Noah",
       lastName: "Miller",
       billingRate: "$87",
@@ -193,6 +204,7 @@ export default function Revenue() {
     },
     {
       employeeId: "N0010",
+      clientName: 'AAA',
       firstName: "Isabella",
       lastName: "Moore",
       billingRate: "$91",
@@ -215,6 +227,7 @@ export default function Revenue() {
 
   const resourceColumn = [
     { title: "Employee Id", dataIndex: "employeeId", key: "employeeId" },
+    { title: "Client Name", dataIndex: "clientName", key: "clientName" },
     {
       title: "Resource Name",
       dataIndex: "fullName",
@@ -263,21 +276,15 @@ export default function Revenue() {
     },
   ];
 
+  const clientsList = [...new Set(allResourceTableData.map(item => item.clientName))];
+
   const formattedData = allResourceTableData.map((item) => {
     const updatedItem = { ...item };
     [
-      "jan",
-      "feb",
-      "mar",
-      "apr",
-      "may",
-      "jun",
-      "jul",
-      "aug",
-      "sep",
-      "oct",
-      "nov",
-      "dec",
+      "jan", "feb", "mar",
+      "apr", "may", "jun",
+      "jul", "aug", "sep",
+      "oct", "nov", "dec",
     ].forEach((month) => {
       updatedItem[month] *= parseFloat(updatedItem.billingRate.slice(1));
     });
@@ -288,6 +295,7 @@ export default function Revenue() {
   useEffect(() => {
     const filteredResourceData = filterDataByYear(formattedData, selectedYear);
     setResourceTableData(filteredResourceData);
+    setSelectedClient('')
   }, [selectedYear]);
 
   const filterDataByYear = (data, year) => {
@@ -301,6 +309,14 @@ export default function Revenue() {
   const handleNextYearClick = () => {
     setSelectedYear(selectedYear + 1);
   };
+
+  const handleClientChange = (event) => {
+    setSelectedClient(event.target.value);
+  };
+
+  const filteredData = selectedClient
+    ? resourceTableData.filter(item => item.clientName === selectedClient)
+    : resourceTableData;
 
   return (
     <>
@@ -343,13 +359,29 @@ export default function Revenue() {
                           Next Year
                         </Button>
                       </div>
-                      <div className='table-responsive'>
-                        <CommonTable
-                          columns={resourceColumn}
-                          data={resourceTableData}
-                          tableTitle={"Revenue"}
-                        />
+
+                      <div className="col-xl-9 col-lg-8  col-md-12 mb-3">
+                        <Row className='align-items-center'>
+                          <LabelAndDropdownField
+                            mdValue={6}
+                            lgValue={6}
+                            smValue={12}
+                            xsValue={12}
+                            controlId={"client"}
+                            labelText={"Select Client"}
+                            showDefaultOption={true}
+                            value={selectedClient}
+                            optionList={clientsList}
+                            handleInputChange={handleClientChange}
+                          />
+                        </Row>
                       </div>
+
+                      <CommonTable
+                        columns={resourceColumn}
+                        data={filteredData}
+                        tableTitle={"Revenue"}
+                      />
                     </div>
                   </div>
                 </div>

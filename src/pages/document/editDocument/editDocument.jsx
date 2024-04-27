@@ -87,8 +87,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomAdhar(adhar) {
-        console.log(adhar);
-        console.log('handleSubmitCustomAdhar');
         navigate('/document')
     }
     //End for adhar card
@@ -101,8 +99,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomPassport(passport) {
-        console.log(passport);
-        console.log('handleSubmitCustomPassport');
         navigate('/document')
     }
     //End for attach Passport
@@ -115,8 +111,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomWorkAuthorization(workAuthorization) {
-        console.log(workAuthorization);
-        console.log('handleSubmitCustomWorkAuthorization');
         navigate('/document')
     }
     //End for attach Work Autorization
@@ -129,8 +123,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomPan(pan) {
-        console.log(pan);
-        console.log('handleSubmitCustomPan');
         navigate('/document')
     }
     //End for attach Pan card.
@@ -143,8 +135,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomPhoto(photo) {
-        console.log(photo);
-        console.log('handleSubmitCustomPhoto');
         navigate('/document')
     }
     //End for attach photo
@@ -157,8 +147,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomResume(resume) {
-        console.log(resume);
-        console.log('handleSubmitCustomResume');
         navigate('/document')
     }
     //End for attach Resume
@@ -171,8 +159,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomI94TravelHistory(i94TravelHistory) {
-        console.log(i94TravelHistory);
-        console.log('handleSubmitCustomI94TravelHistory');
         navigate('/document')
     }
     //End for attach I94 Travel History
@@ -185,8 +171,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomPhotoId(photoId) {
-        console.log(photoId);
-        console.log('handleSubmitCustomPhotoId');
         navigate('/document')
     }
     //End for attach Photo id
@@ -199,8 +183,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomRentalAgreememt(rentalAgreememt) {
-        console.log(rentalAgreememt);
-        console.log('handleSubmitCustomRentalAgreememt');
         navigate('/document')
     }
     //End for attach Rental Agreement
@@ -213,8 +195,6 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomEducationDetails(educationDetails) {
-        console.log(educationDetails);
-        console.log('handleSubmitCustomEducationDetails');
         navigate('/document')
     }
     //End for attach Education Details.
@@ -227,14 +207,12 @@ export default function EditDocument() {
         }));
     }
     function handleSubmitCustomI9Copy(i9Copy) {
-        console.log(i9Copy);
-        console.log('handleSubmitCustomI9Copy');
         navigate('/document')
     }
     //End for attach I9 copy.
 
     const documentList = [
-        'Adhar Card', 'Pan Card', 'Rental Agreement', 'Education Certificate', 'Photo Id',
+        'Aadhar Card', 'Pan Card', 'Rental Agreement', 'Education Certificate', 'Photo Id',
         'I94 Travel', 'I9 Copy', 'Passport', 'Work Authorization'
     ]
 

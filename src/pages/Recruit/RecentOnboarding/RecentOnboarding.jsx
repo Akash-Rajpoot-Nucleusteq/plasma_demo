@@ -5,10 +5,12 @@ import CommonTable from "../../../components/uiElements/CommonTable.jsx";
 import Header from "../../../components/layout/Header.jsx";
 import { HEADER_RECRUITER } from "../../../assets/common/constants.js";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
+import { formatDropdownOption, formatPhoneNumber } from '../../../utility/commonFunctions/CommonFunctions.jsx'
 
 const RecentOnboarding = () => {
   const [modalData, setModalData] = useState({});
   const [showModal, setShowModal] = useState(false);
+
 
   const employeeDataWithEmployeeId = [
     {
@@ -406,7 +408,7 @@ const RecentOnboarding = () => {
       key: "employmentNature",
     },
     {
-      title: "Working Remote",
+      title: "Work Location Type",
       dataIndex: "workMode",
       key: "workMode",
     },
@@ -461,6 +463,7 @@ const RecentOnboarding = () => {
       title: "Phone Number",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
+      render: (_, record) => formatPhoneNumber(record.phoneNumber),
     },
     {
       title: "State",
@@ -479,9 +482,22 @@ const RecentOnboarding = () => {
   }
 
   function setingModalData(data) {
+    const formattedData = ({
+      ...data,
+      phoneNumber: formatPhoneNumber(data.phoneNumber),
+      gender: formatDropdownOption(data.gender),
+      bloodGroup: formatDropdownOption(data.bloodGroup),
+      onshoreOrOffshore: formatDropdownOption(data.onshoreOrOffshore),
+      visaStatus: formatDropdownOption(data.visaStatus),
+      employmentNature: formatDropdownOption(data.employmentNature),
+      workMode: formatDropdownOption(data.workMode),
+      role: formatDropdownOption(data.role),
+      designation: formatDropdownOption(data.designation),
+      employmentStatus: formatDropdownOption(data.employmentStatus),
+    });
     setModalData({
       ...modalData,
-      ...data,
+      ...formattedData,
     });
     setShowModal(true);
   }

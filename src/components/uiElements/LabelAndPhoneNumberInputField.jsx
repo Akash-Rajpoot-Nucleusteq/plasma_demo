@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { Form, Col, Button } from 'react-bootstrap';
+import React from 'react';
+import { Form, Col } from 'react-bootstrap';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 

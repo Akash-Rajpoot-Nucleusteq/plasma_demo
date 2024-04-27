@@ -33,6 +33,7 @@ import LabelAndDropdownField from "../../components/uiElements/LabelAndDropdownF
 import DocumentAttachmentField from "../../components/uiElements/DocumentAttachmentField";
 import LabelAndPhoneNumberInputField from "../../components/uiElements/LabelAndPhoneNumberInputField";
 import ButtonComponent from "../../components/uiElements/ButtonComponent";
+import LabelAndDropdownFieldForObject from "./LabelAndDropdownFieldForObject.jsx";
 
 export default function EmployeeForm({ employeeData, parentComponentName }) {
   const fileInputRef = useRef(null);
@@ -91,7 +92,6 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     errorZipCode: "",
     errorCitizenship: "",
     errorEmploymentNature: "",
-    // errorEmploymentCompany: "",
     errorWorkMode: "",
     errorEmploymentStartDate: "",
     errorRole: "",
@@ -123,6 +123,20 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     errorPassport: "",
     errorWorkAuthorization: "",
   });
+
+  const vendorList = [
+    {
+      vendorName: 'Amex',
+      vendorId: 'VN001',
+    },
+    {
+      vendorName: 'AAA',
+      vendorId: 'VN002',
+    },
+  ]
+
+  const [selectedVendor, setSelectedVendor] = useState(null);
+
 
   const [countries, setCountries] = useState(getCountryList);
   const [states, setStates] = useState([]);
@@ -364,6 +378,20 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
     }
   };
 
+  //setting value from dropdown
+  function setValueFromDropdown(value, controlId) {
+    const errorId = giveNameWithError(controlId);
+    setFormError((prevState) => ({ ...prevState, [errorId]: "" }));
+    setFormData({
+      ...formData,
+      contractingCompany: value.vendorId,
+    })
+    setSelectedVendor({
+      label: value.vendorName,
+      value: value,
+    })
+  }
+
   //Used to check for the existance of any error by calling the function and storing value.
   const checkForError = () => {
     setFormError((prevState) => ({
@@ -378,9 +406,6 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       errorZipCode: InputValidator.isEmpty(formData.zipCode.toString()),
       errorCitizenship: InputValidator.isEmpty(formData.citizenship),
       errorEmploymentNature: InputValidator.isEmpty(formData.employmentNature),
-      // errorEmploymentCompany: InputValidator.isEmpty(
-      //   formData.employmentCompany
-      // ),
       errorWorkMode: InputValidator.isEmpty(formData.workMode),
       errorEmploymentStartDate: InputValidator.isEmpty(
         formData.employmentStartDate.toString()
@@ -402,11 +427,11 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
       //   formData.employmentCompany
       // ),
       errorContractingRate:
-        formData.employmentNature === "Contract"
+        formData.employmentNature === employmentNatureList[1]
           ? InputValidator.isEmpty(formData.contractingRate)
           : "",
       errorContractingCompany:
-        formData.employmentNature === "Contract"
+        formData.employmentNature === employmentNatureList[1]
           ? InputValidator.isEmpty(formData.contractingCompany)
           : "",
 
@@ -1343,7 +1368,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
               optionList={currencyTypeList}
               handleInputChange={handleInputChange}
             />
-            <LabelAndInputField
+            {/* <LabelAndInputField
               mdValue={6}
               lgValue={6}
               smValue={12}
@@ -1355,11 +1380,27 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
               value={formData.contractingCompany}
               handleInputChange={handleInputChange}
               errorMessage={formError.errorContractingCompany}
+            /> */}
+            <LabelAndDropdownFieldForObject
+              mdValue={6}
+              lgValue={6}
+              smValue={12}
+              xsValue={12}
+              controlId={'contractingCompany'}
+              labelText={'Vendor Company'}
+              isCompulsary={formData.employmentNature === employmentNatureList[1]}
+              value={selectedVendor}
+              optionList={vendorList.map((vendor) => ({
+                label: `${vendor.vendorName}`,
+                value: vendor,
+              }))}
+              handleInputChange={setValueFromDropdown}
+              errorMessage={formError.errorContractingCompany}
             />
           </Row>
         )}
 
-        {/* Working remote and employment start date */}
+        {/* (Working remote)work location and employment start date */}
         <Row>
           <LabelAndDropdownField
             mdValue={6}
@@ -1367,7 +1408,7 @@ export default function EmployeeForm({ employeeData, parentComponentName }) {
             smValue={12}
             xsValue={12}
             controlId={"workMode"}
-            labelText={"Working Remote"}
+            labelText={"Work Location Type"}
             isCompulsary={true}
             showDefaultOption={true}
             value={formData.workMode}

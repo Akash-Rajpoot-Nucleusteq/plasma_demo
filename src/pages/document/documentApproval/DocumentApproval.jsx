@@ -102,10 +102,8 @@ export default function DocumentApproval() {
     }
 
     function handleApprove(data) {
-        console.log('from handling approve: ', data);
     }
     function handleReject(data) {
-        console.log('from handle reject: ', data);
     }
 
     return (

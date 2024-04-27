@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../../../components/layout/Header.jsx";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
 import { HEADER_RECRUITER } from "../../../assets/common/constants.js";
+import {formatPhoneNumber} from '../../../utility/commonFunctions/CommonFunctions.jsx'
 
 const OnboardingApproval = () => {
 const navigate = useNavigate();
@@ -325,6 +326,7 @@ const handleApproveReject = (record) => {
       title: "Phone Number",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
+      render: (_, record) => formatPhoneNumber(record.phoneNumber),
     },
     {
       title: "State",
@@ -337,8 +339,6 @@ const handleApproveReject = (record) => {
       key: "city",
     },
   ];
-
-
 
   return (
     <>

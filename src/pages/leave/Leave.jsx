@@ -16,6 +16,7 @@ import {
   CLIENT_MANAGER,
   MANAGER,
   RECRUITER_MANAGER,
+  SUPER_ADMIN,
 } from "../../assets/common/constants";
 import { HEADER_LEAVE } from "../../assets/common/constants";
 import { Form } from "react-bootstrap";
@@ -225,9 +226,11 @@ const Leave = () => {
                 <div className='col-md-12'>
                   <Leavedetails />
                 </div>
-                {(userDetails.role === MANAGER ||
-                  userDetails.role === RECRUITER_MANAGER ||
-                  userDetails.role === CLIENT_MANAGER) && (
+                {(userDetails.role === MANAGER
+                  || userDetails.role === RECRUITER_MANAGER
+                  || userDetails.role === CLIENT_MANAGER
+                  || userDetails.role === SUPER_ADMIN)
+                  && (
                     <>
                       <div className='col-md-12'>
                         <LeavesToBeApproved />

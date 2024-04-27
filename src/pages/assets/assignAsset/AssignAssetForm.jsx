@@ -155,7 +155,6 @@ export default function AssignAssetForm(
   }, [assetData]);
 
   function checkForError() {
-    console.log('form data is :', formData);
     setFormError({
       ...formError,
       errorEmployee:

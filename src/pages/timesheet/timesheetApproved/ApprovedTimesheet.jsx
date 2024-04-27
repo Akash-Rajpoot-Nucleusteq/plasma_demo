@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import ViewTimesheet from "../viewTimesheet/ViewTimesheet";
+import ViewTimesheet from "../viewtimesheet/ViewTimesheet.jsx";
 import { Modal, Button } from "react-bootstrap";
 import CommonTable from "../../../components/uiElements/CommonTable";
 import SideBar from "../../../components/layout/SideBar";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
 import { HEADER_TIMESHEET } from "../../../assets/common/constants";
 import Header from "../../../components/layout/Header.jsx";
+import ButtonComponent from "../../../components/uiElements/ButtonComponent.jsx";
 
 const ApprovedTimesheet = () => {
   const [showViewModal, setShowViewModal] = useState(false);
   const [selectedTimesheet, setSelectedTimesheet] = useState(null);
   const [approvedTimesheetData] = useState([
     {
-      sno: 1,
+      employeeId: 'N0008',
       assigneeName: "Alice Smith",
-      period: "February 2023",
+      period: "02/02/2023",
       hoursSubmitted: 35,
       clientName: "XYZ Inc",
       businessUnit: "Marketing",
@@ -25,7 +26,7 @@ const ApprovedTimesheet = () => {
   ]);
 
   const approvedTimesheetColumns = [
-    { title: "S.No", dataIndex: "sno", key: "sno" },
+    { title: "Employee Id", dataIndex: "employeeId", key: "employeeId" },
     { title: "Assignee Name", dataIndex: "assigneeName", key: "assigneeName" },
     { title: "Period (Week)", dataIndex: "period", key: "period" },
     {
@@ -41,12 +42,12 @@ const ApprovedTimesheet = () => {
       title: "View",
       dataIndex: "view",
       render: (text, record) => (
-        <Button
-          variant='info'
-          className='ctm-border-radius text-white btn-sm'
-          onClick={() => handleShowViewModal(record)}>
-          View
-        </Button>
+        <ButtonComponent
+          variant={'info'}
+          className={'ctm-border-radius text-white btn-sm'}
+          onClickHandler={() => handleShowViewModal(record)}
+          buttonText={'View'}
+        />
       ),
     },
   ];
@@ -87,12 +88,15 @@ const ApprovedTimesheet = () => {
             <Modal.Title>View Timesheet</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ViewTimesheet />
+            <ViewTimesheet employeeData={selectedTimesheet}/>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='secondary' onClick={handleCloseViewModal}>
-              Close
-            </Button>
+            <ButtonComponent
+              type={'button'}
+              className={'btn btn-danger ctm-border-radius text-white'}
+              onClickHandler={handleCloseViewModal}
+              buttonText={'Close'}
+            />
           </Modal.Footer>
         </Modal>
       </div>
