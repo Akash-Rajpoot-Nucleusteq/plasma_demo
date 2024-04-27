@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Table } from 'antd';
 // import Sidebar from "./sidebar";
-import Sidebar from "./../sidebar";
-import ViewTimesheet from '../viewtimesheet/index';
-import { Modal, Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import CommonTable from "../../../components/CommonTable";
+import ViewTimesheet from '../viewTimesheet/ViewTimesheet';
+import Sidebar from "./../sidebar";
 
 const ApprovedTimesheetPage = () => {
     const [showViewModal, setShowViewModal] = useState(false);

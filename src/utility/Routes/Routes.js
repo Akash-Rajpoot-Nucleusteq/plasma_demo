@@ -12,8 +12,8 @@ import Dashboard from "../../pages/dashboard/Dashboard.jsx";
 import { TalentDashboard } from "../../pages/dashboard/talentDashboard/TalentDashboard.jsx";
 import Document from "../../pages/document/document.jsx";
 
-import DocumentApproval from "../../pages/document/documentApproval/documentApproval.jsx";
-import DocumentHistory from "../../pages/document/documentHistory/documentHistory.jsx";
+import DocumentApproval from "../../pages/document/documentApproval/DocumentApproval.jsx";
+import DocumentHistory from "../../pages/document/documentHistory/DocumentHistory.jsx";
 import EditDocument from "../../pages/document/editDocument/editDocument.jsx";
 
 import { AddAssets } from "../../pages/assets/addAsset/AddAssets.jsx";
@@ -21,7 +21,7 @@ import EmployeeAsset from "../../pages/assets/employeeAsset/EmployeeAsset.jsx";
 import { AssetInventory } from "../../pages/assets/inventory/AssetInventory.jsx";
 import Leave from "../../pages/leave/Leave.jsx";
 import NewOnboarding from "../../pages/Recruit/NewOnboarding/NewOnboarding.jsx";
-import Onboarding from "../../pages/Recruit/recentOnboarding/RecentOnboarding.jsx";
+import Onboarding from "../../pages/Recruit/RecentOnboarding/RecentOnboarding.jsx";
 import PendingTimesheet from "../../pages/timesheet/pendingTimesheet/PendingTimesheet.jsx";
 import Timesheet from "../../pages/timesheet/Timesheet.jsx";
 import ApprovedTimesheet from "../../pages/timesheet/timesheetApproved/ApprovedTimesheet.jsx";
@@ -37,9 +37,9 @@ import Login from "../../pages/login/Login.jsx";
 import NotFound from "../../pages/notFound/NotFound.jsx";
 import Details from "../../pages/profile/details/Details.jsx";
 import Employment from "../../pages/profile/employement/Employment.jsx";
-import ApprovedHistory from "../../pages/Recruit/approvalHistory/ApprovedHistory.jsx";
-import OnboardingApproval from "../../pages/Recruit/onboardingApproval/OnboardingApproval.jsx";
-import OnboardingApprovalForm from "../../pages/Recruit/onboardingApprovalForm/OnboardingApprovalForm.jsx";
+import ApprovedHistory from "../../pages/Recruit/ApprovalHistory/ApprovedHistory.jsx";
+import OnboardingApproval from "../../pages/Recruit/OnboardingApproval/OnboardingApproval.jsx";
+import OnboardingApprovalForm from "../../pages/Recruit/OnboardingApprovalForm/OnboardingApprovalForm.jsx";
 import { getCurrentUserDetails, isLoggedIn } from "../authentication/auth.js";
 
 import FutureAssignment from "../../pages/assignment/futureAssignment/FutureAssignment.jsx";

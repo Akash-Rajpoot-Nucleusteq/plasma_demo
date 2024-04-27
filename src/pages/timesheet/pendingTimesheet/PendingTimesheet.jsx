@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
+import { HEADER_TIMESHEET } from "../../../assets/common/constants.js";
+import Header from "../../../components/layout/Header.jsx";
 import SideBar from "../../../components/layout/SideBar";
-import ViewTimesheet from '../viewtimesheet/ViewTimesheet.jsx'
 import ButtonComponent from "../../../components/uiElements/ButtonComponent.jsx";
 import CommonModal from "../../../components/uiElements/CommonModal.jsx";
 import CommonTable from "../../../components/uiElements/CommonTable.jsx";
-import Header from "../../../components/layout/Header.jsx";
 import { getCurrentUserDetails } from "../../../utility/authentication/auth.js";
-import { HEADER_TIMESHEET } from "../../../assets/common/constants.js";
+import ViewTimesheet from '../viewTimesheet/ViewTimesheet.jsx';
 
 const PendingTimesheet = () => {
   const [showViewModal, setShowViewModal] = useState(false);
