@@ -1,93 +1,87 @@
-// import countryStateData from '../assets/lists/countryStateData.json'
-import countryStateData from '../assets/common/countryStateData.json'
-import moment from "moment";
 import html2pdf from "html2pdf.js";
+import moment from "moment";
+import countryStateData from "../assets/common/countryStateData.json";
 
 export function handleDownload(downloadDocument) {
-    if (downloadDocument) {
-        const url = window.URL.createObjectURL(new Blob([downloadDocument]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', downloadDocument.name);
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-    }
+  if (downloadDocument) {
+    const url = window.URL.createObjectURL(new Blob([downloadDocument]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", downloadDocument.name);
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+  }
 }
 
 export function getCountryList() {
-    const countries = countryStateData.map((country) => (
-        country.country_name
-    ));
-    return countries;
+  const countries = countryStateData.map((country) => country.country_name);
+  return countries;
 }
 
 export function getStatesListByCountry(countryName) {
-    const country = countryStateData.find((c) => c.country_name === countryName);
-    const states = country.states.map((state) => (
-        state.state_name
-    ));
-    return states;
-};
+  const country = countryStateData.find((c) => c.country_name === countryName);
+  const states = country.states.map((state) => state.state_name);
+  return states;
+}
 
 export function isFileObject(variable) {
-    return variable instanceof File;
+  return variable instanceof File;
 }
 
 export function byteArrayToFile(byteArray, fileName) {
-    const blob = new Blob([byteArray]);
-    const file = new File([blob], fileName, { type: 'application/pdf' });
-    return file;
+  const blob = new Blob([byteArray]);
+  const file = new File([blob], fileName, { type: "application/pdf" });
+  return file;
 }
 
-
 export const getCurrentDate = () => {
-    return moment().format('YYYY-MM-DD');
+  return moment().format("YYYY-MM-DD");
 };
 
 export const getStatusBadgeClass = (status) => {
-    switch (status) {
-        case 'Approved':
-            return 'badge badge-success';
-        case 'Pending':
-            return 'badge badge-warning';
-        case 'Rejected':
-            return 'badge badge-danger';
-        default:
-            return 'badge badge-secondary';
-    }
+  switch (status) {
+    case "Approved":
+      return "badge badge-success";
+    case "Pending":
+      return "badge badge-warning";
+    case "Rejected":
+      return "badge badge-danger";
+    default:
+      return "badge badge-secondary";
+  }
 };
 export const handleDownloadPage = async (contentRef, fileName) => {
-    const content = contentRef.current;
+  const content = contentRef.current;
 
-    if (content) {
-        const pdfOptions = {
-            margin: 10,
-            filename: `${fileName}.pdf`,
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: {
-                unit: "mm",
-                format: [297, 420],
-                orientation: "landscape",
-            },
-        };
+  if (content) {
+    const pdfOptions = {
+      margin: 10,
+      filename: `${fileName}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: {
+        unit: "mm",
+        format: [297, 420],
+        orientation: "landscape",
+      },
+    };
 
-        try {
-            const pdfBlob = await html2pdf()
-                .from(content)
-                .set(pdfOptions)
-                .outputPdf("blob");
-            const blobUrl = URL.createObjectURL(pdfBlob);
+    try {
+      const pdfBlob = await html2pdf()
+        .from(content)
+        .set(pdfOptions)
+        .outputPdf("blob");
+      const blobUrl = URL.createObjectURL(pdfBlob);
 
-            const a = document.createElement("a");
-            a.href = blobUrl;
-            a.download = pdfOptions.filename || "download.pdf";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        } catch (error) {
-            console.error("Error generating PDF:", error);
-        }
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = pdfOptions.filename || "download.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
     }
+  }
 };
